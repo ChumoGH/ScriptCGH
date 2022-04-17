@@ -86,7 +86,7 @@ echo -e "\033[1;37mLos usuarios $i se encuentra en el archivo \033[1;31m $bc \03
 }
 function restaurar_usuarios(){
 cd $HOME
-echo -n "INGRESE LINK Que Mantienes Online en GitHub, o VPS \n" 
+echo -e "INGRESE LINK Online en GitHub, o URL \n" 
 read -p "Pega tu Link : " url1
 wget -q -O recovery $url1 && echo -e "\033[1;31m- \033[1;32mFile Exito!" || echo -e "\033[1;31m- \033[1;31mFile Fallo"
 #echo -n "Escriba el directorio del archivo Backup: "
