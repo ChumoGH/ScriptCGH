@@ -116,6 +116,7 @@ echo "$user" |cut -d: -f3 1> /dev/null 2>/dev/null
   else
   [[ -z $data ]] && data=1
   useradd -M -s /bin/false $usuario -e $valid -K PASS_MAX_DAYS=$data -p ${senha}
+  (echo $senha;echo $senha) |passwd $usuario 1>/dev/null 2>/dev/null
   echo "senha: $senha" > /etc/ADMcgh/userDIR/$usuario
   echo "limite: $limite" >> /etc/ADMcgh/userDIR/$usuario
   fi
