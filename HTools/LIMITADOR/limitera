@@ -1,0 +1,35 @@
+#!/bin/bash
+while true
+do
+clear
+touch /root/user
+cat /etc/passwd |grep -v ovpn > /tmp/ussh
+for u in `awk -F : '$3 > 900 { print $1 }' /etc/passwd |grep -v "nobody" |grep -vi polkitd |grep -vi systemd-[a-z] |grep -vi systemd-[0-9] |sort`
+do
+daaab=$(cat /etc/ADMcgh/userDIR/$u | grep "limite:" | awk '{print $2}')
+echo "$u $daaab" >> /root/user
+done
+
+database="/root/user"
+echo $$ > /tmp/pids
+while read usline
+	do
+		user="$(echo $usline | cut -d' ' -f1)"
+		s2ssh="$(echo $usline | cut -d' ' -f2)"
+		[[ ${s2ssh} = "HWID" ]] && s2ssh=1
+		if [ -z "$user" ] ; then
+			echo "" > /dev/null
+		else
+			s1ssh="$(ps x | grep [[:space:]]$user[[:space:]] | grep -v grep | grep -v pts | wc -l)"
+			if [ "$s1ssh" -gt "$s2ssh" ]; then
+				while read line; do
+					tmp="$(echo $line | cut -d' ' -f1)"
+					kill -9 $tmp
+					echo " USUARIO $user DESCNECTADO EN SU ${s1ssh} CONEXION !" >> $HOME/limiter.log
+				done <<< "$(ps x | grep [[:space:]]$user[[:space:]] | grep -v grep | grep -v pts)"
+			fi
+		fi
+	done < "$database"
+rm -f /root/user
+sleep 5s
+done
