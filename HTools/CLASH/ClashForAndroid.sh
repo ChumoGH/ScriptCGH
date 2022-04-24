@@ -114,7 +114,7 @@ fun_ip
 install_ini
 msg -bar3
 killall clash 1> /dev/null 2> /dev/null
-echo -e " ðŸ¦Žâ€?? Creando Directorios y Archivos"
+echo -e " ➣ Creando Directorios y Archivos"
 msg -bar3 
 [[ -d /root/.config ]] && rm -rf /root/.config/* || mkdir /root/.config 
 mkdir /root/.config/clash 1> /dev/null 2> /dev/null
@@ -132,7 +132,7 @@ wget -N --no-check-certificate -O /root/.config/clash/clash.gz https://github.co
 #https://github.com/Dreamacro/clash/releases/download/premium/clash-linux-amd64-2021.11.08.gz
 gzip -d /root/.config/clash/clash.gz
 chmod +x /root/.config/clash/clash
-echo -e " ðŸ¦Žâ€?? Clonando Repositorio Original Dreamacro "
+echo -e " ➣ Clonando Repositorio Original Dreamacro "
 fun_bar 'go get -u -v github.com/Dreamacro/clash' # 1> /dev/null 2> /dev/null
 clear
 }
@@ -171,7 +171,6 @@ unset yesno
 echo -e " Deseas Poner Actividad de 30 Minutos " 
 while [[ ${yesno} != @(s|S|y|Y|n|N) ]]; do
 read -p "[S/N]: " yesno
-foc=$(($foc + 1))
 tput cuu1 && tput dl1
 done
 [[ ${yesno} = @(s|S|y|Y) ]] &&  { 
@@ -228,7 +227,7 @@ proTRO+="- name: $1\n  type: trojan\n  server: ${IP}\n  port: ${troport}\n  pass
   }
 
 ConfTrojINI() {
-echo -e " DESEAS A?ADIR TU ${foc} CONFIG TROJAN " 
+echo -e " DESEAS AÑADIR TU ${foc} CONFIG TROJAN " 
 while [[ ${yesno} != @(s|S|y|Y|n|N) ]]; do
 read -p "[S/N]: " yesno
 
@@ -237,14 +236,14 @@ done
 [[ ${yesno} = @(s|S|y|Y) ]] &&  { 
 unset yesno
 foc=$(($foc + 1))
-echo -ne "\033[1;33m âž?? PERFIL TROJAN CLASH "
+echo -ne "\033[1;33m ➣ PERFIL TROJAN CLASH "
 read -p ": " nameperfil
 msg -bar3
 [[ -z ${tropass} ]] && view_usert || { 
 echo -e " USER ${tropass}"
 msg -bar3
 }
-echo -ne "\033[1;33m âž?? SNI o HOST "
+echo -ne "\033[1;33m ➣ SNI o HOST "
 read -p ": " trosni
 msg -bar3
 proxyTRO ${nameperfil} ${tropass} ${trosni}
@@ -266,11 +265,24 @@ proxyV2Rgprc() {
 fun_ip
 echo -e "    - $1" >> /root/.config/clash/config.yaml
 proV2Rgrpc+="- name: $1\n  type: vmess\n  server: ${IP}\n  port: $7\n  uuid: $3\n  alterId: $4\n  cipher: auto\n  network: grpc\n  udp: true\n  tls: true\n  servername: $2\n  skip-cert-verify: true\n  grpc-opts: \n    grpc-service-name: ""\n  \n\n" 
+proV2Rgrpc+="- name: vmess-grpc
+    server: server
+    port: 443
+    type: vmess
+    uuid: uuid
+    alterId: 32
+    cipher: auto
+    network: grpc
+    tls: true
+    servername: example.com
+    # skip-cert-verify: true
+    grpc-opts:
+      grpc-service-name: "example""
   }
 
 ConfV2RINI() {
 unset foc
-echo -e " DESEAS A?ADIR TU ${foc} CONFIG V2RAY " 
+echo -e " DESEAS AÑADIR TU ${foc} CONFIG V2RAY " 
 while [[ ${yesno} != @(s|S|y|Y|n|N) ]]; do
 read -p "[S/N]: " yesno
 tput cuu1 && tput dl1
@@ -278,14 +290,14 @@ done
 [[ ${yesno} = @(s|S|y|Y) ]] &&  { 
 unset yesno
 foc=$(($foc + 1))
-echo -ne "\033[1;33m âž?? PERFIL V2RAY CLASH "
+echo -ne "\033[1;33m ➣ PERFIL V2RAY CLASH "
 read -p ": " nameperfil
 msg -bar3
 [[ -z ${uid} ]] && view_user || { 
 echo -e " USER ${ps}"
 msg -bar3
 }
-echo -ne "\033[1;33m âž?? SNI o HOST "
+echo -ne "\033[1;33m ➣ SNI o HOST "
 read -p ": " trosni
 msg -bar3
 proxyV2R ${nameperfil} ${trosni} ${uid} ${aluuiid} ${net} ${parche} ${v2port}
@@ -339,7 +351,7 @@ echo "#POWER BY @ChumoGH" >> /root/.config/clash/config.yaml
 }
 
 enon(){
-echo 'source <(curl -sSL https://www.dropbox.com/s/h5wcjx3oikqi2uo/ClashForAndroid.sh)' > /bin/clash.sh && chmod +x /bin/clash.sh
+echo 'source <(curl -sSL https://raw.githubusercontent.com/ChumoGH/ScriptCGH/main/HTools/CLASH/ClashForAndroid.sh)' > /bin/clash.sh && chmod +x /bin/clash.sh
 		clear
 		msg -bar3
 		blanco " Se ha agregado un autoejecutor en el Sector de Inicios Rapidos"
@@ -550,9 +562,9 @@ fileon=$(ls -la /var/www/html | grep "yaml" | wc -l)
 filelo=$(ls -la /root/.config/clash | grep "yaml" | wc -l)
 cd
 msg -bar3
-echo -e "\033[1;37m âˆ??  Linux Dist: $(less /etc/issue.net)\033[0m"
+echo -e "\033[1;37m ✬  Linux Dist: $(less /etc/issue.net)\033[0m"
 msg -bar3
-echo -e "\033[1;37m âˆ?? Ficheros Online:	$fileon  â€?? Ficheros Locales: $filelo\033[0m"
+echo -e "\033[1;37m ✬ Ficheros Online:	$fileon  ✬ Ficheros Locales: $filelo\033[0m"
 msg -bar3
 echo -e "\033[1;37m - Menu Iterativo Clash for Android - ChumoGH \033[0m"
 msg -bar3
@@ -567,13 +579,13 @@ if [[ ${yesno} = @(s|S|y|Y) ]]; then
 unset yesno numwt
 #[[ -e /root/name ]] && figlet -p -f slant < /root/name || echo -e "\033[7;49;35m    =====>>â–ºâ–º ðŸ² New ChumoGHðŸ’¥VPS ðŸ² â—„â—„<<=====      \033[0m"
 echo -e "[\033[1;31m-\033[1;33m]\033[1;31m \033[1;33m"
-echo -e "\033[1;33mÃŽâ€?? Ingresa tu Whatsapp junto a tu codigo de Pais"
+echo -e "\033[1;33m ✬ Ingresa tu Whatsapp junto a tu codigo de Pais"
 read -p " Ejemplo: +593987072611 : " numwt
 if [[ -z $numwt ]]; then
 numwt='+593987072611'
 fi
 echo -e "[\033[1;31m-\033[1;33m]\033[1;31m \033[1;33m"
-echo -e "\033[1;33mÃŽâ€?? Ingresa Clase de Servidor ( Gratis - PREMIUM )"
+echo -e "\033[1;33m ✬ Ingresa Clase de Servidor ( Gratis - PREMIUM )"
 read -p " Ejemplo: PREMIUM : " srvip
 if [[ -z $srvip ]]; then
 srvip="NewADM"
