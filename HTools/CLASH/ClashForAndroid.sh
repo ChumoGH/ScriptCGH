@@ -180,13 +180,12 @@ mode: rule
 log-level: info
 external-controller: +0.0.0.0:9090+
 secret: ++
-#dns:
-#  enable: true
-#  listen: 1.1.1.1:53
-#default-nameserver:
-#    - 1.0.0.1
-#    - 1.1.1.1
-    
+dns:
+  enable: true
+  listen: 1.1.1.1:53
+default-nameserver:
+    - 1.0.0.1
+    - 1.1.1.1    
 proxy-groups:
 - name: "ChumoGH-ADM"
   type: select
