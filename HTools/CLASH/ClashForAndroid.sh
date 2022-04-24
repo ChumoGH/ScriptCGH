@@ -178,20 +178,20 @@ allow-lan: true
 bind-address: "*"
 mode: rule
 log-level: info
-external-controller: "0.0.0.0:9090"
-secret: ""
-dns:
-  enable: true
-  listen: 1.1.1.1:53
-default-nameserver:
-    - 1.0.0.1
-    - 1.1.1.1
+external-controller: +0.0.0.0:9090+
+secret: ++
+#dns:
+#  enable: true
+#  listen: 1.1.1.1:53
+#default-nameserver:
+#    - 1.0.0.1
+#    - 1.1.1.1
     
 proxy-groups:
 - name: "ChumoGH-ADM"
   type: select
   proxies:    ' > /root/.config/clash/config.yaml
-#sed -i "s/+/'/g"  /root/.config/clash/config.yaml
+sed -i "s/+/'/g"  /root/.config/clash/config.yaml
 ConfTrojINI
 unset yesno
 ConfV2RINI
@@ -306,7 +306,7 @@ rules:
 - DOMAIN-SUFFIX,google.com,ChumoGH-ADM
 - DOMAIN-KEYWORD,google,ChumoGH-ADM
 - DOMAIN,google.com,ChumoGH-ADM
-- DOMAIN-SUFFIX,ad.com,ChumoGH-ADM
+- DOMAIN-SUFFIX,ad. com,ChumoGH-ADM
 - SRC-IP-CIDR,192.168.1.201/32,ChumoGH-ADM
 - IP-CIDR,127.0.0.0/8,ChumoGH-ADM
 - GEOIP,IR,ChumoGH-ADM
