@@ -174,12 +174,12 @@ unset tropass
 echo 'port: 8080
 socks-port: 7891
 redir-port: 7892
+allow-lan: true
 bind-address: "*"
 mode: rule
 log-level: info
-allow-lan: true
-external-controller: '0.0.0.0:9090'
-secret: ''
+external-controller: "0.0.0.0:9090"
+secret: ""
 dns:
   enable: true
   listen: 1.1.1.1:53
