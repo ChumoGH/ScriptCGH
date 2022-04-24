@@ -198,10 +198,12 @@ allow-lan: true
 bind-address: "*"
 mode: rule
 log-level: info
+allow-lan: true
 external-controller: +0.0.0.0:9090+
 secret: ++
 dns:
   enable: true
+  use-host: true
   listen: 1.1.1.1:53
 default-nameserver:
     - 1.0.0.1
@@ -300,18 +302,16 @@ echo -e '
 # ChumoGH-ADM
 
 # By ChumoGH By CGH
-- name: "¡¾ ? ????????????-?????????????? ? ¡¿"
+- name: "【 ✵ 𝚂𝚎𝚛𝚟𝚎𝚛-𝙿𝚁𝙴𝙼𝙸𝚄𝙼 ✵ 】"
   type: select
   proxies: 
     - "ChumoGH-ADM"
 
-- name: "¡¾ ?? +593987072611 ¡¿"
+- name: "【 📱 +593987072611 】"
   type: select
   proxies:
     - "ChumoGH-ADM"
-    
-    
-	
+
 rules:
 - DOMAIN-SUFFIX,local,ChumoGH-ADM
 - DOMAIN-SUFFIX,google.com,ChumoGH-ADM
