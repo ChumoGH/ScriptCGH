@@ -171,7 +171,9 @@ echo -e "Proceso Finalizado"
 
 configINIT () {
 unset tropass
-echo 'port: 8080
+echo '#SCRIPT OFICIAL ChumoGH|Plus
+# Formato Creado por @ChumoGH | +593987072611 Whatsapp Personal
+port: 8080
 socks-port: 7891
 redir-port: 7892
 allow-lan: true
