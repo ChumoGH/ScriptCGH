@@ -171,20 +171,17 @@ echo -e "Proceso Finalizado"
 
 configINIT () {
 unset tropass
-echo '
-port: 8080
+echo 'port: 8080
 socks-port: 7891
 redir-port: 7892
-#allow-lan: true
 bind-address: "*"
 mode: rule
 log-level: info
 allow-lan: true
-external-controller: +0.0.0.0:9090+
-secret: ++
+external-controller: '0.0.0.0:9090'
+secret: ''
 dns:
   enable: true
-  use-host: true
   listen: 1.1.1.1:53
 default-nameserver:
     - 1.0.0.1
@@ -194,7 +191,7 @@ proxy-groups:
 - name: "ChumoGH-ADM"
   type: select
   proxies:    ' > /root/.config/clash/config.yaml
-sed -i "s/+/'/g"  /root/.config/clash/config.yaml
+#sed -i "s/+/'/g"  /root/.config/clash/config.yaml
 ConfTrojINI
 unset yesno
 ConfV2RINI
