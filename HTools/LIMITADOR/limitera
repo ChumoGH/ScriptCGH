@@ -24,7 +24,7 @@ while read usline
 			if [ "$s1ssh" -gt "$s2ssh" ]; then
 				while read line; do
 					tmp="$(echo $line | cut -d' ' -f1)"
-					kill -9 $tmp
+					kill $tmp
 					echo " USUARIO $user DESCNECTADO EN SU ${s1ssh} CONEXION !" >> $HOME/limiter.log
 				done <<< "$(ps x | grep [[:space:]]$user[[:space:]] | grep -v grep | grep -v pts)"
 			fi
