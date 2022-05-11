@@ -1,11 +1,10 @@
 # ChumoGH-Script V5
 
 # Proyecto sujeto a mejoras . . . . 
-![logo](https://raw.githubusercontent.com/ChumoGH/ChumoGH-Script/master/FOTO.jpeg)
-# ScriptCGH | MOD
+
+![logo](https://raw.githubusercontent.com/ChumoGH/ChumoGH-Script/master/FOTO1.jpeg)
+
 ULTIMA ACTUALIZACION : 11-05-2022 | 0:00
-## desarrollador MOD
-@ChumoGH
 
 **Manager Script**
 
@@ -15,8 +14,8 @@ ULTIMA ACTUALIZACION : 11-05-2022 | 0:00
 
 2 • USAR DISTRIBUCION NUEVA O FORMATIADA
 
-apt update -y && apt upgrade -y && wget -q https://raw.githubusercontent.com/ChumoGH/ScriptCGH/main/setup; chmod 777 setup; ./setup
+## Installation
 
+apt update -y && apt upgrade -y && wget -q https://raw.githubusercontent.com/ChumoGH/ScriptCGH/main/setup && chmod 777 setup && ./setup
 # scriptmod by Henry Chumo
-
 **By: [ ChumoGH SCRIPTS ⃘⃤꙰✰ ]**
