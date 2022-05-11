@@ -10,7 +10,7 @@ ULTIMA ACTUALIZACION : 11-05-2022 | 0:00
 
 ## :heavy_exclamation_mark: Requerimientos
 
-1 • RECOMENDADO UBUNTU 16 - 18 ( Probado en Ubuntu 14 - 16 - 18 - 20 )
+1 • RECOMENDADO UBUNTU 18 ( Probado en Ubuntu 14 - 16 - 18 - 20 )
 
 2 • USAR DISTRIBUCION NUEVA O FORMATIADA
 
