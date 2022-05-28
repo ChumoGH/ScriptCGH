@@ -3,7 +3,7 @@
 
 # Proyecto sujeto a mejoras . . . . 
 
-![logo](https://raw.githubusercontent.com/ChumoGH/ChumoGH-Script/master/FOTO1.jpeg)
+![logo]([https://raw.githubusercontent.com/ChumoGH/ChumoGH-Script/master/FOTO1.jpeg](https://www.dropbox.com/s/gq17ks5qugeqlv3/Captura%20de%20pantalla%202022-05-28%2012.50.22.png)
 
 ULTIMA ACTUALIZACION : 11-05-2022 | 0:00
 
