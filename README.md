@@ -1,3 +1,4 @@
+![GitHUb License](https://img.shields.io/github/license/ChumoGH/ScriptCGH?style=for-the-badge)
 # ChumoGH-Script V5
 
 # Proyecto sujeto a mejoras . . . . 
