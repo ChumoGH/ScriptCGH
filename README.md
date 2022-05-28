@@ -4,7 +4,14 @@
 # Proyecto sujeto a mejoras . . . . 
 
 <p align="center">
+<font color=blue> MENU
 <a href="plus.chumogh.xyz"><img src="https://raw.githubusercontent.com/ChumoGH/ScriptCGH/main/menu.png" alt="menu" border="0"></a>
+<br>
+  <font color=blue> ADMIN DE USUARIOS
+<a href="plus.chumogh.xyz"><img src="https://raw.githubusercontent.com/ChumoGH/ScriptCGH/main/USER.png" alt="menu" border="0"></a>
+<br>
+    <font color=blue> HERRAMIENTAS
+<a href="plus.chumogh.xyz"><img src="https://raw.githubusercontent.com/ChumoGH/ScriptCGH/main/HERRA.png" alt="menu" border="0"></a>
 <br>
 <a href="plus.chumogh.xyz"><img src="https://www.dropbox.com/s/e4dp8txopap0cgv/IMG.png" alt="menu" border="0"></a>
 </p>
