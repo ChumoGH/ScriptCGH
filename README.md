@@ -1,6 +1,6 @@
 ![GitHUb License](https://img.shields.io/github/license/ChumoGH/ScriptCGH?style=for-the-badge)
 <p align="center">
-<td> <a href="plus.chumogh.xyz"> <img src="https://raw.githubusercontent.com/ChumoGH/ScriptCGH/main/IMG/CGH.png" alt="menu" border="0"> </a> </td>
+<td> <a href="plus.chumogh.xyz"> <img src="https://raw.githubusercontent.com/ChumoGH/ScriptCGH/main/IMG/CGH.png" alt="menu" border="0" width="100" height="100"> </a> </td>
 ![logo](https://raw.githubusercontent.com/ChumoGH/ScriptCGH/main/IMG/CGH.png) 
 <p align="center">
 # ChumoGH-Script V5
