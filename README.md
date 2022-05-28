@@ -11,11 +11,13 @@
   <td><strong><center> MENU </center></strong></td>
   <td><strong><center> ADMIN DE USUARIOS</center></strong></td>
   <td><strong></center> HERRAMIENTAS BASE </center></strong></td>
+  <td><strong></center> HERRAMIENTAS BETA </center></strong></td>
 </tr>
 <tr>
-  <td><a href="plus.chumogh.xyz"> <img src="https://raw.githubusercontent.com/ChumoGH/ScriptCGH/main/IMG/menu.png" alt="menu" border="0" width="500" height="500">> </a> </td>
-  <td><a href="plus.chumogh.xyz"><img src="https://raw.githubusercontent.com/ChumoGH/ScriptCGH/main/IMG/USER.png" alt="menu" border="0" width="500" height="500">></a> </td>
-  <td><a href="plus.chumogh.xyz"><img src="https://raw.githubusercontent.com/ChumoGH/ScriptCGH/main/IMG/HERRA.png" alt="menu" border="0" width="500" height="500">></a> </td>
+  <td><a href="plus.chumogh.xyz"> <img src="https://raw.githubusercontent.com/ChumoGH/ScriptCGH/main/IMG/menu.png" alt="menu" border="0" width="500" height="500"> TERM#_> </a> </td>
+  <td><a href="plus.chumogh.xyz"><img src="https://raw.githubusercontent.com/ChumoGH/ScriptCGH/main/IMG/USER.png" alt="menu" border="0" width="500" height="500">TERM#_></a> </td>
+  <td><a href="plus.chumogh.xyz"><img src="https://raw.githubusercontent.com/ChumoGH/ScriptCGH/main/IMG/HERRA.png" alt="menu" border="0" width="500" height="500">TERM#_></a> </td>
+  <td><a href="plus.chumogh.xyz"><img src="https://raw.githubusercontent.com/ChumoGH/ScriptCGH/main/IMG/BETA.png" alt="menu" border="0" width="500" height="500">TERM#_></a> </td>
 </tr>
 </table>
  
