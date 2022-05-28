@@ -21,15 +21,15 @@
 </tr>
 <tr>
   <td>   </td>
-  <td><strong><center> ADMIN DE USUARIOS</center></strong></td>
+  <td><strong><center> PROTOCOLOS</center></strong></td>
   <td><strong></center> HERRAMIENTAS BASE </center></strong></td>
   <td>   </td>
 </tr>
 
 <tr>
   <td>   </td>
-  <td><a href="https://raw.githubusercontent.com/ChumoGH/ScriptCGH/main/IMG/USER.png"><img src="https://raw.githubusercontent.com/ChumoGH/ScriptCGH/main/IMG/USER.png" alt="menu" border="0" width="380" height="250">TERM#_></a> </td>
-   <td><a href="https://raw.githubusercontent.com/ChumoGH/ScriptCGH/main/IMG/USER.png"><img src="https://raw.githubusercontent.com/ChumoGH/ScriptCGH/main/IMG/USER.png" alt="menu" border="0" width="380" height="250">TERM#_></a> </td>
+  <td><a href="https://raw.githubusercontent.com/ChumoGH/ScriptCGH/main/IMG/PROTO.png"><img src="https://raw.githubusercontent.com/ChumoGH/ScriptCGH/main/IMG/PROTO.png" alt="menu" border="0" width="380" height="250">TERM#_></a> </td>
+   <td><a href="https://raw.githubusercontent.com/ChumoGH/ScriptCGH/main/IMG/USER.png"><img src="https://raw.githubusercontent.com/ChumoGH/ScriptCGH/main/IMG/USDER.png" alt="menu" border="0" width="380" height="250">TERM#_></a> </td>
   <td>   </td>
 </tr>
 
@@ -37,7 +37,8 @@
  
 </p>
 ![logo](https://raw.githubusercontent.com/ChumoGH/ScriptCGH/main/IMG/1CGH.png) 
-ULTIMA ACTUALIZACION : 11-05-2022 | 0:00
+
+###ULTIMA ACTUALIZACION : 11-05-2022 | 0:00
 
 **Manager Script**
 
