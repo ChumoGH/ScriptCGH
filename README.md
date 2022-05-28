@@ -36,7 +36,6 @@
 </table>
  
 </p>
-![logo](https://raw.githubusercontent.com/ChumoGH/ScriptCGH/main/IMG/1CGH.png) 
 
 ###ULTIMA ACTUALIZACION : 11-05-2022 | 0:00
 
