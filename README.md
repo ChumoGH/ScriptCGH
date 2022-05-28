@@ -9,7 +9,7 @@
 <a href="plus.chumogh.xyz"><img src="https://www.dropbox.com/s/e4dp8txopap0cgv/IMG.png" alt="menu" border="0"></a>
 </p>
 
-![logo](https://www.dropbox.com/s/e4dp8txopap0cgv/IMG.png)
+![logo](https://raw.githubusercontent.com/ChumoGH/ScriptCGH/main/menu.png)
 
 ULTIMA ACTUALIZACION : 11-05-2022 | 0:00
 
