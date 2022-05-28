@@ -26,7 +26,15 @@ ULTIMA ACTUALIZACION : 11-05-2022 | 0:00
 **Manager Script**
 
 ## :heavy_exclamation_mark: Requerimientos | OS
-  * *RECOMENDADO UBUNTU 18 ( MultiCompatibilidad )*
+  * *USAR DISTRIBUCION NUEVA O FORMATIADA*
+    *  DESINSTALAR OTROS SCRIPT PARA OPTIMIZAR RECURSOS
+  * *SOPORTE UBUNTU 14.04 o Superior 
+      * Ubuntu 14.04 LTS ( X64 o ARM ) 
+      * Ubuntu 16.04 LTS ( X64 o ARM )
+      * Ubuntu 18.04 LTS ( X64 o ARM )
+      * Ubuntu 20.04 LTS ( X64 o ARM )
+      * Ubuntu 21.04 LTS ( X64 o ARM )
+  * *RECOMENDADO UBUNTU 18.04 ( MultiCompatibilidad ARM )*
   * *USAR DISTRIBUCION NUEVA O FORMATIADA*
 
 ## Installation
