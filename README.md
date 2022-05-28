@@ -1,9 +1,8 @@
 ![GitHUb License](https://img.shields.io/github/license/ChumoGH/ScriptCGH?style=for-the-badge)
+# ChumoGH-Script V5
 <p align="center">
 <td> <a href="plus.chumogh.xyz"> <img src="https://raw.githubusercontent.com/ChumoGH/ScriptCGH/main/IMG/CGH.png" alt="menu" border="0" width="500" height="500"> </a> </td>
 <p align="center">
-# ChumoGH-Script V5
-
 # CONTEXTO AL PROYECTO EVOLUTIVO ( BASE - | adm-lite ) 
 
 <p align="center">
@@ -26,11 +25,9 @@ ULTIMA ACTUALIZACION : 11-05-2022 | 0:00
 
 **Manager Script**
 
-## :heavy_exclamation_mark: Requerimientos
-
-1 • RECOMENDADO UBUNTU 18 ( Probado en Ubuntu 14 - 16 - 18 - 20 )
-
-2 • USAR DISTRIBUCION NUEVA O FORMATIADA
+## :heavy_exclamation_mark: Requerimientos | OS
+  *RECOMENDADO UBUNTU 18 ( MultiCompatibilidad )
+  *USAR DISTRIBUCION NUEVA O FORMATIADA
 
 ## Installation
 
