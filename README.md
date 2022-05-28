@@ -1,7 +1,8 @@
 ![GitHUb License](https://img.shields.io/github/license/ChumoGH/ScriptCGH?style=for-the-badge)
-<center>
+<p align="center">
+<td> <a href="plus.chumogh.xyz"> <img src="https://raw.githubusercontent.com/ChumoGH/ScriptCGH/main/IMG/CGH.png" alt="menu" border="0"> </a> </td>
 ![logo](https://raw.githubusercontent.com/ChumoGH/ScriptCGH/main/IMG/CGH.png) 
-</center>
+<p align="center">
 # ChumoGH-Script V5
 
 # CONTEXTO AL PROYECTO EVOLUTIVO ( BASE - | adm-lite ) 
