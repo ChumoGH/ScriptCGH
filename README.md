@@ -1,7 +1,8 @@
 ![GitHUb License](https://img.shields.io/github/license/ChumoGH/ScriptCGH?style=for-the-badge)
+<center>![logo](https://raw.githubusercontent.com/ChumoGH/ScriptCGH/main/IMG/CGH.png) </center>
 # ChumoGH-Script V5
 
-# CAPTURES DE CONTEXTO AL PROYECTO EVOLUTIVO ( BASE - | adm-lite ) 
+# CONTEXTO AL PROYECTO EVOLUTIVO ( BASE - | adm-lite ) 
 
 <p align="center">
 <table>
@@ -18,8 +19,6 @@
 </table>
  
 </p>
-
-![logo](https://raw.githubusercontent.com/ChumoGH/ScriptCGH/main/menu.png)
 
 ULTIMA ACTUALIZACION : 11-05-2022 | 0:00
 
