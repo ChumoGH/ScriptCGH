@@ -4,16 +4,32 @@
 # Proyecto sujeto a mejoras . . . . 
 
 <p align="center">
-<font color=blue> MENU
-<a href="plus.chumogh.xyz"><img src="https://raw.githubusercontent.com/ChumoGH/ScriptCGH/main/menu.png" alt="menu" border="0"></a>
-<br>
-  <font color=blue> ADMIN DE USUARIOS
-<a href="plus.chumogh.xyz"><img src="https://raw.githubusercontent.com/ChumoGH/ScriptCGH/main/USER.png" alt="menu" border="0"></a>
-<br>
-    <font color=blue> HERRAMIENTAS
-<a href="plus.chumogh.xyz"><img src="https://raw.githubusercontent.com/ChumoGH/ScriptCGH/main/HERRA.png" alt="menu" border="0"></a>
-<br>
-<a href="plus.chumogh.xyz"><img src="https://www.dropbox.com/s/e4dp8txopap0cgv/IMG.png" alt="menu" border="0"></a>
+ 
+  
+
+
+<table>
+<tr>
+  <td><strong>MENU</strong></td>
+  <td><strong><font color=blue> ADMIN DE USUARIOS</strong></td>
+</tr>
+
+<tr>
+  <td><a href="plus.chumogh.xyz"><img src="https://raw.githubusercontent.com/ChumoGH/ScriptCGH/main/USER.png" alt="menu" border="0"></a></td>
+  <td><a href="plus.chumogh.xyz"><img src="https://raw.githubusercontent.com/ChumoGH/ScriptCGH/main/USER.png" alt="menu" border="0"></a></td>
+</tr>
+
+<tr>
+  <td>HTML</td>
+  <td>20</td>
+</tr>
+
+<tr>
+  <td>Dreamweaver</td>
+  <td>60</td>
+</tr>
+</table>
+ 
 </p>
 
 ![logo](https://raw.githubusercontent.com/ChumoGH/ScriptCGH/main/menu.png)
