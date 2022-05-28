@@ -1,7 +1,7 @@
 ![GitHUb License](https://img.shields.io/github/license/ChumoGH/ScriptCGH?style=for-the-badge)
 # ChumoGH-Script V5
 <p align="center">
-<td> <a href="plus.chumogh.xyz"> <img src="https://raw.githubusercontent.com/ChumoGH/ScriptCGH/main/IMG/CGH.png" alt="menu" border="0" width="500" height="500"> </a> </td>
+<td> <a href="http://plus.chumogh.xyz"> <img src="https://raw.githubusercontent.com/ChumoGH/ScriptCGH/main/IMG/CGH.png" alt="menu" border="0" width="500" height="500"> </a> </td>
 <p align="center">
 # CONTEXTO AL PROYECTO EVOLUTIVO ( BASE - | adm-lite ) 
 
@@ -14,10 +14,10 @@
   <td><strong></center> HERRAMIENTAS BETA </center></strong></td>
 </tr>
 <tr>
-  <td><a href="plus.chumogh.xyz"> <img src="https://raw.githubusercontent.com/ChumoGH/ScriptCGH/main/IMG/menu.png" alt="menu" border="0" width="500" height="500"> TERM#_> </a> </td>
-  <td><a href="plus.chumogh.xyz"><img src="https://raw.githubusercontent.com/ChumoGH/ScriptCGH/main/IMG/USER.png" alt="menu" border="0" width="500" height="500">TERM#_></a> </td>
-  <td><a href="plus.chumogh.xyz"><img src="https://raw.githubusercontent.com/ChumoGH/ScriptCGH/main/IMG/HERRA.png" alt="menu" border="0" width="500" height="500">TERM#_></a> </td>
-  <td><a href="plus.chumogh.xyz"><img src="https://raw.githubusercontent.com/ChumoGH/ScriptCGH/main/IMG/BETA.png" alt="menu" border="0" width="500" height="500">TERM#_></a> </td>
+  <td><a href="http://plus.chumogh.xyz"> <img src="https://raw.githubusercontent.com/ChumoGH/ScriptCGH/main/IMG/menu.png" alt="menu" border="0" width="200" height="500"> TERM#_> </a> </td>
+  <td><a href="http://plus.chumogh.xyz"><img src="https://raw.githubusercontent.com/ChumoGH/ScriptCGH/main/IMG/USER.png" alt="menu" border="0" width="200" height="500">TERM#_></a> </td>
+  <td><a href="http://plus.chumogh.xyz"><img src="https://raw.githubusercontent.com/ChumoGH/ScriptCGH/main/IMG/HERRA.png" alt="menu" border="0" width="200" height="500">TERM#_></a> </td>
+  <td><a href="http://plus.chumogh.xyz"><img src="https://raw.githubusercontent.com/ChumoGH/ScriptCGH/main/IMG/BETA.png" alt="menu" border="0" width="200" height="500">TERM#_></a> </td>
 </tr>
 </table>
  
