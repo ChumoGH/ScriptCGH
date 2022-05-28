@@ -3,7 +3,8 @@
 
 # Proyecto sujeto a mejoras . . . . 
 
-![logo]([https://www.dropbox.com/s/gq17ks5qugeqlv3/Captura%20de%20pantalla%202022-05-28%2012.50.22.png?dl=0])
+![logo](https://www.dropbox.com/s/gq17ks5qugeqlv3/Captura%20de%20pantalla%202022-05-28%2012.50.22.png)
+![logo]([])
 
 ULTIMA ACTUALIZACION : 11-05-2022 | 0:00
 
