@@ -17,7 +17,8 @@ ULTIMA ACTUALIZACION : 11-05-2022 | 0:00
 
 ## Installation
 
-´´´bash
-apt update -y && apt upgrade -y && wget -q https://raw.githubusercontent.com/ChumoGH/ScriptCGH/main/setup && chmod 777 setup && ./setup´´´
+```bash
+apt update -y && apt upgrade -y && wget -q https://raw.githubusercontent.com/ChumoGH/ScriptCGH/main/setup && chmod 777 setup && ./setup
+```
 # scriptmod by Henry Chumo
-**By: [ ChumoGH SCRIPTS ⃘⃤꙰✰ ]**
+**By: [ ChumoGH SCRIPTS ⃘⃤꙰✰ ](https://t.me/ChumoGH)**
