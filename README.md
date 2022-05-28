@@ -4,10 +4,6 @@
 # Proyecto sujeto a mejoras . . . . 
 
 <p align="center">
- 
-  
-
-
 <table>
 <tr>
   <td><strong>MENU</strong></td>
@@ -15,12 +11,12 @@
 </tr>
 
 <tr>
-  <td><a href="plus.chumogh.xyz"><img src="https://raw.githubusercontent.com/ChumoGH/ScriptCGH/main/USER.png" alt="menu" border="0"></a></td>
-  <td><a href="plus.chumogh.xyz"><img src="https://raw.githubusercontent.com/ChumoGH/ScriptCGH/main/USER.png" alt="menu" border="0"></a></td>
+  <td><a href="plus.chumogh.xyz"><img src="https://raw.githubusercontent.com/ChumoGH/ScriptCGH/main/USER.png" alt="menu" border="0"></a> </td>
+  <td><a href="plus.chumogh.xyz"><img src="https://raw.githubusercontent.com/ChumoGH/ScriptCGH/main/USER.png" alt="menu" border="0"></a> </td>
 </tr>
 
 <tr>
-  <td>HTML</td>
+  <td> ![logo](https://raw.githubusercontent.com/ChumoGH/ScriptCGH/main/USER.png) </td>
   <td>20</td>
 </tr>
 
