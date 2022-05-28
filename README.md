@@ -4,7 +4,7 @@
 # Proyecto sujeto a mejoras . . . . 
 
 <p align="center">
-<a href="plus.chumogh.xyz"><img src="https://www.dropbox.com/s/e4dp8txopap0cgv/IMG.png" alt="menu" border="0"></a>
+<a href="plus.chumogh.xyz"><img src="https://raw.githubusercontent.com/ChumoGH/ScriptCGH/main/menu.png" alt="menu" border="0"></a>
 <br>
 <a href="plus.chumogh.xyz"><img src="https://www.dropbox.com/s/e4dp8txopap0cgv/IMG.png" alt="menu" border="0"></a>
 </p>
