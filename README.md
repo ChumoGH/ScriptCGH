@@ -9,14 +9,12 @@
   <td><strong>MENU</strong></td>
   <td><strong><font color=blue> ADMIN DE USUARIOS</strong></td>
 </tr>
-
 <tr>
-  <td><a href="plus.chumogh.xyz"><img src="https://raw.githubusercontent.com/ChumoGH/ScriptCGH/main/USER.png" alt="menu" border="0"></a> </td>
-  <td><a href="plus.chumogh.xyz"><img src="https://raw.githubusercontent.com/ChumoGH/ScriptCGH/main/USER.png" alt="menu" border="0"></a> </td>
+  <td> <a href="plus.chumogh.xyz"> <img src="https://raw.githubusercontent.com/ChumoGH/ScriptCGH/main/IMG/menu.png" alt="menu" border="0"> </a> </td>
+  <td><a href="plus.chumogh.xyz"><img src="https://raw.githubusercontent.com/ChumoGH/ScriptCGH/main/IMG/menu.png" alt="menu" border="0"></a> </td>
 </tr>
-
 <tr>
-  <td> ![logo](https://raw.githubusercontent.com/ChumoGH/ScriptCGH/main/USER.png) </td>
+  <td> <img src="https://raw.githubusercontent.com/ChumoGH/ScriptCGH/main/USER.png" alt="menu" border="0"> </td>
   <td>20</td>
 </tr>
 
