@@ -1,26 +1,19 @@
 ![GitHUb License](https://img.shields.io/github/license/ChumoGH/ScriptCGH?style=for-the-badge)
 # ChumoGH-Script V5
 
-# Proyecto sujeto a mejoras . . . . 
+# CAPTURES DE CONTEXTO AL PROYECTO EVOLUTIVO ( BASE - | adm-lite ) 
 
 <p align="center">
 <table>
 <tr>
-  <td><strong>MENU</strong></td>
-  <td><strong><font color=blue> ADMIN DE USUARIOS</strong></td>
+  <td><strong><center> MENU </center></strong></td>
+  <td><strong><center> ADMIN DE USUARIOS</center></strong></td>
+  <td><strong></center> HERRAMIENTAS BASE </center></strong></td>
 </tr>
 <tr>
   <td> <a href="plus.chumogh.xyz"> <img src="https://raw.githubusercontent.com/ChumoGH/ScriptCGH/main/IMG/menu.png" alt="menu" border="0"> </a> </td>
-  <td><a href="plus.chumogh.xyz"><img src="https://raw.githubusercontent.com/ChumoGH/ScriptCGH/main/IMG/menu.png" alt="menu" border="0"></a> </td>
-</tr>
-<tr>
-  <td> <img src="https://raw.githubusercontent.com/ChumoGH/ScriptCGH/main/USER.png" alt="menu" border="0"> </td>
-  <td>20</td>
-</tr>
-
-<tr>
-  <td>Dreamweaver</td>
-  <td>60</td>
+  <td><a href="plus.chumogh.xyz"><img src="https://raw.githubusercontent.com/ChumoGH/ScriptCGH/main/IMG/USER.png" alt="menu" border="0"></a> </td>
+  <td><a href="plus.chumogh.xyz"><img src="https://raw.githubusercontent.com/ChumoGH/ScriptCGH/main/IMG/HERRA.png" alt="menu" border="0"></a> </td>
 </tr>
 </table>
  
