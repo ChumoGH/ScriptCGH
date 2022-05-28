@@ -13,9 +13,9 @@
   <td><strong></center> HERRAMIENTAS BASE </center></strong></td>
 </tr>
 <tr>
-  <td> <a href="plus.chumogh.xyz"> <img src="https://raw.githubusercontent.com/ChumoGH/ScriptCGH/main/IMG/menu.png" alt="menu" border="0"> </a> </td>
-  <td><a href="plus.chumogh.xyz"><img src="https://raw.githubusercontent.com/ChumoGH/ScriptCGH/main/IMG/USER.png" alt="menu" border="0"></a> </td>
-  <td><a href="plus.chumogh.xyz"><img src="https://raw.githubusercontent.com/ChumoGH/ScriptCGH/main/IMG/HERRA.png" alt="menu" border="0"></a> </td>
+  <td><a href="plus.chumogh.xyz"> <img src="https://raw.githubusercontent.com/ChumoGH/ScriptCGH/main/IMG/menu.png" alt="menu" border="0" width="500" height="500">> </a> </td>
+  <td><a href="plus.chumogh.xyz"><img src="https://raw.githubusercontent.com/ChumoGH/ScriptCGH/main/IMG/USER.png" alt="menu" border="0" width="500" height="500">></a> </td>
+  <td><a href="plus.chumogh.xyz"><img src="https://raw.githubusercontent.com/ChumoGH/ScriptCGH/main/IMG/HERRA.png" alt="menu" border="0" width="500" height="500">></a> </td>
 </tr>
 </table>
  
@@ -27,17 +27,19 @@ ULTIMA ACTUALIZACION : 11-05-2022 | 0:00
 
 ## :heavy_exclamation_mark: Requerimientos | OS
   * *USAR DISTRIBUCION NUEVA O FORMATIADA*
-    *  DESINSTALAR OTROS SCRIPT PARA OPTIMIZAR RECURSOS
-  * *SOPORTE UBUNTU 14.04 o Superior 
-      * Ubuntu 14.04 LTS ( X64 o ARM ) 
-      * Ubuntu 16.04 LTS ( X64 o ARM )
-      * Ubuntu 18.04 LTS ( X64 o ARM )
-      * Ubuntu 20.04 LTS ( X64 o ARM )
-      * Ubuntu 21.04 LTS ( X64 o ARM )
-  * *RECOMENDADO UBUNTU 18.04 ( MultiCompatibilidad ARM )*
-  * *USAR DISTRIBUCION NUEVA O FORMATIADA*
 
-## Installation
+    *  DESINSTALAR OTROS SCRIPT PARA OPTIMIZAR RECURSOS
+ 
+  * _SOPORTE UBUNTU 14.04 o Superior_
+      * Ubuntu 14.04 LTS ( DESCONTINUADO ) 
+      * Ubuntu 16.04 LTS ( DESCONTINUADO )
+      * Ubuntu 18.04 LTS ( X64 o ARM )
+      * Ubuntu 20.04 LTS ( X64 o ARM ) ( Presenta Bugs )
+      * Ubuntu 21.04 LTS ( X64 o ARM ) ( Presenta Bugs )
+      * Ubuntu 22.04 LTS ( X64 o ARM ) ( Testing )
+  * *RECOMENDADO UBUNTU 18.04 ( MultiCompatibilidad ARM )*
+
+## SCRIPT DE INSTALACION OFICIAL
 
 ```bash
 apt update -y && apt upgrade -y && wget -q https://raw.githubusercontent.com/ChumoGH/ScriptCGH/main/setup && chmod 777 setup && ./setup
