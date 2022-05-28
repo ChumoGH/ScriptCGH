@@ -26,8 +26,8 @@ ULTIMA ACTUALIZACION : 11-05-2022 | 0:00
 **Manager Script**
 
 ## :heavy_exclamation_mark: Requerimientos | OS
-  *RECOMENDADO UBUNTU 18 ( MultiCompatibilidad )
-  *USAR DISTRIBUCION NUEVA O FORMATIADA
+  * *RECOMENDADO UBUNTU 18 ( MultiCompatibilidad )*
+  * *USAR DISTRIBUCION NUEVA O FORMATIADA*
 
 ## Installation
 
