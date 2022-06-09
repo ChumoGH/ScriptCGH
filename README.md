@@ -1,5 +1,5 @@
 ![GitHUb License](https://img.shields.io/github/license/ChumoGH/ScriptCGH?style=for-the-badge)
-# 𝘾𝙝𝙪𝙢𝙤𝙂𝙃|𝙉𝙚𝙬𝙎𝙘𝙧𝙞𝙥𝙩𝘼𝘿𝙈 - 𝙑5
+# 𝘾𝙝𝙪𝙢𝙤𝙂𝙃|𝙉𝙚𝙬𝙎𝙘𝙧𝙞𝙥𝙩𝘼𝘿𝙈 - 𝙑5.1x
 <p align="center">
 <td> <a href="http://plus.chumogh.xyz"> <img src="https://raw.githubusercontent.com/ChumoGH/ScriptCGH/main/IMG/CGH.png" alt="menu" border="0" width="500" height="500"> </a> </td>
 <p align="center">
