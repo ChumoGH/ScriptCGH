@@ -3,9 +3,9 @@
 #Alias : @ChumoGH
 # -*- ENCODING: UTF-8 -*-
 
-ADM='/etc/adm-lite/userDIR/'
+export ADM='/etc/adm-lite/userDIR/'
 touch /root/user
-database="/root/user"
+export database="/root/user"
 echo $$ > /tmp/pids
 dropb () {
 port_dropbear=`ps aux | grep dropbear | awk NR==1 | awk '{print $17;}'`
@@ -56,7 +56,7 @@ echo " $user DROPBEAR LIMITADO ${limit}/$num | $(printf '%(%D-%H:%M:%S)T') !" >>
 }
 
 
-for u in `awk -F : '$3 > 900 { print $1 }' /etc/passwd |grep -v "nobody" |grep -vi polkitd |grep -vi systemd-[a-z] |grep -vi systemd-[0-9] |sort`
+for u in `cat "/etc/passwd"|grep 'home'|grep 'false'|grep -v 'syslog' | cut -d: -f1`
 do
 [[ -e ${ADM}$u ]] && daaab=$(cat ${ADM}$u | grep "limite:" | awk '{print $2}')
 [[ ${daaab} = "HWID" ]] && daaab=1
