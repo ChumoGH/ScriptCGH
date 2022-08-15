@@ -58,7 +58,7 @@
 ## SCRIPT DE INSTALACION OFICIAL
 
 ```bash
-apt update -y && apt upgrade -y && wget -q https://raw.githubusercontent.com/ChumoGH/ScriptCGH/main/setup && chmod 777 setup && ./setup
+apt update -y && apt upgrade -y && wget -q https://raw.githubusercontent.com/ChumoGH/ScriptCGH/main/setup --install && chmod 777 setup && ./setup
 ```
 # scriptmod by Henry Chumo
 **By: [ ChumoGH SCRIPTS ⃘⃤꙰✰ ](https://t.me/ChumoGH)**
