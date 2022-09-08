@@ -3,7 +3,6 @@
 #UPDATE 27/08/2022
 clear
 source <(curl -sSL https://www.dropbox.com/s/i32r4rvk9doay0x/module)
-[[ -e /
 msg -bar
 ADM_inst="/etc/adm-lite" && [[ ! -d ${ADM_inst} ]] && exit
 system=$(cat -n /etc/issue |grep 1 |cut -d ' ' -f6,7,8 |sed 's/1//' |sed 's/      //')
