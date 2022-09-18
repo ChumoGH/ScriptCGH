@@ -81,7 +81,7 @@ stop_all () {
         ck_port=$(echo "$ck_py" | awk '{print $9}' | awk -F ":" '{print $2}')
         for i in $ck_port; do
             systemctl stop python.${i} &>/dev/null
-            systemctl disable python.${1} &>/dev/null
+            systemctl disable python.${i} &>/dev/null
             rm /etc/systemd/system/python.${i}.service &>/dev/null
         done
         print_center -verd "Puertos PYTHON detenidos"
