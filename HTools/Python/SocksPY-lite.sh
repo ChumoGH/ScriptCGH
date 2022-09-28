@@ -52,7 +52,6 @@ echo -e "SU VERSION DE UBUNTU ${vercion} ES SUPERIOR A 18.04 "
 [[ "${vercion}" > "20" ]] && {
 echo -e ""
 msg -bar
-echo -e "SU VERSION DE UBUNTU ${vercion} ES SUPERIOR A 18.04 "
 [[ -e /etc/fixpython ]] || aguarde
 } || {
 echo -e "	SU VERSION DE UBUNTU ${vercion} ES INFERIOR O 18.04 "
