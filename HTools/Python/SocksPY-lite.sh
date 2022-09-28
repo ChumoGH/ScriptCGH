@@ -226,7 +226,7 @@ User=root
 WorkingDirectory=/root
 ExecStart=/usr/bin/$py ${ADM_inst}/$1.py $conf
 Restart=always
-RestartSec=3s
+
 
 [Install]
 WantedBy=multi-user.target" > /etc/systemd/system/python.$porta_socket.service
