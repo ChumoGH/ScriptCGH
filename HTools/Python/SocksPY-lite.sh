@@ -30,6 +30,8 @@ sudo update-alternatives --install /usr/bin/python python /usr/bin/python2 1 &> 
 }
 function aguarde() {
 	sleep .1
+
+echo -e "SU VERSION DE UBUNTU ${vercion} ES SUPERIOR A 18.04 "
 	helice() {
 		fun_limpram >/dev/null 2>&1 &
 		tput civis
@@ -91,8 +93,9 @@ stop_all () {
  }
 
   stop_port () {
+  sleep 2
     clear
-    STPY=$(lsof -V -i tcp -P -n | grep -v "ESTABLISHED" |grep -v "COMMAND"|grep "python" | awk '{print $9}' | awk -F ":" '{print $2}')
+    STPY=$(mportas | grep python | awk '{print $2}' )
 
     msg -bar
     print_center -ama "DETENER UN PUERTO"
