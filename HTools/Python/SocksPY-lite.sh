@@ -233,7 +233,7 @@ Type=simple
 StandardError=journal
 User=root
 WorkingDirectory=/root
-ExecStart=/usr/bin/$py ${ADM_inst}/${1}1.py $conf
+ExecStart=/usr/bin/$py ${ADM_inst}/${1}.py $conf
 ExecReload=/bin/kill -HUP $MAINPID
 LimitNOFILE=51200
 Restart=on-failure
@@ -542,27 +542,27 @@ systemctl restart python.$porta_socket &>/dev/null
  }
 
 #-----------SELECCION------------
-selecPython () {
-echo -e "\e[91m\e[43m  ==== SCRIPT MOD ChumoGH|EDICION ====  \033[0m \033[0;33m[$(less ${ADM_inst}/v-local.log)]"
-msg -bar
-echo -ne "$(msg -verd "  [1]") $(msg -verm2 ">") " && msg -azu "Socks WS 1 "
-echo -ne "$(msg -verd "  [2]") $(msg -verm2 ">") " && msg -azu "Socks WS 2 - BETA "
-msg -bar
-echo -ne "$(msg -verd "  [0]") $(msg -verm2 ">") " && msg -bra "   \033[1;41m VOLVER \033[0m"
-msg -bar
-selection=$(selection_fun 2)
-case ${selection} in
-    1)
-    wget -q -O /etc/adm-lite/PDirect1.py https://raw.githubusercontent.com/ChumoGH/ChumoGH-Script/master/Python/PDirect.py
+#selecPython () {
+#echo -e "\e[91m\e[43m  ==== SCRIPT MOD ChumoGH|EDICION ====  \033[0m \033[0;33m[$(less ${ADM_inst}/v-local.log)]"
+#msg -bar
+#echo -ne "$(msg -verd "  [1]") $(msg -verm2 ">") " && msg -azu "Socks WS 1 "
+#echo -ne "$(msg -verd "  [2]") $(msg -verm2 ">") " && msg -azu "Socks WS 2 - BETA "
+#msg -bar
+#echo -ne "$(msg -verd "  [0]") $(msg -verm2 ">") " && msg -bra "   \033[1;41m VOLVER \033[0m"
+#msg -bar
+#selection=$(selection_fun 2)
+#case ${selection} in
+#    1)
+    wget -q -O /etc/adm-lite/PDirect.py https://raw.githubusercontent.com/ChumoGH/ChumoGH-Script/master/Python/PDirect.py
     mod1 "${conect}"
-    ;;
-    2)
-    mod2 "${conect}"
-    ;;
-    0)return 1;;
-esac
-return 1
-}
+#    ;;
+#    2)
+#    mod2 "${conect}"
+#    ;;
+#    0)return 1;;
+#esac
+#return 1
+#}
 #-----------FIN SELECCION--------
 selecPython
     msg -bar
