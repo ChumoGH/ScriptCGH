@@ -10,8 +10,7 @@ system=$(cat -n /etc/issue |grep 1 |cut -d ' ' -f6,7,8 |sed 's/1//' |sed 's/    
 vercion=$(echo $system|awk '{print $2}'|cut -d '.' -f1,2)
 echo -e "ESPERE UN MOMENTO MIENTRAS FIXEAMOS SU SISTEMA "
 
-
-fun_limpram() {
+fun_upgrade() {
 	sync
 	echo 3 >/proc/sys/vm/drop_caches
 	sync && sysctl -w vm.drop_caches=3
@@ -28,11 +27,12 @@ sudo update-alternatives --install /usr/bin/python python /usr/bin/python2 1 &> 
 	rm -f /var/log/*
 	echo > /etc/fixpython
 }
+
 function aguarde() {
 	sleep .1
 	echo -e "SU VERSION DE UBUNTU ${vercion} ES SUPERIOR A 18.04 "
 	helice() {
-		fun_limpram >/dev/null 2>&1 &
+		fun_upgrade >/dev/null 2>&1 &
 		tput civis
 		while [ -d /proc/$! ]; do
 			for i in / - \\ \|; do
@@ -47,16 +47,16 @@ function aguarde() {
 	echo -e "\e[1DOk"
 }
 
-
 [[ "${vercion}" > "20" ]] && {
 echo -e ""
 msg -bar
 [[ -e /etc/fixpython ]] || aguarde
 } || {
-echo -e "	SU VERSION DE UBUNTU ${vercion} ES INFERIOR O 18.04 "
+echo
 	[[ -e /etc/fixpython ]] || { 
-	apt install python -y &>/dev/null
-	apt install python3 -y &>/dev/null
+	echo -e "	SU VERSION DE UBUNTU ${vercion} ES INFERIOR O 18.04 "
+	apt-get install python -y &>/dev/null
+	apt-get install python3 -y &>/dev/null
 	touch /etc/fixpython
 	}
 }
