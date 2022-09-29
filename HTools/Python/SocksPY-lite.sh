@@ -224,16 +224,19 @@ tput cuu1 && tput dl1
 
 echo -e "[Unit]
 Description=$1 Service by @ChumoGH
-After=network.target
+
+After=network.target network-online.target nss-lookup.target mysql.service mariadb.service mysqld.service
 StartLimitIntervalSec=0
 
 [Service]
 Type=simple
+StandardError=journal
 User=root
 WorkingDirectory=/root
 ExecStart=/usr/bin/$py ${ADM_inst}/$1.py $conf
-Restart=always
-
+ExecReload=/bin/kill -HUP $MAINPID
+LimitNOFILE=51200
+Restart=on-failure
 
 [Install]
 WantedBy=multi-user.target" > /etc/systemd/system/python.$porta_socket.service
@@ -541,7 +544,7 @@ systemctl start python.$porta_socket &>/dev/null
 selecPython () {
 echo -e "\e[91m\e[43m  ==== SCRIPT MOD ChumoGH|EDICION ====  \033[0m \033[0;33m[$(less ${ADM_inst}/v-local.log)]"
 msg -bar
-echo -ne "$(msg -verd "  [1]") $(msg -verm2 ">") " && msg -azu "Socks WS 1"
+echo -ne "$(msg -verd "  [1]") $(msg -verm2 ">") " && msg -azu "Socks WS 1 - ACTUAL"
 echo -ne "$(msg -verd "  [2]") $(msg -verm2 ">") " && msg -azu "Socks WS 2 - BETA ESTABLE"
 msg -bar
 echo -ne "$(msg -verd "  [0]") $(msg -verm2 ">") " && msg -bra "   \033[1;41m VOLVER \033[0m"
