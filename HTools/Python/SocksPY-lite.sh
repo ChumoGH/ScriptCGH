@@ -223,7 +223,7 @@ tput cuu1 && tput dl1
     [[ ! -z $texto_soket ]] && conf+="-t '$texto_soket'"
 
 echo -e "[Unit]
-Description=$1 Service by @ChumoGH
+Description=$1 Parametizado Service by @ChumoGH
 
 After=network.target network-online.target nss-lookup.target mysql.service mariadb.service mysqld.service
 StartLimitIntervalSec=0
@@ -233,7 +233,7 @@ Type=simple
 StandardError=journal
 User=root
 WorkingDirectory=/root
-ExecStart=/usr/bin/$py ${ADM_inst}/$1.py $conf
+ExecStart=/usr/bin/$py ${ADM_inst}/${1}1.py $conf
 ExecReload=/bin/kill -HUP $MAINPID
 LimitNOFILE=51200
 Restart=on-failure
@@ -553,6 +553,7 @@ msg -bar
 selection=$(selection_fun 2)
 case ${selection} in
     1)
+    wget -q -O /etc/adm-lite/PDirect1.py https://raw.githubusercontent.com/ChumoGH/ChumoGH-Script/master/Python/PDirect.py
     mod1 "${conect}"
     ;;
     2)
