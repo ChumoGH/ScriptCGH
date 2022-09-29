@@ -125,6 +125,7 @@ stop_all () {
  }
 
 colector(){
+conect="$1"
     clear
     msg -bar
     print_center -azu " Puerto Principal, para Proxy Directo"
@@ -145,8 +146,7 @@ while [[ -z $porta_socket ]]; do
         }
  done
 
- if [[ $1 = "PDirect" ]]; then
-
+ if [[ $conect = "PDirect" ]]; then
      print_center -azu " Puerto Local SSH/DROPBEAR/OPENVPN"
      msg -bar3
 
@@ -182,7 +182,7 @@ msg -bar3
     msg -bar3
  fi
 
-    if [[ ! $1 = "PGet" ]] && [[ ! $1 = "POpen" ]]; then
+    if [[ ! $conect = "PGet" ]] && [[ ! $conect = "POpen" ]]; then
         print_center -azu "Introdusca su Mini-Banner"
         msg -bar3
         print_center -azu "Introduzca un texto [NORMAL] o en [HTML]"
@@ -190,10 +190,10 @@ msg -bar3
         read texto_soket
     fi
 
-    if [[ $1 = "PPriv" ]]; then
+    if [[ $conect = "PPriv" ]]; then
         py="python3"
         IP=$(fun_ip)
-    elif [[ $1 = "PGet" ]]; then
+    elif [[ $conect = "PGet" ]]; then
         echo "master=ChumoGH" > ${ADM_tmp}/pwd.pwd
         while read service; do
             [[ -z $service ]] && break
@@ -241,7 +241,7 @@ WantedBy=multi-user.target" > /etc/systemd/system/python.$porta_socket.service
     systemctl enable python.$porta_socket &>/dev/null
     systemctl start python.$porta_socket &>/dev/null
 
-    if [[ $1 = "PGet" ]]; then
+    if [[ $conect = "PGet" ]]; then
         [[ "$(ps x | grep "PGet.py" | grep -v "grep" | awk -F "pts" '{print $1}')" ]] && {
             print_center -verd "Gettunel Iniciado com Exito"
             print_center -azu   "Su Contraseña Gettunel es: $(msg -ama "ChumoGH")"
@@ -549,10 +549,10 @@ msg -bar
 selection=$(selection_fun 2)
 case ${selection} in
     1)
-    mod1
+    mod1 "${conect}"
     ;;
     2)
-    mod2
+    mod2 "${conect}"
     ;;
     0)return 1;;
 esac
