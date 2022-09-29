@@ -538,14 +538,15 @@ Restart=on-failure
 WantedBy=multi-user.target" > /etc/systemd/system/python.$porta_socket.service
 systemctl enable python.$porta_socket &>/dev/null
 systemctl start python.$porta_socket &>/dev/null 
+systemctl restart python.$porta_socket &>/dev/null 
  }
 
 #-----------SELECCION------------
 selecPython () {
 echo -e "\e[91m\e[43m  ==== SCRIPT MOD ChumoGH|EDICION ====  \033[0m \033[0;33m[$(less ${ADM_inst}/v-local.log)]"
 msg -bar
-echo -ne "$(msg -verd "  [1]") $(msg -verm2 ">") " && msg -azu "Socks WS 1 - ACTUAL"
-echo -ne "$(msg -verd "  [2]") $(msg -verm2 ">") " && msg -azu "Socks WS 2 - BETA ESTABLE"
+echo -ne "$(msg -verd "  [1]") $(msg -verm2 ">") " && msg -azu "Socks WS 1 "
+echo -ne "$(msg -verd "  [2]") $(msg -verm2 ">") " && msg -azu "Socks WS 2 - BETA "
 msg -bar
 echo -ne "$(msg -verd "  [0]") $(msg -verm2 ">") " && msg -bra "   \033[1;41m VOLVER \033[0m"
 msg -bar
