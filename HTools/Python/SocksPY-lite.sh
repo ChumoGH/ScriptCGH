@@ -127,7 +127,7 @@ stop_all () {
 colector(){
     clear
     msg -bar
-    print_center -azu "Selecciona Puerto Principal, para Proxy"
+    print_center -azu " Puerto Principal, para Proxy Directo"
     msg -bar
 
 while [[ -z $porta_socket ]]; do
@@ -136,10 +136,10 @@ while [[ -z $porta_socket ]]; do
     tput cuu1 && tput dl1
 
         [[ $(mportas|grep -w "${porta_socket}") = "" ]] && {
-            echo -e "\033[1;33m Puerto python:\033[1;32m ${porta_socket} OK"
+            echo -e "\033[1;33m Puerto python:\033[1;32m ${porta_socket} VALIDO"
             msg -bar3
         } || {
-            echo -e "\033[1;33m Puerto python:\033[1;31m ${porta_socket} FAIL" && sleep 1
+            echo -e "\033[1;33m Puerto python:\033[1;31m ${porta_socket} OCUPADO" && sleep 1
             tput cuu1 && tput dl1
             unset porta_socket
         }
@@ -156,11 +156,11 @@ while [[ -z $porta_socket ]]; do
         tput cuu1 && tput dl1
 
         [[ $(mportas|grep -w "${local}") = "" ]] && {
-            echo -e "\033[1;33m Puerto local:\033[1;31m ${local} FAIL" && sleep 1
+            echo -e "\033[1;33m Puerto local:\033[1;31m ${local} NO EXISTE" && sleep 1
             tput cuu1 && tput dl1
             unset local
         } || {
-            echo -e "\033[1;33m Puerto local:\033[1;32m ${local} OK"
+            echo -e "\033[1;33m Puerto local:\033[1;32m ${local} VALIDO"
             msg -bar3
         }
     done
@@ -175,9 +175,9 @@ msg -bar3
      tput cuu1 && tput dl1
      if [[ -z $response ]]; then
         response="200"
-        echo -e "\033[1;33m   CABECERA :\033[1;32m ${response} OK"
+        echo -e "\033[1;33m   CABECERA :\033[1;32m ${response} VALIDA"
     else
-        echo -e "\033[1;33m   CABECERA :\033[1;32m ${response} OK"
+        echo -e "\033[1;33m   CABECERA :\033[1;32m ${response} VALIDA"
     fi
     msg -bar3
  fi
