@@ -535,6 +535,7 @@ print_center -verd " INICIANDO SOCK Python "
 sleep 1s && tput cuu1 && tput dl1
             else
 print_center -azu " FALTA ALGUN PARAMETRO PARA INICIAR"
+sleep 1s && tput cuu1 && tput dl1
 return
 fi
 [[ ! -e /bin/ejecutar/PortPD.log ]] && echo -e "${conf}" > /bin/ejecutar/PortPD.log
