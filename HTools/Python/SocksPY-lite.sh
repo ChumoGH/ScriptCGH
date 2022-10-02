@@ -523,8 +523,8 @@ msg -bar3
 	crontab /root/cron
 	rm /root/cron
 }
-tput cuu1 && tput dl1
-tput cuu1 && tput dl1
+#tput cuu1 && tput dl1
+#tput cuu1 && tput dl1
 tput cuu1 && tput dl1
 chmod +x ${ADM_inst}/$1.py
 [[ -e $HOME/PDirect.py ]] && echo -e "\n\n Fichero Alojado en : ${ADM_inst}/$1.py \n\n Respaldo alojado en : $HOME/PDirect.py \n"
