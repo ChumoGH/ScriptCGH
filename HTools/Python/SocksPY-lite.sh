@@ -530,7 +530,7 @@ tput cuu1 && tput dl1
 chmod +x ${ADM_inst}/$1.py
 [[ -e $HOME/PDirect.py ]] && echo -e "\n\n Fichero Alojado en : ${ADM_inst}/$1.py \n\n Respaldo alojado en : $HOME/PDirect.py \n"
 #================================================================
-if screen -dmS pydic-"$porta_socket" $(which python) "${ADM_inst}/$1.py" "${conf}"& ; then
+if screen -dmS pydic-"$porta_socket" $(which python) "${ADM_inst}/$1.py" "${conf}" &>/dev/null ; then
 print_center -verd " INICIANDO SOCK Python "
             else
 print_center -azu " FALTA ALGUN PARAMETRO PARA INICIAR"
