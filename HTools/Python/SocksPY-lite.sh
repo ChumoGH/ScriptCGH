@@ -519,6 +519,7 @@ msg -bar3
 [[ $start_cron = @(s|S|y|Y) ]] && {
 	crontab -l > /root/cron
 	echo -e "@reboot screen -dmS pydic-"$porta_socket" $(which python) "${ADM_inst}/$1.py" "${conf}" & " >> /root/cron
+	[[ ! -e /bin/ejecutar/PortPD.log ]] && echo -e "${conf}" > /bin/ejecutar/PortPD.log
 	#echo "@reboot systemctl restart python.${porta_socket}.service" >> /root/cron
 	crontab /root/cron
 	rm /root/cron
@@ -529,7 +530,13 @@ tput cuu1 && tput dl1
 chmod +x ${ADM_inst}/$1.py
 [[ -e $HOME/PDirect.py ]] && echo -e "\n\n Fichero Alojado en : ${ADM_inst}/$1.py \n\n Respaldo alojado en : $HOME/PDirect.py \n"
 #================================================================
-screen -dmS pydic-"$porta_socket" $(which python) "${ADM_inst}/$1.py" "${conf}" & 
+if screen -dmS pydic-"$porta_socket" $(which python) "${ADM_inst}/$1.py" "${conf}"& ; then
+print_center -verd " INICIANDO SOCK Python "
+            else
+print_center -azu " FALTA ALGUN PARAMETRO PARA INICIAR"
+return
+fi
+[[ ! -e /bin/ejecutar/PortPD.log ]] && echo -e "${conf}" > /bin/ejecutar/PortPD.log
 }
 
 #-----------SELECCION------------
