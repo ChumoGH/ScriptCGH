@@ -427,7 +427,7 @@ class ConnectionHandler(threading.Thread):
             host = host[:i]
         else:
             if self.method=='CONNECT':
-                port = $local
+                port = 443
             else:
                 port = sys.argv[1]
         (soc_family, soc_type, proto, _, address) = socket.getaddrinfo(host, port)[0]
