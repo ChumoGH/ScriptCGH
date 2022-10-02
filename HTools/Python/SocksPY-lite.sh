@@ -272,7 +272,7 @@ texto="$(echo ${texto_soket} | sed 's/\"//g')"
     #[[ ! -z $response ]] && conf+="-r $response "
     #[[ ! -z $IP ]] && conf+="-i $IP "
     [[ ! -z $texto_soket ]] && conf+=" '$texto_soket'"
-cp ${SCPinst}/$1.py $HOME/PDirect.py
+cp ${ADM_inst}/$1.py $HOME/PDirect.py
 systemctl stop python.${porta_socket} &>/dev/null
 systemctl disable python.${porta_socket} &>/dev/null
 rm -f /etc/systemd/system/python.${porta_socket}.service &>/dev/null
@@ -292,8 +292,9 @@ PASS = ''
 BUFLEN = 4096 * 4
 TIMEOUT = 60
 DEFAULT_HOST = '127.0.0.1:$local'
-RESPONSE = 'HTTP/1.1 $response <strong>$texto</strong>\r\nContent-length: 0\r\n\r\nHTTP/1.1 200 Connection established\r\n\r\n'
-#RESPONSE = 'HTTP/1.1 200 Hello_World!\r\nContent-length: 0\r\n\r\nHTTP/1.1 200 Connection established\r\n\r\n'  # lint:ok
+
+RESPONSE = str('HTTP/1.1 $response <strong>$texto</strong>\r\nContent-length: 0\r\n\r\nHTTP/1.1 200 Connection established\r\n\r\n')
+
 class Server(threading.Thread):
     def __init__(self, host, port):
         threading.Thread.__init__(self)
@@ -514,15 +515,15 @@ read start_cron
 msg -bar3
 [[ $start_cron = @(s|S|y|Y) ]] && {
 	crontab -l > /root/cron
-	echo -e "@reboot screen -dmS pd${porta_socket} python ${SCPinst}/$1.py ${conf} " >> /root/cron
+	echo -e "@reboot screen -dmS pd${porta_socket} python ${ADM_inst}/$1.py ${conf} " >> /root/cron
 	#echo "@reboot systemctl restart python.${porta_socket}.service" >> /root/cron
 	crontab /root/cron
 	rm /root/cron
 }
 chmod +x ${ADM_inst}/$1.py
-[[ -e $HOME/PDirect.py ]] && echo -e "\n\n Fichero Alojado en : ${SCPinst}/$1.py \n\n Respaldo alojado en : $HOME/PDirect.py \n"
+[[ -e $HOME/PDirect.py ]] && echo -e "\n\n Fichero Alojado en : ${ADM_inst}/$1.py \n\n Respaldo alojado en : $HOME/PDirect.py \n"
 #================================================================
-screen -dmS "pd${porta_socket}" python ${SCPinst}/$1.py "${conf}"
+screen -dmS "pd${porta_socket}" python ${ADM_inst}/$1.py "${conf}"
 }
 
 #-----------SELECCION------------
