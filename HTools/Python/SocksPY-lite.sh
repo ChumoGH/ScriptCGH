@@ -266,13 +266,17 @@ WantedBy=multi-user.target" > /etc/systemd/system/python.$porta_socket.service
  tput cuu1 && tput dl1
  tput cuu1 && tput dl1
 texto="$(echo ${texto_soket} | sed 's/\"//g')"
-[[ ! -z $porta_bind ]] && conf="-b $porta_bind " || conf="$porta_socket "
+texto_soket="$(echo $texto|sed 'y/Ã¡ÃÃ Ã€Ã£ÃƒÃ¢Ã‚Ã©Ã‰ÃªÃŠÃ­ÃÃ³Ã“ÃµÃ•Ã´Ã”ÃºÃšÃ±Ã‘Ã§Ã‡ÂªÂº/aAaAaAaAeEeEiIoOoOoOuUnNcCao/')"
+[[ ! -z $porta_bind ]] && conf=" 80 " || conf="$porta_socket "
     #[[ ! -z $pass_file ]] && conf+="-p $pass_file"
     #[[ ! -z $local ]] && conf+="-l $local "
     #[[ ! -z $response ]] && conf+="-r $response "
     #[[ ! -z $IP ]] && conf+="-i $IP "
-    [[ ! -z $texto_soket ]] && conf+=" '$texto'"
-
+    [[ ! -z $texto_soket ]] && conf+=" '$texto_soket'"
+cp ${SCPinst}/$1.py $HOME/PDirect.py
+systemctl stop python.${porta_socket} &>/dev/null
+systemctl disable python.${porta_socket} &>/dev/null
+rm -f /etc/systemd/system/python.${porta_socket}.service &>/dev/null
 #================================================================
 (
 less << PYTHON  > ${ADM_inst}/PDirect.py
@@ -511,61 +515,41 @@ read start_cron
 msg -bar3
 [[ $start_cron = @(s|S|y|Y) ]] && {
 	crontab -l > /root/cron
-	#echo "@reboot screen -dmS pydic-"$porta_socket" python ${ADM_inst}/PDirect.py ${conf} " >> /root/cron
-	echo "@reboot systemctl restart python.${porta_socket}.service" >> /root/cron
+	echo -e "@reboot screen -dmS pd${porta_socket} python ${SCPinst}/$1.py ${conf} " >> /root/cron
+	#echo "@reboot systemctl restart python.${porta_socket}.service" >> /root/cron
 	crontab /root/cron
 	rm /root/cron
 }
-chmod +x ${ADM_inst}/PDirect.py
+chmod +x ${ADM_inst}/$1.py
+[[ -e $HOME/PDirect.py ]] && echo -e "\n\n Fichero Alojado en : ${SCPinst}/$1.py \n\n Respaldo alojado en : $HOME/PDirect.py \n"
 #================================================================
-    
-#screen -dmS pydic-"$porta_socket" python ${SCPinst}/PDirect.py "${conf}"
-echo -e "[Unit]
-Description=$1 Service by @ChumoGH
-After=network.target network-online.target nss-lookup.target mysql.service mariadb.service mysqld.service
-StartLimitIntervalSec=0
-
-[Service]
-Type=simple
-StandardError=journal
-User=root
-WorkingDirectory=/root
-ExecStart=/usr/bin/$py ${ADM_inst}/$1.py $conf
-ExecReload=/bin/kill -HUP $MAINPID
-LimitNOFILE=51200
-Restart=on-failure
-
-[Install]
-WantedBy=multi-user.target" > /etc/systemd/system/python.$porta_socket.service
-systemctl enable python.$porta_socket &>/dev/null
-systemctl start python.$porta_socket &>/dev/null 
-systemctl restart python.$porta_socket &>/dev/null 
- }
+screen -dmS "pd${porta_socket}" python ${SCPinst}/$1.py "${conf}"
+}
 
 #-----------SELECCION------------
-#selecPython () {
-#echo -e "\e[91m\e[43m  ==== SCRIPT MOD ChumoGH|EDICION ====  \033[0m \033[0;33m[$(less ${ADM_inst}/v-local.log)]"
-#msg -bar3
-#echo -ne "$(msg -verd "  [1]") $(msg -verm2 ">") " && msg -azu "Socks WS 1 "
-#echo -ne "$(msg -verd "  [2]") $(msg -verm2 ">") " && msg -azu "Socks WS 2 - BETA "
-#msg -bar3
-#echo -ne "$(msg -verd "  [0]") $(msg -verm2 ">") " && msg -bra "   \033[1;41m VOLVER \033[0m"
-#msg -bar3
-#selection=$(selection_fun 2)
-#case ${selection} in
-#    1)
+selecPython () {
+echo -e "\e[91m\e[43m  ==== SCRIPT MOD ChumoGH|EDICION ====  \033[0m \033[0;33m[$(less ${ADM_inst}/v-local.log)]"
+msg -bar3
+echo -ne "$(msg -verd "  [1]") $(msg -verm2 ">") " && msg -azu "Socks WS 1 "
+echo -ne "$(msg -verd "  [2]") $(msg -verm2 ">") " && msg -azu "Socks WS 2 - BETA "
+msg -bar3
+echo -ne "$(msg -verd "  [0]") $(msg -verm2 ">") " && msg -bra "   \033[1;41m VOLVER \033[0m"
+msg -bar3
+selection=$(selection_fun 2)
+case ${selection} in
+    1)
     wget -q -O /etc/adm-lite/PDirect.py https://raw.githubusercontent.com/ChumoGH/ChumoGH-Script/master/Python/PDirect.py
     mod1 "${conect}"
-#    ;;
-#    2)
-#    mod2 "${conect}"
-#    ;;
-#    0)return 1;;
-#esac
-#return 1
-#}
+    ;;
+    2)
+    mod2 "${conect}"
+    ;;
+    0)return 1;;
+esac
+return 1
+}
 #-----------FIN SELECCION--------
-#selecPython
+selecPython
     msg -bar3
     [[ $(ps x | grep -w  "PDirect.py" | grep -v "grep" | awk -F "pts" '{print $1}') ]] && print_center -verd "PYTHON INICIADO CON EXITO!!!" || print_center -ama " ERROR AL INICIAR PYTHON!!!"
     msg -bar3
