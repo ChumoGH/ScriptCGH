@@ -24,7 +24,6 @@ sudo update-alternatives --install /usr/bin/python python /usr/bin/python2 1 &> 
 	killall kswapd0 > /dev/null 2>&1
 	killall tcpdump > /dev/null 2>&1
 	killall ksoftirqd > /dev/null 2>&1
-	rm -f /var/log/*
 	echo > /etc/fixpython
 }
 
@@ -266,7 +265,7 @@ WantedBy=multi-user.target" > /etc/systemd/system/python.$porta_socket.service
  tput cuu1 && tput dl1
  tput cuu1 && tput dl1
 texto="$(echo ${texto_soket} | sed 's/\"//g')"
-texto_soket="$(echo $texto|sed 'y/Ã¡ÃÃ Ã€Ã£ÃƒÃ¢Ã‚Ã©Ã‰ÃªÃŠÃ­ÃÃ³Ã“ÃµÃ•Ã´Ã”ÃºÃšÃ±Ã‘Ã§Ã‡ÂªÂº/aAaAaAaAeEeEiIoOoOoOuUnNcCao/')"
+#texto_soket="$(echo $texto|sed 'y/Ã¡ÃÃ Ã€Ã£ÃƒÃ¢Ã‚Ã©Ã‰ÃªÃŠÃ­ÃÃ³Ã“ÃµÃ•Ã´Ã”ÃºÃšÃ±Ã‘Ã§Ã‡ÂªÂº/aAaAaAaAeEeEiIoOoOoOuUnNcCao/')"
 [[ ! -z $porta_bind ]] && conf=" 80 " || conf="$porta_socket "
     #[[ ! -z $pass_file ]] && conf+="-p $pass_file"
     #[[ ! -z $local ]] && conf+="-l $local "
