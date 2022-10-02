@@ -532,6 +532,7 @@ chmod +x ${ADM_inst}/$1.py
 #================================================================
 if screen -dmS pydic-"$porta_socket" $(which python) "${ADM_inst}/$1.py" "${conf}" &>/dev/null ; then
 print_center -verd " INICIANDO SOCK Python "
+sleep 1s && tput cuu1 && tput dl1
             else
 print_center -azu " FALTA ALGUN PARAMETRO PARA INICIAR"
 return
