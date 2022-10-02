@@ -72,16 +72,17 @@ echo -e "$portas"
 }
 
 stop_all () {
+_ps="$(ps x)"
     ck_py=$(lsof -V -i tcp -P -n | grep -v "ESTABLISHED" |grep -v "COMMAND"|grep "python")
-    [[ -z ${ck_py} ]] && ck_py=$(ps x | grep PDirect.py | grep -v grep)
+    [[ -z ${ck_py} ]] && ck_py=$(echo -e "${_ps}" | grep PDirect.py | grep -v grep)
     if [[ -z $(echo "$ck_py" | awk '{print $1}' | head -n 1) ]]; then
         print_center -verm "Puertos PYTHON no encontrados"
         msg -bar3
     else
         ck_port=$(echo "$ck_py" | awk '{print $9}' | awk -F ":" '{print $2}')
-	[[ -z ${ck_py} ]] && ck_py=$(ps x | grep PDirect | grep -v grep | head -n 1 | awk '{print $10}') && ck_pID=$(ps x | grep PDirect | grep -v grep | awk '{print $1}')
-        for i in $ck_port; do
-	    kill -9 ${ck_pID} &>/dev/null
+	[[ -z ${ck_port} ]] && ck_port=$(echo -e "${_ps}" | grep PDirect | grep -v grep | awk '{print $10}')
+	for i in $ck_port; do
+	    kill -9 $(echo -e "${_ps}"| grep PDirect | grep -v grep | head -n 1 | awk '{print $1}') &>/dev/null
             systemctl stop python.${i} &>/dev/null
             systemctl disable python.${i} &>/dev/null
             rm /etc/systemd/system/python.${i}.service &>/dev/null
