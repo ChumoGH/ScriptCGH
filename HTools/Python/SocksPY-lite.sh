@@ -238,8 +238,8 @@ User=root
 WorkingDirectory=/root
 ExecStart=/usr/bin/$py ${ADM_inst}/${1}.py $conf
 ExecReload=/bin/kill -HUP $MAINPID
-LimitNOFILE=51200
-Restart=on-failure
+Restart=always
+RestartSec=3s
 
 [Install]
 WantedBy=multi-user.target" > /etc/systemd/system/python.$porta_socket.service
@@ -513,24 +513,31 @@ PYTHON
 ) > $HOME/proxy.log
 
 msg -bar3
-echo -ne "\033[1;97m Ejcutar python directo despues de un reinicio [s/n]: "
-read start_cron
-msg -bar3
-[[ $start_cron = @(s|S|y|Y) ]] && {
-	crontab -l > /root/cron
-	echo -e "@reboot screen -dmS pydic-"$porta_socket" $(which python) "${ADM_inst}/$1.py" "${conf}" & " >> /root/cron
-	[[ ! -e /bin/ejecutar/PortPD.log ]] && echo -e "${conf}" > /bin/ejecutar/PortPD.log
-	#echo "@reboot systemctl restart python.${porta_socket}.service" >> /root/cron
-	crontab /root/cron
-	rm /root/cron
-}
-#tput cuu1 && tput dl1
-tput cuu1 && tput dl1
-tput cuu1 && tput dl1
+
+echo -e "[Unit]
+Description=$1 Parametizado Service by @ChumoGH
+
+After=network.target network-online.target nss-lookup.target mysql.service mariadb.service mysqld.service
+StartLimitIntervalSec=0
+
+[Service]
+Type=simple
+StandardError=journal
+User=root
+WorkingDirectory=/root
+ExecStart=$(which $py) ${ADM_inst}/${1}.py $conf
+ExecReload=/bin/kill -HUP $MAINPID
+Restart=always
+RestartSec=3s
+
+[Install]
+WantedBy=multi-user.target" > /etc/systemd/system/$py.$porta_socket.service
+systemctl enable $py.$porta_socket &>/dev/null
+systemctl start $py.$porta_socket &>/dev/null
 chmod +x ${ADM_inst}/$1.py
-[[ -e $HOME/PDirect.py ]] && echo -e "\n\n Fichero Alojado en : ${ADM_inst}/$1.py \n\n Respaldo alojado en : $HOME/PDirect.py \n"
+[[ -e $HOME/$1.py ]] && echo -e "\n\n Fichero Alojado en : ${ADM_inst}/$1.py \n\n Respaldo alojado en : $HOME/$1.py \n"
 #================================================================
-if screen -dmS pydic-"$porta_socket" $(which python) "${ADM_inst}/$1.py" "${conf}" &>/dev/null ; then
+if systemctl restart $py.$porta_socket &>/dev/null ; then
 print_center -verd " INICIANDO SOCK Python "
 sleep 1s && tput cuu1 && tput dl1
             else
