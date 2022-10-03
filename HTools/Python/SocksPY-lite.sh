@@ -86,6 +86,7 @@ _ps="$(ps x)"
             systemctl stop python.${i} &>/dev/null
             systemctl disable python.${i} &>/dev/null
             rm /etc/systemd/system/python.${i}.service &>/dev/null
+	    rm -f /bin/ejecutar/PortPD.log
         done
         print_center -verd "Puertos PYTHON detenidos"
         msg -bar3    
@@ -522,11 +523,9 @@ StartLimitIntervalSec=0
 
 [Service]
 Type=simple
-StandardError=journal
 User=root
 WorkingDirectory=/root
 ExecStart=$(which $py) ${ADM_inst}/${1}.py $conf
-ExecReload=/bin/kill -HUP $MAINPID
 Restart=always
 RestartSec=3s
 
