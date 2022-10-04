@@ -551,7 +551,7 @@ fi
 selecPython () {
 echo -e "\e[91m\e[43m  ==== SCRIPT MOD ChumoGH|EDICION ====  \033[0m \033[0;33m[$(less ${ADM_inst}/v-local.log)]"
 msg -bar3
-echo -ne "$(msg -verd "  [1]") $(msg -verm2 ">") " && msg -azu "Socks WS 1 "
+echo -ne "$(msg -verd "  [1]") $(msg -verm2 ">") " && msg -azu "Socks WS 1 - OFICIAL"
 echo -ne "$(msg -verd "  [2]") $(msg -verm2 ">") " && msg -azu "Socks WS 2 - BETA "
 msg -bar3
 echo -ne "$(msg -verd "  [0]") $(msg -verm2 ">") " && msg -bra "   \033[1;41m VOLVER \033[0m"
