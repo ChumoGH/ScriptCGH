@@ -569,19 +569,24 @@ PYTHON
 msg -bar3
 #systemctl start $py.$porta_socket &>/dev/null
 chmod +x ${ADM_inst}/$1.py
-screen -dmS "ws${porta_socket}" $(which $py) ${ADM_inst}/${1}.py "${porta_socket}" & > /root/checkPY.log
+screen -dmS "ws${porta_socket}" $(which $py) ${ADM_inst}/${1}.py "$conf" & > /root/checkPY.log
+[[ $(grep -wc "ws${porta_socket}" /bin/autoboot) = '0' ]] && {
+	echo -e "netstat -tlpn | grep -w $porta_socket > /dev/null || {  screen -r -S 'ws' -X quit;  screen -dmS ws${porta_socket} $py ${ADM_inst}/${1}.py; }" >> /bin/autoboot
+} || {
+	sed -i '/ws${porta_socket}/d' /bin/autoboot
+	echo -e "netstat -tlpn | grep -w $porta_socket > /dev/null || {  screen -r -S ws$porta_socket -X quit;  screen -dmS ws${porta_socket} $py ${ADM_inst}/${1}.py; }" >> /bin/autoboot
+}
 [[ -e $HOME/$1.py ]] && echo -e "\n\n Fichero Alojado en : ${ADM_inst}/$1.py \n\n Respaldo alojado en : $HOME/$1.py \n"
 #================================================================
-if $(ps x | grep $1) ; then
-print_center -verd " INICIANDO SOCK Python "
+if $(screen -list | grep -wc 'ws${porta_socket}') ; then
+print_center -verd " INICIANDO SOCK Python Puerto ${porta_socket} "
 sleep 1s && tput cuu1 && tput dl1
             else
 print_center -azu " FALTA ALGUN PARAMETRO PARA INICIAR"
 sleep 1s && tput cuu1 && tput dl1
-#SCREEN -dmS proxy python /etc/SSHPlus/proxy.py 80
 return
 fi
-[[ ! -e /bin/ejecutar/PortPD.log ]] && echo -e "${porta_socket}" > /bin/ejecutar/PortPD.log
+[[ ! -e /bin/ejecutar/PortPD.log ]] && echo -e "${conf}" > /bin/ejecutar/PortPD.log
 }
 
 #-----------SELECCION------------
