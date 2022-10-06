@@ -586,7 +586,7 @@ screen -dmS "ws${porta_socket}" $(which $py) ${ADM_inst}/${1}.py "$conf" & > /ro
 }
 [[ -e $HOME/$1.py ]] && echo -e "\n\n Fichero Alojado en : ${ADM_inst}/$1.py \n\n Respaldo alojado en : $HOME/$1.py \n"
 #================================================================
-[[ ! -z $(screen -list | grep -wc '"ws${porta_socket}") ]] {
+[[ ! -z $(screen -list | grep "ws${porta_socket}") ]] {
 print_center -verd " INICIANDO SOCK Python Puerto ${porta_socket} "
 sleep 1s && tput cuu1 && tput dl1
 } || {
