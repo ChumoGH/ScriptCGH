@@ -125,11 +125,12 @@ _ps="$(ps x)"
     tput cuu1 && tput dl1
 
     [[ $prpy = "0" ]] && return
-
     systemctl stop python.${pypr[$prpy]} &>/dev/null
     systemctl disable python.${pypr[$prpy]} &>/dev/null
     rm /etc/systemd/system/python.${pypr[$prpy]}.service &>/dev/null
-
+	_PID=$(screen -ls | grep ".ws${pypr[$prpy]}" | awk {'print $1'})
+	screen -r -S "$_PID" -X quit &>/dev/null
+	sed -i "/ws${pypr[$prpy]}/d" /bin/autoboot
     print_center -verd "PUERTO PYTHON ${pypr[$prpy]} detenido"
     msg -bar3
     sleep 3
@@ -579,10 +580,10 @@ msg -bar3
 chmod +x ${ADM_inst}/$1.py
 screen -dmS "ws${porta_socket}" $(which $py) ${ADM_inst}/${1}.py "$conf" & > /root/checkPY.log
 [[ $(grep -wc "ws${porta_socket}" /bin/autoboot) = '0' ]] && {
-	echo -e "netstat -tlpn | grep -w $porta_socket > /dev/null || {  screen -r -S 'ws' -X quit;  screen -dmS ws${porta_socket} $py ${ADM_inst}/${1}.py $porta_socket; }" >> /bin/autoboot
+	echo -e "netstat -tlpn | grep -w $porta_socket > /dev/null || {  screen -r -S 'ws$porta_socket' -X quit;  screen -dmS ws${porta_socket} $py ${ADM_inst}/${1}.py $porta_socket; }" >> /bin/autoboot
 } || {
 	sed -i "/ws${porta_socket}/d" /bin/autoboot
-	echo -e "netstat -tlpn | grep -w $porta_socket > /dev/null || {  screen -r -S ws$porta_socket -X quit;  screen -dmS ws${porta_socket} $py ${ADM_inst}/${1}.py $porta_socket; }" >> /bin/autoboot
+	echo -e "netstat -tlpn | grep -w $porta_socket > /dev/null || {  screen -r -S 'ws$porta_socket' -X quit;  screen -dmS ws${porta_socket} $py ${ADM_inst}/${1}.py $porta_socket; }" >> /bin/autoboot
 }
 [[ -e $HOME/$1.py ]] && echo -e "\n\n Fichero Alojado en : ${ADM_inst}/$1.py \n\n Respaldo alojado en : $HOME/$1.py \n"
 #================================================================
@@ -624,7 +625,7 @@ return 1
 #-----------FIN SELECCION--------
 selecPython
     msg -bar3
-    [[ $(ps x | grep -w  "PDirect.py" | grep -v "grep" | awk -F "pts" '{print $1}') ]] && print_center -verd "PYTHON ${porta_socket} INICIADO CON EXITO!!!" || print_center -ama " ERROR AL INICIAR PYTHON ${porta_socket} !!!"
+    [[ $(ps x | grep -w  "PDirect.py" | grep -v "grep" | awk -F "pts" '{print $1}') ]] && print_center -verd "PYTHON INICIADO CON EXITO!!!" || print_center -ama " ERROR AL INICIAR PYTHON!!!"
     msg -bar3
     sleep 1
 }
