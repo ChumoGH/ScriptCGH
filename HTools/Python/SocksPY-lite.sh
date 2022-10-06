@@ -283,7 +283,10 @@ rm -f /etc/systemd/system/python.${porta_socket}.service &>/dev/null
 #================================================================
 (
 less << PYTHON  > ${ADM_inst}/PDirect.py
+#!/usr/bin/env python
+# encoding: utf-8
 import socket, threading, thread, select, signal, sys, time, getopt
+
 # Listen
 LISTENING_ADDR = '0.0.0.0'
 if sys.argv[1:]:
@@ -296,8 +299,16 @@ PASS = ''
 BUFLEN = 4096 * 4
 TIMEOUT = 60
 DEFAULT_HOST = '127.0.0.1:$local'
+MSG = '$texto'
+STATUS_RESP = '$response'
+FTAG = '\r\nContent-length: 0\r\n\r\nHTTP/1.1 200 Connection established\r\n\r\n'
 
-RESPONSE = str('HTTP/1.1 $response <strong>$texto</strong>\r\nContent-length: 0\r\n\r\nHTTP/1.1 200 Connection established\r\n\r\n')
+if STATUS_RESP == '101':
+    STATUS_TXT = '<font color="green">Switching Protocols</font>'
+else:
+    STATUS_TXT = '<font color="red">Connection established</font>'
+
+RESPONSE = "HTTP/1.1 " + str(STATUS_RESP) + ' ' + str(STATUS_TXT) + ' ' +  str(MSG) + ' ' +  str(FTAG)
 
 class Server(threading.Thread):
     def __init__(self, host, port):
@@ -306,33 +317,37 @@ class Server(threading.Thread):
         self.host = host
         self.port = port
         self.threads = []
-        self.threadsLock = threading.Lock()
-        self.logLock = threading.Lock()
+	self.threadsLock = threading.Lock()
+	self.logLock = threading.Lock()
+
     def run(self):
         self.soc = socket.socket(socket.AF_INET)
         self.soc.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
         self.soc.settimeout(2)
-        intport = int(self.port)
-        self.soc.bind((self.host, intport))
+        self.soc.bind((self.host, self.port))
         self.soc.listen(0)
         self.running = True
-        try:
+
+        try:                    
             while self.running:
                 try:
                     c, addr = self.soc.accept()
                     c.setblocking(1)
                 except socket.timeout:
                     continue
+                
                 conn = ConnectionHandler(c, self, addr)
-                conn.start()
+                conn.start();
                 self.addConn(conn)
         finally:
             self.running = False
             self.soc.close()
+            
     def printLog(self, log):
         self.logLock.acquire()
         print log
         self.logLock.release()
+	
     def addConn(self, conn):
         try:
             self.threadsLock.acquire()
@@ -340,21 +355,26 @@ class Server(threading.Thread):
                 self.threads.append(conn)
         finally:
             self.threadsLock.release()
+                    
     def removeConn(self, conn):
         try:
             self.threadsLock.acquire()
             self.threads.remove(conn)
         finally:
             self.threadsLock.release()
+                
     def close(self):
         try:
             self.running = False
             self.threadsLock.acquire()
+            
             threads = list(self.threads)
             for c in threads:
                 c.close()
         finally:
             self.threadsLock.release()
+			
+
 class ConnectionHandler(threading.Thread):
     def __init__(self, socClient, server, addr):
         threading.Thread.__init__(self)
@@ -364,6 +384,7 @@ class ConnectionHandler(threading.Thread):
         self.client_buffer = ''
         self.server = server
         self.log = 'Connection: ' + str(addr)
+
     def close(self):
         try:
             if not self.clientClosed:
@@ -373,6 +394,7 @@ class ConnectionHandler(threading.Thread):
             pass
         finally:
             self.clientClosed = True
+            
         try:
             if not self.targetClosed:
                 self.target.shutdown(socket.SHUT_RDWR)
@@ -381,15 +403,21 @@ class ConnectionHandler(threading.Thread):
             pass
         finally:
             self.targetClosed = True
+
     def run(self):
         try:
             self.client_buffer = self.client.recv(BUFLEN)
+        
             hostPort = self.findHeader(self.client_buffer, 'X-Real-Host')
+            
             if hostPort == '':
                 hostPort = DEFAULT_HOST
+
             split = self.findHeader(self.client_buffer, 'X-Split')
+
             if split != '':
                 self.client.recv(BUFLEN)
+            
             if hostPort != '':
                 passwd = self.findHeader(self.client_buffer, 'X-Pass')
 				
@@ -404,6 +432,7 @@ class ConnectionHandler(threading.Thread):
             else:
                 print '- No X-Real-Host!'
                 self.client.send('HTTP/1.1 400 NoXRealHost!\r\n\r\n')
+
         except Exception as e:
             self.log += ' - error: ' + e.strerror
             self.server.printLog(self.log)
@@ -411,16 +440,22 @@ class ConnectionHandler(threading.Thread):
         finally:
             self.close()
             self.server.removeConn(self)
+
     def findHeader(self, head, header):
         aux = head.find(header + ': ')
+    
         if aux == -1:
             return ''
+
         aux = head.find(':', aux)
         head = head[aux+2:]
         aux = head.find('\r\n')
+
         if aux == -1:
             return ''
+
         return head[:aux];
+
     def connect_target(self, host):
         i = host.find(':')
         if i != -1:
@@ -430,18 +465,24 @@ class ConnectionHandler(threading.Thread):
             if self.method=='CONNECT':
                 port = 443
             else:
-                port = sys.argv[1]
+                port = 80
+
         (soc_family, soc_type, proto, _, address) = socket.getaddrinfo(host, port)[0]
+
         self.target = socket.socket(soc_family, soc_type, proto)
         self.targetClosed = False
         self.target.connect(address)
+
     def method_CONNECT(self, path):
         self.log += ' - CONNECT ' + path
+        
         self.connect_target(path)
         self.client.sendall(RESPONSE)
         self.client_buffer = ''
+
         self.server.printLog(self.log)
         self.doCONNECT()
+
     def doCONNECT(self):
         socs = [self.client, self.target]
         count = 0
@@ -462,6 +503,7 @@ class ConnectionHandler(threading.Thread):
                                 while data:
                                     byte = self.target.send(data)
                                     data = data[byte:]
+
                             count = 0
 			else:
 			    break
@@ -470,12 +512,16 @@ class ConnectionHandler(threading.Thread):
                         break
             if count == TIMEOUT:
                 error = True
+
             if error:
                 break
+
+
 def print_usage():
-    print 'Usage: proxy.py -p <port>'
-    print '       proxy.py -b <bindAddr> -p <port>'
-    print '       proxy.py -b 0.0.0.0 -p 80'
+    print 'Use: proxy.py -p <port>'
+    print '       proxy.py -b <ip> -p <porta>'
+    print '       proxy.py -b 0.0.0.0 -p 22'
+
 def parse_args(argv):
     global LISTENING_ADDR
     global LISTENING_PORT
@@ -493,55 +539,46 @@ def parse_args(argv):
             LISTENING_ADDR = arg
         elif opt in ("-p", "--port"):
             LISTENING_PORT = int(arg)
+    
+
 def main(host=LISTENING_ADDR, port=LISTENING_PORT):
-    print "\n:-------PythonProxy-------:\n"
-    print "Listening addr: " + LISTENING_ADDR
-    print "Listening port: " + str(LISTENING_PORT) + "\n"
-    print ":-------------------------:\n"
+    
+    print "\033[0;34m━"*8,"\033[1;32m PROXY WEBSOCKET","\033[0;34m━"*8,"\n"
+    print "\033[1;33mIP:\033[1;32m " + LISTENING_ADDR
+    print "\033[1;33mPORTA:\033[1;32m " + str(LISTENING_PORT) + "\n"
+    print "\033[0;34m━"*10,"\033[1;32m VPSMANAGER","\033[0;34m━\033[1;37m"*11,"\n"
+    
+    
     server = Server(LISTENING_ADDR, LISTENING_PORT)
     server.start()
+
     while True:
         try:
             time.sleep(2)
         except KeyboardInterrupt:
-            print 'Stopping...'
+            print 'Parando...'
             server.close()
             break
-#######    parse_args(sys.argv[1:])
+    
 if __name__ == '__main__':
+    parse_args(sys.argv[1:])
     main()
 PYTHON
 ) > $HOME/proxy.log
 
 msg -bar3
-
-echo -e "[Unit]
-Description=$1 Parametizado Service by @ChumoGH
-
-After=network.target network-online.target nss-lookup.target mysql.service mariadb.service mysqld.service
-StartLimitIntervalSec=0
-
-[Service]
-Type=simple
-User=root
-WorkingDirectory=/root
-ExecStart=$(which $py) ${ADM_inst}/${1}.py $conf
-Restart=always
-RestartSec=3s
-
-[Install]
-WantedBy=multi-user.target" > /etc/systemd/system/$py.$porta_socket.service
-systemctl enable $py.$porta_socket &>/dev/null
-systemctl start $py.$porta_socket &>/dev/null
+#systemctl start $py.$porta_socket &>/dev/null
 chmod +x ${ADM_inst}/$1.py
+SCREEN -dmS "ws${porta_socket}" $(which $py) ${ADM_inst}/${1}.py "$conf" & > /root/checkPY.log
 [[ -e $HOME/$1.py ]] && echo -e "\n\n Fichero Alojado en : ${ADM_inst}/$1.py \n\n Respaldo alojado en : $HOME/$1.py \n"
 #================================================================
-if systemctl restart $py.$porta_socket &>/dev/null ; then
+if $(ps x | grep $1) ; then
 print_center -verd " INICIANDO SOCK Python "
 sleep 1s && tput cuu1 && tput dl1
             else
 print_center -azu " FALTA ALGUN PARAMETRO PARA INICIAR"
 sleep 1s && tput cuu1 && tput dl1
+#SCREEN -dmS proxy python /etc/SSHPlus/proxy.py 80
 return
 fi
 [[ ! -e /bin/ejecutar/PortPD.log ]] && echo -e "${conf}" > /bin/ejecutar/PortPD.log
@@ -551,8 +588,8 @@ fi
 selecPython () {
 echo -e "\e[91m\e[43m  ==== SCRIPT MOD ChumoGH|EDICION ====  \033[0m \033[0;33m[$(less ${ADM_inst}/v-local.log)]"
 msg -bar3
-echo -ne "$(msg -verd "  [1]") $(msg -verm2 ">") " && msg -azu "Socks WS 1 - OFICIAL"
-echo -ne "$(msg -verd "  [2]") $(msg -verm2 ">") " && msg -azu "Socks WS 2 - BETA "
+echo -ne "$(msg -verd "  [1]") $(msg -verm2 ">") " && msg -azu "Socks WS OFICIAL "
+echo -ne "$(msg -verd "  [2]") $(msg -verm2 ">") " && msg -azu "Socks WS BETA "
 msg -bar3
 echo -ne "$(msg -verd "  [0]") $(msg -verm2 ">") " && msg -bra "   \033[1;41m VOLVER \033[0m"
 msg -bar3
@@ -560,7 +597,7 @@ selection=$(selection_fun 2)
 case ${selection} in
     1)
     wget -q -O /etc/adm-lite/PDirect.py https://raw.githubusercontent.com/ChumoGH/ChumoGH-Script/master/Python/PDirect.py
-    mod1 "${conect}"
+    mod1 "${conect}" 
     sleep 2s
     ;;
     2)
