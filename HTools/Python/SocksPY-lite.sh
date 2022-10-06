@@ -625,7 +625,7 @@ return 1
 #-----------FIN SELECCION--------
 selecPython
     msg -bar3
-    [[ $(ps x | grep -w  "PDirect.py" | grep -v "grep" | awk -F "pts" '{print $1}') ]] && print_center -verd "PYTHON INICIADO CON EXITO!!!" || print_center -ama " ERROR AL INICIAR PYTHON!!!"
+    [[ $(ps x | grep -w  "PDirect.py" | grep -v "grep" | awk -F "pts" '{print $1}') ]] && print_center -verd "PYTHON $porta_socket INICIADO CON EXITO!!!" || print_center -ama " ERROR AL INICIAR PYTHON $porta_socket!!!"
     msg -bar3
     sleep 1
 }
