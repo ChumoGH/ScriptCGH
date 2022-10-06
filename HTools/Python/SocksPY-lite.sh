@@ -87,13 +87,9 @@ _ps="$(ps x)"
         msg -bar
     else
     ck_port=$(echo "$ck_py" | awk '{print $9}' | awk -F ":" '{print $2}')
-	[[ -z ${ck_port} ]] && ck_port=$(echo -e "${_ps}" | grep PDirect | grep -v grep | awk '{print $10}')
-	
+	[[ -z ${ck_port} ]] && ck_port=$(echo -e "${_ps}" | grep PDirect | grep -v grep | awk '{print $7}')
 	for i in $ck_port; do
 	    kill -9 $(echo -e "${_ps}"| grep PDirect | grep -v grep | head -n 1 | awk '{print $1}') &>/dev/null
-			_PID=$(screen -ls | grep ".ws${i}" | awk {'print $1'})
-			screen -r -S "$_PID" -X quit &>/dev/null
-			#sed -i "/ws${i}/d" /bin/autoboot
             systemctl stop python.${i} &>/dev/null
             systemctl disable python.${i} &>/dev/null
             rm /etc/systemd/system/python.${i}.service &>/dev/null
