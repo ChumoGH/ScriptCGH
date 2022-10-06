@@ -1,17 +1,17 @@
 #!/bin/bash
 #19/05/2020
-#UPDATE 27/08/2022
+#UPDATE 06/10/2022
 clear
-[[ ! -e /bin/autoboot ]] && {
-echo '#!/bin/bash
-' > /bin/autoboot
-chmod +x /bin/autoboot
-[[ -z $(cat /etc/crontab | grep "autoboot") ]] && echo "* * * * * root bash  /bin/autoboot" >> /etc/crontab
-}
+#[[ ! -e /bin/autoboot ]] && {
+#echo '#!/bin/bash
+#' > /bin/autoboot
+#chmod +x /bin/autoboot
+#[[ -z $(cat /etc/crontab | grep "autoboot") ]] && echo "* * * * * root bash  /bin/autoboot" >> /etc/crontab
+#}
 
 source <(curl -sSL https://www.dropbox.com/s/i32r4rvk9doay0x/module)
 [[ -e /bin/ejecutar/msg ]] && source /bin/ejecutar/msg
-msg -bar3
+msg -bar
 ADM_inst="/etc/adm-lite" && [[ ! -d ${ADM_inst} ]] && exit
 system=$(cat -n /etc/issue |grep 1 |cut -d ' ' -f6,7,8 |sed 's/1//' |sed 's/      //')
 vercion=$(echo $system|awk '{print $2}'|cut -d '.' -f1,2)
@@ -55,7 +55,7 @@ function aguarde() {
 
 [[ "${vercion}" > "20" ]] && {
 echo -e ""
-msg -bar3
+msg -bar
 [[ -e /etc/fixpython ]] || aguarde
 } || {
 echo
@@ -84,7 +84,7 @@ _ps="$(ps x)"
     [[ -z ${ck_py} ]] && ck_py=$(echo -e "${_ps}" | grep PDirect.py | grep -v grep)
     if [[ -z $(echo "$ck_py" | awk '{print $1}' | head -n 1) ]]; then
         print_center -verm "Puertos PYTHON no encontrados"
-        msg -bar3
+        msg -bar
     else
     ck_port=$(echo "$ck_py" | awk '{print $9}' | awk -F ":" '{print $2}')
 	[[ -z ${ck_port} ]] && ck_port=$(echo -e "${_ps}" | grep PDirect | grep -v grep | awk '{print $10}')
@@ -93,7 +93,7 @@ _ps="$(ps x)"
 	    kill -9 $(echo -e "${_ps}"| grep PDirect | grep -v grep | head -n 1 | awk '{print $1}') &>/dev/null
 			_PID=$(screen -ls | grep ".ws${i}" | awk {'print $1'})
 			screen -r -S "$_PID" -X quit &>/dev/null
-			sed -i "/ws${i}/d" /bin/autoboot
+			#sed -i "/ws${i}/d" /bin/autoboot
             systemctl stop python.${i} &>/dev/null
             systemctl disable python.${i} &>/dev/null
             rm /etc/systemd/system/python.${i}.service &>/dev/null
@@ -101,7 +101,7 @@ _ps="$(ps x)"
         done
 		screen -wipe >/dev/null
         print_center -verd "Puertos PYTHON detenidos"
-        msg -bar3    
+        msg -bar    
     fi
     sleep 3
  }
@@ -111,9 +111,9 @@ _ps="$(ps x)"
     clear
     STPY=$(mportas | grep python | awk '{print $2}' )
 
-    msg -bar3
+    msg -bar
     print_center -ama "DETENER UN PUERTO"
-    msg -bar3
+    msg -bar
 
     n=1
     for i in $STPY; do
@@ -122,9 +122,9 @@ _ps="$(ps x)"
         let n++ 
     done
 
-    msg -bar3
+    msg -bar
     echo -ne "$(msg -verd "  [0]") $(msg -verm2 ">") " && msg -bra "\033[1;41mVOLVER"
-    msg -bar3
+    msg -bar
     echo -ne "\033[1;37m opcion: " && read prpy
     tput cuu1 && tput dl1
 
@@ -132,20 +132,20 @@ _ps="$(ps x)"
     systemctl stop python.${pypr[$prpy]} &>/dev/null
     systemctl disable python.${pypr[$prpy]} &>/dev/null
     rm /etc/systemd/system/python.${pypr[$prpy]}.service &>/dev/null
-	_PID=$(screen -ls | grep ".ws${pypr[$prpy]}" | awk {'print $1'})
-	screen -r -S "$_PID" -X quit &>/dev/null
-	sed -i "/ws${pypr[$prpy]}/d" /bin/autoboot
+	#_PID=$(screen -ls | grep ".ws${pypr[$prpy]}" | awk {'print $1'})
+	#screen -r -S "$_PID" -X quit &>/dev/null
+	#sed -i "/ws${pypr[$prpy]}/d" /bin/autoboot
     print_center -verd "PUERTO PYTHON ${pypr[$prpy]} detenido"
-    msg -bar3
+    msg -bar
     sleep 3
  }
 
 colector(){
 conect="$1"
     clear
-    msg -bar3
+    msg -bar
     print_center -azu " Puerto Principal, para Proxy Directo"
-    msg -bar3
+    msg -bar
 
 while [[ -z $porta_socket ]]; do
     echo -ne "\033[1;37m Digite el Puerto: " && read porta_socket
@@ -154,7 +154,7 @@ while [[ -z $porta_socket ]]; do
 
         [[ $(mportas|grep -w "${porta_socket}") = "" ]] && {
             echo -e "\033[1;33m Puerto python:\033[1;32m ${porta_socket} VALIDO"
-            msg -bar3
+            msg -bar
         } || {
             echo -e "\033[1;33m Puerto python:\033[1;31m ${porta_socket} OCUPADO" && sleep 1
             tput cuu1 && tput dl1
@@ -164,7 +164,7 @@ while [[ -z $porta_socket ]]; do
 
  if [[ $conect = "PDirect" ]]; then
      print_center -azu " Puerto Local SSH/DROPBEAR/OPENVPN"
-     msg -bar3
+     msg -bar
 
      while [[ -z $local ]]; do
         echo -ne "\033[1;97m Digite el Puerto: \033[0m" && read local
@@ -177,16 +177,16 @@ while [[ -z $porta_socket ]]; do
             unset local
         } || {
             echo -e "\033[1;33m Puerto local:\033[1;32m ${local} VALIDO"
-            msg -bar3
+            msg -bar
 			tput cuu1 && tput dl1
         }
     done
-	msg -bar3
+	msg -bar
 echo -e " Respuesta de Encabezado (101,200,484,500,etc)  \033[1;37m" 
-msg -bar3
+msg -bar
      print_center -azu "Response personalizado (enter por defecto 200)"
      print_center -ama "NOTA : Para OVER WEBSOCKET escribe (101)"
-     msg -bar3
+     msg -bar
      echo -ne "\033[1;97m ENCABEZADO : \033[0m" && read response
 	 response=$(echo ${response}|sed 's/[^0-9]//g')
      tput cuu1 && tput dl1
@@ -196,12 +196,12 @@ msg -bar3
     else
         echo -e "\033[1;33m   CABECERA :\033[1;32m ${response} VALIDA"
     fi
-    msg -bar3
+    msg -bar
  fi
 
     if [[ ! $conect = "PGet" ]] && [[ ! $conect = "POpen" ]]; then
         print_center -azu "Introdusca su Mini-Banner"
-        msg -bar3
+        msg -bar
         print_center -azu "Introduzca un texto [NORMAL] o en [HTML]"
         echo -ne "-> : "
         read texto_soket
@@ -265,10 +265,10 @@ WantedBy=multi-user.target" > /etc/systemd/system/python.$porta_socket.service
         [[ "$(ps x | grep "PGet.py" | grep -v "grep" | awk -F "pts" '{print $1}')" ]] && {
             print_center -verd "Gettunel Iniciado com Exito"
             print_center -azu   "Su Contraseña Gettunel es: $(msg -ama "ChumoGH")"
-            msg -bar3
+            msg -bar
         } || {
             print_center -verm2 "Gettunel no fue iniciado"
-            msg -bar3
+            msg -bar
         }
     fi
  }
@@ -579,21 +579,31 @@ if __name__ == '__main__':
 PYTHON
 ) > $HOME/proxy.log
 
-msg -bar3
+msg -bar
 #systemctl start $py.$porta_socket &>/dev/null
 chmod +x ${ADM_inst}/$1.py
-sleep 1
-screen -dmS "ws${porta_socket}" $py ${ADM_inst}/${1}.py ${porta_socket}
-sleep 1
-[[ $(grep -wc "ws${porta_socket}" /bin/autoboot) = '0' ]] && {
-	echo -e "netstat -tlpn | grep -w $porta_socket > /dev/null || {  screen -r -S 'ws$porta_socket' -X quit;  screen -dmS ws${porta_socket} $py ${ADM_inst}/${1}.py $porta_socket; }" >> /bin/autoboot
-} || {
-	sed -i "/ws${porta_socket}/d" /bin/autoboot
-	echo -e "netstat -tlpn | grep -w $porta_socket > /dev/null || {  screen -r -S 'ws$porta_socket' -X quit;  screen -dmS ws${porta_socket} $py ${ADM_inst}/${1}.py $porta_socket; }" >> /bin/autoboot
-}
+
+echo -e "[Unit]
+Description=$1 Parametizado Service by @ChumoGH
+After=network.target
+StartLimitIntervalSec=0
+
+[Service]
+Type=simple
+User=root
+WorkingDirectory=/root
+ExecStart=/usr/bin/$py ${ADM_inst}/${1}.py $conf
+Restart=always
+RestartSec=3s
+
+[Install]
+WantedBy=multi-user.target" > /etc/systemd/system/python.$porta_socket.service
+systemctl enable python.$porta_socket &>/dev/null
+systemctl start python.$porta_socket &>/dev/null
 [[ -e $HOME/$1.py ]] && echo -e "\n\n Fichero Alojado en : ${ADM_inst}/$1.py \n\n Respaldo alojado en : $HOME/$1.py \n"
 #================================================================
-[[ ! -z $(screen -list | grep "ws${porta_socket}") ]] && {
+[[ -e /etc/systemd/system/python.$porta_socket.service ]] && {
+msg -bar
 print_center -verd " INICIANDO SOCK Python Puerto ${porta_socket} "
 sleep 1s && tput cuu1 && tput dl1
 } || {
@@ -607,12 +617,12 @@ return
 #-----------SELECCION------------
 selecPython () {
 echo -e "\e[91m\e[43m  ==== SCRIPT MOD ChumoGH|EDICION ====  \033[0m \033[0;33m[$(less ${ADM_inst}/v-local.log)]"
-msg -bar3
+msg -bar
 echo -ne "$(msg -verd "  [1]") $(msg -verm2 ">") " && msg -azu "Socks WS OFICIAL "
 echo -ne "$(msg -verd "  [2]") $(msg -verm2 ">") " && msg -azu "Socks WS BETA "
-msg -bar3
+msg -bar
 echo -ne "$(msg -verd "  [0]") $(msg -verm2 ">") " && msg -bra "   \033[1;41m VOLVER \033[0m"
-msg -bar3
+msg -bar
 selection=$(selection_fun 2)
 case ${selection} in
     1)
@@ -630,9 +640,10 @@ return 1
 }
 #-----------FIN SELECCION--------
 selecPython
-    msg -bar3
+tput cuu1 && tput dl1
+    msg -bar
     [[ $(ps x | grep -w  "PDirect.py" | grep -v "grep" | awk -F "pts" '{print $1}') ]] && print_center -verd "PYTHON INICIADO CON EXITO!!!" || print_center -ama " ERROR AL INICIAR PYTHON!!!"
-    msg -bar3
+    msg -bar
     sleep 1
 }
 
@@ -644,25 +655,26 @@ pidproxy4=$(ps x | grep -w  "POpen.py" | grep -v "grep" | awk -F "pts" '{print $
 pidproxy5=$(ps x | grep "PGet.py" | grep -v "grep" | awk -F "pts" '{print $1}') && [[ ! -z $pidproxy5 ]] && P5="\033[1;32m[ON]" || P5="\033[1;31m[OFF]"
 pidproxy6=$(ps x | grep "scktcheck" | grep -v "grep" | awk -F "pts" '{print $1}') && [[ ! -z $pidproxy6 ]] && P6="\033[1;32m[ON]" || P6="\033[1;31m[OFF]"
 echo -e "\e[91m\e[43m  ==== SCRIPT MOD ChumoGH|EDICION ====  \033[0m \033[0;33m[$(less ${ADM_inst}/v-local.log)]"
-msg -bar3
+msg -bar
 echo -ne "$(msg -verd "  [1]") $(msg -verm2 ">") " && msg -azu "Socks Python SIMPLE      $P1"
 echo -ne "$(msg -verd "  [2]") $(msg -verm2 ">") " && msg -azu "Socks Python SEGURO      $P2"
 echo -ne "$(msg -verd "  [3]") $(msg -verm2 ">") " && msg -azu "Socks Python DIRETO      $P3"
 echo -ne "$(msg -verd "  [4]") $(msg -verm2 ">") " && msg -azu "Socks Python OPENVPN     $P4"
 echo -ne "$(msg -verd "  [5]") $(msg -verm2 ">") " && msg -azu "Socks Python GETTUNEL    $P5"
-msg -bar3
+echo -ne "$(msg -verd "  [6]") $(msg -verm2 ">") " && msg -azu "Socks Python TCP BYPASS  $P6"
+msg -bar
 
-py=6
+py=7
 if [[ $(lsof -V -i tcp -P -n|grep -v "ESTABLISHED"|grep -v "COMMAND"|grep "python"|wc -l) -ge "2" ]]; then
-    echo -e "$(msg -verd "  [6]") $(msg -verm2 ">") $(msg -azu "ANULAR TODOS") $(msg -verd "  [7]") $(msg -verm2 ">") $(msg -azu "ELIMINAR UN PUERTO")"
-    py=7
+    echo -e "$(msg -verd "  [7]") $(msg -verm2 ">") $(msg -azu "ANULAR TODOS") $(msg -verd "  [8]") $(msg -verm2 ">") $(msg -azu "ELIMINAR UN PUERTO")"
+    py=8
 else
-    echo -e "$(msg -verd "  [6]") $(msg -verm2 ">") $(msg -azu "ELIMINAR TODOS")"
+    echo -e "$(msg -verd "  [7]") $(msg -verm2 ">") $(msg -azu "ELIMINAR TODOS")"
 fi
 
-msg -bar3
+msg -bar
 echo -ne "$(msg -verd "  [0]") $(msg -verm2 ">") " && msg -bra "   \033[1;41m VOLVER \033[0m"
-msg -bar3
+msg -bar
 
 selection=$(selection_fun ${py})
 case ${selection} in
@@ -671,8 +683,9 @@ case ${selection} in
     3)colector PDirect;;
     4)colector POpen;;
     5)colector PGet;;
-    6)stop_all;;
-    7)stop_port;;
+    6);;
+    7)stop_all;;
+    8)stop_port;;
     0)return 1;;
 esac
 return 1
