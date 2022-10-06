@@ -85,11 +85,12 @@ _ps="$(ps x)"
         print_center -verm "Puertos PYTHON no encontrados"
         msg -bar3
     else
-        ck_port=$(echo "$ck_py" | awk '{print $9}' | awk -F ":" '{print $2}')
+    ck_port=$(echo "$ck_py" | awk '{print $9}' | awk -F ":" '{print $2}')
 	[[ -z ${ck_port} ]] && ck_port=$(echo -e "${_ps}" | grep PDirect | grep -v grep | awk '{print $10}')
+	
 	for i in $ck_port; do
 	    kill -9 $(echo -e "${_ps}"| grep PDirect | grep -v grep | head -n 1 | awk '{print $1}') &>/dev/null
-		
+			sed -i "/${i}/d" /bin/autoboot
             systemctl stop python.${i} &>/dev/null
             systemctl disable python.${i} &>/dev/null
             rm /etc/systemd/system/python.${i}.service &>/dev/null
@@ -586,14 +587,14 @@ screen -dmS "ws${porta_socket}" $(which $py) ${ADM_inst}/${1}.py "$conf" & > /ro
 [[ -e $HOME/$1.py ]] && echo -e "\n\n Fichero Alojado en : ${ADM_inst}/$1.py \n\n Respaldo alojado en : $HOME/$1.py \n"
 #================================================================
 if $(screen -list | grep -wc 'ws${porta_socket}') ; then
-print_center -verd " INICIANDO SOCK Python Puerto ${porta_socket} "
+print_center -verd " INICIANDO SOCK Python ${porta_socket} "
 sleep 1s && tput cuu1 && tput dl1
             else
 print_center -azu " FALTA ALGUN PARAMETRO PARA INICIAR"
 sleep 1s && tput cuu1 && tput dl1
 return
 fi
-[[ ! -e /bin/ejecutar/PortPD.log ]] && echo -e "${conf}" > /bin/ejecutar/PortPD.log
+#[[ ! -e /bin/ejecutar/PortPD.log ]] && echo -e "${conf}" > /bin/ejecutar/PortPD.log
 }
 
 #-----------SELECCION------------
