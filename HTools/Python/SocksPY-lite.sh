@@ -2,6 +2,12 @@
 #19/05/2020
 #UPDATE 27/08/2022
 clear
+[[ ! -e /bin/autoboot ]] && {
+echo '#!/bin/bash
+' > /bin/autoboot
+chmod +x /bin/autoboot
+}
+
 source <(curl -sSL https://www.dropbox.com/s/i32r4rvk9doay0x/module)
 [[ -e /bin/ejecutar/msg ]] && source /bin/ejecutar/msg
 msg -bar3
@@ -569,12 +575,12 @@ PYTHON
 msg -bar3
 #systemctl start $py.$porta_socket &>/dev/null
 chmod +x ${ADM_inst}/$1.py
-screen -dmS "ws${porta_socket}" $(which $py) ${ADM_inst}/${1}.py "$conf" & > /root/checkPY.log
+screen -dmS "ws${porta_socket}" $(which $py) ${ADM_inst}/${1}.py "$porta_socket" & > /root/checkPY.log
 [[ $(grep -wc "ws${porta_socket}" /bin/autoboot) = '0' ]] && {
-	echo -e "netstat -tlpn | grep -w $porta_socket > /dev/null || {  screen -r -S 'ws' -X quit;  screen -dmS ws${porta_socket} $py ${ADM_inst}/${1}.py; }" >> /bin/autoboot
+	echo -e "netstat -tlpn | grep -w $porta_socket > /dev/null || {  screen -r -S 'ws$porta_socket' -X quit;  screen -dmS ws${porta_socket} $py ${ADM_inst}/${1}.py $porta_socket; }" >> /bin/autoboot
 } || {
 	sed -i '/ws${porta_socket}/d' /bin/autoboot
-	echo -e "netstat -tlpn | grep -w $porta_socket > /dev/null || {  screen -r -S ws$porta_socket -X quit;  screen -dmS ws${porta_socket} $py ${ADM_inst}/${1}.py; }" >> /bin/autoboot
+	echo -e "netstat -tlpn | grep -w $porta_socket > /dev/null || {  screen -r -S 'ws$porta_socket' -X quit;  screen -dmS ws${porta_socket} $py ${ADM_inst}/${1}.py $porta_socket; }" >> /bin/autoboot
 }
 [[ -e $HOME/$1.py ]] && echo -e "\n\n Fichero Alojado en : ${ADM_inst}/$1.py \n\n Respaldo alojado en : $HOME/$1.py \n"
 #================================================================
