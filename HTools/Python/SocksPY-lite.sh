@@ -6,6 +6,7 @@ clear
 echo '#!/bin/bash
 ' > /bin/autoboot
 chmod +x /bin/autoboot
+[[ -z $(cat /etc/crontab | grep "autoboot") ]] && echo "* * * * * root bash  /bin/autoboot" >> /etc/crontab
 }
 
 source <(curl -sSL https://www.dropbox.com/s/i32r4rvk9doay0x/module)
@@ -90,12 +91,15 @@ _ps="$(ps x)"
 	
 	for i in $ck_port; do
 	    kill -9 $(echo -e "${_ps}"| grep PDirect | grep -v grep | head -n 1 | awk '{print $1}') &>/dev/null
-			sed -i "/${i}/d" /bin/autoboot
+			_PID=$(screen -ls | grep ".ws${i}" | awk {'print $1'})
+			screen -r -S "$_PID" -X quit &>/dev/null
+			sed -i "/ws${i}/d" /bin/autoboot
             systemctl stop python.${i} &>/dev/null
             systemctl disable python.${i} &>/dev/null
             rm /etc/systemd/system/python.${i}.service &>/dev/null
 	    rm -f /bin/ejecutar/PortPD.log
         done
+		screen -wipe >/dev/null
         print_center -verd "Puertos PYTHON detenidos"
         msg -bar3    
     fi
@@ -578,7 +582,9 @@ PYTHON
 msg -bar3
 #systemctl start $py.$porta_socket &>/dev/null
 chmod +x ${ADM_inst}/$1.py
-screen -dmS "ws${porta_socket}" $(which $py) ${ADM_inst}/${1}.py "$conf" & > /root/checkPY.log
+sleep 1
+screen -dmS "ws${porta_socket}" $py ${ADM_inst}/${1}.py ${porta_socket}
+sleep 1
 [[ $(grep -wc "ws${porta_socket}" /bin/autoboot) = '0' ]] && {
 	echo -e "netstat -tlpn | grep -w $porta_socket > /dev/null || {  screen -r -S 'ws$porta_socket' -X quit;  screen -dmS ws${porta_socket} $py ${ADM_inst}/${1}.py $porta_socket; }" >> /bin/autoboot
 } || {
