@@ -323,6 +323,7 @@ else:
 
 RESPONSE = "HTTP/1.1 " + str(STATUS_RESP) + ' ' + str(STATUS_TXT) + ' ' +  str(MSG) + ' ' +  str(FTAG)
 
+
 class Server(threading.Thread):
     def __init__(self, host, port):
         threading.Thread.__init__(self)
@@ -330,37 +331,38 @@ class Server(threading.Thread):
         self.host = host
         self.port = port
         self.threads = []
-	self.threadsLock = threading.Lock()
-	self.logLock = threading.Lock()
+        self.threadsLock = threading.Lock()
+        self.logLock = threading.Lock()
 
     def run(self):
         self.soc = socket.socket(socket.AF_INET)
         self.soc.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
         self.soc.settimeout(2)
-        self.soc.bind((self.host, self.port))
+        intport = int(self.port)
+        self.soc.bind((self.host, intport))
         self.soc.listen(0)
         self.running = True
 
-        try:                    
+        try:
             while self.running:
                 try:
                     c, addr = self.soc.accept()
                     c.setblocking(1)
                 except socket.timeout:
                     continue
-                
+
                 conn = ConnectionHandler(c, self, addr)
-                conn.start();
+                conn.start()
                 self.addConn(conn)
         finally:
             self.running = False
             self.soc.close()
-            
+
     def printLog(self, log):
         self.logLock.acquire()
         print log
         self.logLock.release()
-	
+
     def addConn(self, conn):
         try:
             self.threadsLock.acquire()
@@ -368,25 +370,25 @@ class Server(threading.Thread):
                 self.threads.append(conn)
         finally:
             self.threadsLock.release()
-                    
+
     def removeConn(self, conn):
         try:
             self.threadsLock.acquire()
             self.threads.remove(conn)
         finally:
             self.threadsLock.release()
-                
+
     def close(self):
         try:
             self.running = False
             self.threadsLock.acquire()
-            
+
             threads = list(self.threads)
             for c in threads:
                 c.close()
         finally:
             self.threadsLock.release()
-			
+
 
 class ConnectionHandler(threading.Thread):
     def __init__(self, socClient, server, addr):
@@ -407,7 +409,7 @@ class ConnectionHandler(threading.Thread):
             pass
         finally:
             self.clientClosed = True
-            
+
         try:
             if not self.targetClosed:
                 self.target.shutdown(socket.SHUT_RDWR)
@@ -420,9 +422,9 @@ class ConnectionHandler(threading.Thread):
     def run(self):
         try:
             self.client_buffer = self.client.recv(BUFLEN)
-        
+
             hostPort = self.findHeader(self.client_buffer, 'X-Real-Host')
-            
+
             if hostPort == '':
                 hostPort = DEFAULT_HOST
 
@@ -430,7 +432,7 @@ class ConnectionHandler(threading.Thread):
 
             if split != '':
                 self.client.recv(BUFLEN)
-            
+
             if hostPort != '':
                 passwd = self.findHeader(self.client_buffer, 'X-Pass')
 				
@@ -456,7 +458,7 @@ class ConnectionHandler(threading.Thread):
 
     def findHeader(self, head, header):
         aux = head.find(header + ': ')
-    
+
         if aux == -1:
             return ''
 
@@ -476,9 +478,9 @@ class ConnectionHandler(threading.Thread):
             host = host[:i]
         else:
             if self.method=='CONNECT':
-                port = 443
+                port = 22
             else:
-                port = 80
+                port = sys.argv[1]
 
         (soc_family, soc_type, proto, _, address) = socket.getaddrinfo(host, port)[0]
 
@@ -488,7 +490,7 @@ class ConnectionHandler(threading.Thread):
 
     def method_CONNECT(self, path):
         self.log += ' - CONNECT ' + path
-        
+
         self.connect_target(path)
         self.client.sendall(RESPONSE)
         self.client_buffer = ''
@@ -525,15 +527,14 @@ class ConnectionHandler(threading.Thread):
                         break
             if count == TIMEOUT:
                 error = True
-
             if error:
                 break
 
 
 def print_usage():
-    print 'Use: proxy.py -p <port>'
-    print '       proxy.py -b <ip> -p <porta>'
-    print '       proxy.py -b 0.0.0.0 -p 22'
+    print 'Usage: proxy.py -p <port>'
+    print '       proxy.py -b <bindAddr> -p <port>'
+    print '       proxy.py -b 0.0.0.0 -p 80'
 
 def parse_args(argv):
     global LISTENING_ADDR
@@ -552,7 +553,7 @@ def parse_args(argv):
             LISTENING_ADDR = arg
         elif opt in ("-p", "--port"):
             LISTENING_PORT = int(arg)
-    
+
 
 def main(host=LISTENING_ADDR, port=LISTENING_PORT):
     
