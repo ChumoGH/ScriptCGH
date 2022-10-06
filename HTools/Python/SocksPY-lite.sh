@@ -577,17 +577,17 @@ PYTHON
 msg -bar3
 #systemctl start $py.$porta_socket &>/dev/null
 chmod +x ${ADM_inst}/$1.py
-screen -dmS "ws${porta_socket}" $(which $py) ${ADM_inst}/${1}.py "$conf" & > /root/checkPY.log
-[[ $(grep -wc "ws${porta_socket}" /bin/autoboot) = '0' ]] && {
-	echo -e "netstat -tlpn | grep -w $porta_socket > /dev/null || {  screen -r -S 'ws' -X quit;  screen -dmS ws${porta_socket} $py ${ADM_inst}/${1}.py; }" >> /bin/autoboot
-} || {
-	sed -i '/ws${porta_socket}/d' /bin/autoboot
-	echo -e "netstat -tlpn | grep -w $porta_socket > /dev/null || {  screen -r -S ws$porta_socket -X quit;  screen -dmS ws${porta_socket} $py ${ADM_inst}/${1}.py; }" >> /bin/autoboot
-}
+screen -dmS "ws${porta_socket}" $py ${ADM_inst}/${1}.py "$conf" & > /root/checkPY.log
 [[ -e $HOME/$1.py ]] && echo -e "\n\n Fichero Alojado en : ${ADM_inst}/$1.py \n\n Respaldo alojado en : $HOME/$1.py \n"
 #================================================================
 [[ ! -z $(screen -list | grep "ws${porta_socket}") ]] {
 print_center -verd " INICIANDO SOCK Python Puerto ${porta_socket} "
+[[ $(grep -wc "ws${porta_socket}" /bin/autoboot) = '0' ]] && {
+	echo -e "netstat -tlpn | grep -w $porta_socket > /dev/null || {  screen -r -S 'ws$porta_socket' -X quit;  screen -dmS ws${porta_socket} $py ${ADM_inst}/${1}.py $porta_socket; }" >> /bin/autoboot
+} || {
+	sed -i "/ws${porta_socket}/d" /bin/autoboot
+	echo -e "netstat -tlpn | grep -w $porta_socket > /dev/null || {  screen -r -S 'ws$porta_socket' -X quit;  screen -dmS ws${porta_socket} $py ${ADM_inst}/${1}.py $porta_socket; }" >> /bin/autoboot
+}
 sleep 1s && tput cuu1 && tput dl1
 } || {
 print_center -azu " FALTA ALGUN PARAMETRO PARA INICIAR"
