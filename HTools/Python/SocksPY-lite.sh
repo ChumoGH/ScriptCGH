@@ -569,7 +569,7 @@ PYTHON
 msg -bar3
 #systemctl start $py.$porta_socket &>/dev/null
 chmod +x ${ADM_inst}/$1.py
-SCREEN -dmS "ws${porta_socket}" $(which $py) ${ADM_inst}/${1}.py "$conf" & > /root/checkPY.log
+screen -dmS "ws${porta_socket}" $(which $py) ${ADM_inst}/${1}.py "$conf" & > /root/checkPY.log
 [[ -e $HOME/$1.py ]] && echo -e "\n\n Fichero Alojado en : ${ADM_inst}/$1.py \n\n Respaldo alojado en : $HOME/$1.py \n"
 #================================================================
 if $(ps x | grep $1) ; then
