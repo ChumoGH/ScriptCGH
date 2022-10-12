@@ -53,8 +53,8 @@ for pd in `ps x | grep tcpdump | grep -v grep | awk '{print $1}'`; do
 kill -9 $pd &> /dev/null
 done
 #INICIA TCP
-tcpdump -s 50 -n &> /dev/null
-
+tcpdump -s 50 -n 1> /tmp/tcpdump 2> /dev/null &
+[[ ! -e /tmp/tcpdump ]] && touch /tmp/tcpdump
 touch /tmp/$user
 ip_openssh $user > /dev/null 2>&1
 ip_drop $user > /dev/null 2>&1
