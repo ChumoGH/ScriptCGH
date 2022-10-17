@@ -1,5 +1,6 @@
 #!/bin/bash
 #CREADOR Henry Chumo | 06/06/2022
+#REFACTORY | 16/10/2022
 #Alias : @ChumoGH
 # -*- ENCODING: UTF-8 -*-
 
@@ -43,6 +44,7 @@ done
 fun_net () {
 user=$1
 (
+log_0="/tmp/tcpdum"
 log_1="/tmp/tcpdump"
 log_2="/tmp/tcpdumpLOG"
 usr_dir="/etc/adm-lite/userDIR/usr_cnx"
@@ -108,16 +110,6 @@ killing () {
 
 _timeUSER () {
 user=$1
-sqd="$(ps -u $user | grep sshd | wc -l)"
-[[ "$sqd" = "" ]] && sqd=0
-[[ -e /etc/openvpn/openvpn-status.log ]] && ovp="$(cat /etc/openvpn/openvpn-status.log | grep -E ,"$user", | wc -l)" || ovp=0
-if netstat -nltp|grep 'dropbear'> /dev/null;then
-     drop="$(dropb | grep "$user" | wc -l)"
- else
-     drop=0
-fi
-cnx=$(($sqd + $drop + $ovp))
-if [[ $cnx -gt 0 ]]; then
 	tst="$(ps -o etime $(ps -u $user |grep sshd |awk 'NR==1 {print $1}')|awk 'NR==2 {print $1}')"
 	tst1=$(echo "$tst" | wc -c)
 	if [[ "$tst1" == "9" ]]; then 
@@ -125,6 +117,7 @@ if [[ $cnx -gt 0 ]]; then
 	else
 		timerr="$(echo "00:$tst")"
 	fi
+[[ "$tst1" == "0" ]] && return
 unset var4 var5 var6 calc2
 tmp2="$timerr"
 var4=`echo $tmp2 | cut -c 1-2`
@@ -133,17 +126,38 @@ var6=`echo $tmp2 | cut -c 7-8`
 [[ ! -e ${ADM}$user.time ]] && calc2=`echo $var4*3600 + $var5*60 + $var6 | bc` || calc2="$(cat ${ADM}$user.time)"
 seg=$(($calc2 + 3))
 echo "$seg" > ${ADM}$user.time
-fi
 }
 
 killerDROP () {
 user=$1 && limit=$2
 num=$(dropb | grep "$user" | wc -l)
+[[ $num > 1 ]] && {
+[[ -e /bin/ejecutar/usCONEXT ]] && _timeUSER ${user}
+[[ -e /bin/ejecutar/usCONEXC ]] && fun_net ${user}
+}
 [[ $num -gt $limit ]] && {
 pidKILL=$(dropb | grep "$user" | awk '{print $2}')
 killing $pidKILL
 echo " $user DROPBEAR LIMITADO ${limit}/$num | $(printf '%(%D-%H:%M:%S)T') !" >> $HOME/limiter.log
 }
+}
+
+killerSSH () {
+local user=$1
+local limit=$2
+local _ps="$(ps x | grep [[:space:]]$user[[:space:]] | grep -v grep | grep -v pts)"
+local conex=$(echo -e "$_ps" | wc -l)
+[[ $conex > 1 ]] && {
+[[ -e /bin/ejecutar/usCONEXT ]] && _timeUSER ${user}
+[[ -e /bin/ejecutar/usCONEXC ]] && fun_net ${user}
+}
+[[ $conex -gt $limit ]] && {
+		while read line; do
+			local tmp="$(echo $line | cut -d' ' -f1)"
+			killing $tmp
+			echo " ( $user ) LIMITADO ${conex}/${limit} | $(printf '%(%D-%H:%M:%S)T') !" >> $HOME/limiter.log
+		done <<< "$(echo -e "$_ps")"
+	}
 }
 
 
@@ -153,28 +167,8 @@ do
 [[ ${daaab} = "HWID" ]] && daaab=1
 [[ ${daaab} = "TOKEN" ]] && daaab=1
 killerDROP ${u} ${daaab}
-[[ -e /bin/ejecutar/usCONEX ]] && _timeUSER ${u}
-[[ -e /bin/ejecutar/usCONEX ]] && fun_net ${u}
+killerSSH ${u} ${daaab}
 echo "$u $daaab" >> /root/user
 done
-
-
-while read usline
-	do
-		user="$(echo $usline | cut -d' ' -f1)"
-		s2ssh="$(echo $usline | cut -d' ' -f2)"
-		if [ -z "$user" ] ; then
-			echo "" > /dev/null
-		else
-			s1ssh="$(ps x | grep [[:space:]]$user[[:space:]] | grep -v grep | grep -v pts | wc -l)"
-			[[ $s1ssh -gt $s2ssh ]] && {
-				while read line; do
-					tmp="$(echo $line | cut -d' ' -f1)"
-					kill $tmp
-					echo " ( $user ) LIMITADO ${s2ssh}/${s1ssh} | $(printf '%(%D-%H:%M:%S)T') !" >> $HOME/limiter.log
-				done <<< "$(ps x | grep [[:space:]]$user[[:space:]] | grep -v grep | grep -v pts)"
-			}
-		fi
-	done < "$database"
 
 rm -rf /root/user
