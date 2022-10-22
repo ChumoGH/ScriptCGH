@@ -951,7 +951,7 @@ echo -e "\e[91m\e[43m  ==== SCRIPT MOD ChumoGH|EDICION ====  \033[0m \033[0;33m[
 msg -bar
 echo -ne "$(msg -verd "  [1]") $(msg -verm2 ">") " && msg -azu "Socks WS OFICIAL "
 echo -ne "$(msg -verd "  [2]") $(msg -verm2 ">") " && msg -azu "Socks WS BETA "
-echo -ne "$(msg -verd "  [2]") $(msg -verm2 ">") " && msg -azu "EXPERIMENTAL ( SOLO PRUEBAS )"
+echo -ne "$(msg -verd "  [3]") $(msg -verm2 ">") " && msg -azu "EXPERIMENTAL ( SOLO PRUEBAS )"
 msg -bar
 echo -ne "$(msg -verd "  [0]") $(msg -verm2 ">") " && msg -bra "   \033[1;41m VOLVER \033[0m"
 msg -bar
