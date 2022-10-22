@@ -599,12 +599,6 @@ systemctl start python.$porta_socket &>/dev/null
 [[ -e /etc/systemd/system/python.$porta_socket.service ]] && {
 msg -bar
 print_center -verd " INICIANDO SOCK Python Puerto ${porta_socket} "
-[[ $(grep -wc "ws$porta_socket" /bin/autoboot) = '0' ]] && {
-						echo -e "netstat -tlpn | grep -w $porta_socket > /dev/null || {  screen -r -S 'ws$porta_socket' -X quit;  screen -dmS ws$porta_socket python ${ADM_inst}/$1.py ${porta_socket}; }" >>/bin/autoboot
-					} || {
-						sed -i '/wsproxy.py/d' /bin/autoboot
-						echo -e "netstat -tlpn | grep -w $porta_socket > /dev/null || {  screen -r -S 'ws$porta_socket' -X quit;  screen -dmS ws$porta_socket python ${ADM_inst}/$1.py ${porta_socket}; }" >>/bin/autoboot
-					}
 sleep 1s && tput cuu1 && tput dl1
 } || {
 print_center -azu " FALTA ALGUN PARAMETRO PARA INICIAR"
