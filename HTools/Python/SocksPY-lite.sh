@@ -617,13 +617,8 @@ return
  tput cuu1 && tput dl1
  tput cuu1 && tput dl1
 texto="$(echo ${texto_soket} | sed 's/\"//g')"
-#texto_soket="$(echo $texto|sed 'y/Ã¡ÃÃ Ã€Ã£ÃƒÃ¢Ã‚Ã©Ã‰ÃªÃŠÃ­ÃÃ³Ã“ÃµÃ•Ã´Ã”ÃºÃšÃ±Ã‘Ã§Ã‡ÂªÂº/aAaAaAaAeEeEiIoOoOoOuUnNcCao/')"
 [[ ! -z $porta_bind ]] && conf=" 80 " || conf="$porta_socket "
-    #[[ ! -z $pass_file ]] && conf+="-p $pass_file"
-    #[[ ! -z $local ]] && conf+="-l $local "
-    #[[ ! -z $response ]] && conf+="-r $response "
-    #[[ ! -z $IP ]] && conf+="-i $IP "
-    [[ ! -z $texto_soket ]] && conf+=" '$texto_soket'"
+[[ ! -z $texto_soket ]] && conf+=" '$texto_soket'"
 cp ${ADM_inst}/$1.py $HOME/PDirect.py
 systemctl stop python.${porta_socket} &>/dev/null
 systemctl disable python.${porta_socket} &>/dev/null
@@ -914,14 +909,12 @@ if __name__ == '__main__':
     main()
 PYTHON
 ) > $HOME/proxy.log
-
 msg -bar
-#systemctl start $py.$porta_socket &>/dev/null
 chmod +x ${ADM_inst}/$1.py
 screen -dmS ws$porta_socket python ${ADM_inst}/PDirect.py ${porta_socket} > /root/proxy.log &
 [[ -e $HOME/$1.py ]] && echo -e "\n\n Fichero Alojado en : ${ADM_inst}/$1.py \n\n Respaldo alojado en : $HOME/$1.py \n"
 #================================================================
-[[ $(ps x | grep "PDirect.py" |grep -v grep ) ]] && {
+[[ $(ps x | grep "ws$porta_socket python" |grep -v grep ) ]] && {
 msg -bar
 print_center -verd " INICIANDO SOCK Python Puerto ${porta_socket} "
 [[ $(grep -wc "ws$porta_socket" /bin/autoboot) = '0' ]] && {
