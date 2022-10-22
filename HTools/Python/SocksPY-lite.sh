@@ -968,6 +968,7 @@ case ${selection} in
 	3)
     mod3 "${conect}"
     sleep 2s	
+	;;
     0)return 1;;
 esac
 return 1
