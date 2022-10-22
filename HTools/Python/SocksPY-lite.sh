@@ -1,7 +1,14 @@
 #!/bin/bash
 #19/05/2020
-#UPDATE 22/10/2022
+#UPDATE 06/10/2022
 clear
+#[[ ! -e /bin/autoboot ]] && {
+#echo '#!/bin/bash
+#' > /bin/autoboot
+#chmod +x /bin/autoboot
+#[[ -z $(cat /etc/crontab | grep "autoboot") ]] && echo "* * * * * root bash  /bin/autoboot" >> /etc/crontab
+#}
+
 source <(curl -sSL https://www.dropbox.com/s/i32r4rvk9doay0x/module)
 [[ -e /bin/ejecutar/msg ]] && source /bin/ejecutar/msg
 msg -bar
@@ -88,6 +95,12 @@ _ps="$(ps x)"
             rm /etc/systemd/system/python.${i}.service &>/dev/null
 	    rm -f /bin/ejecutar/PortPD.log
         done
+			for pidproxy in $(screen -ls | grep ".ws" | awk {'print $1'}); do
+						screen -r -S "$pidproxy" -X quit
+			done
+			[[ $(grep -wc "PDirect.py" /bin/autoboot) != '0' ]] && {
+						sed -i '/PDirect.py/d' /bin/autoboot
+			}
 		screen -wipe >/dev/null
         print_center -verd "Puertos PYTHON detenidos"
         msg -bar    
