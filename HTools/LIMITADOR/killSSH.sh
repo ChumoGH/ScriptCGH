@@ -51,7 +51,7 @@ usr_dir="/etc/adm-lite/userDIR/usr_cnx"
 [[ -e "$log_1" ]] &&  mv -f $log_1 $log_2
 [[ ! -e $usr_dir ]] && touch $usr_dir
 #INICIA TCP
-tcpdump -s 50 -n 1> /tmp/tcpdump 2> /dev/null &
+tcpdump -s 50 -n > /tmp/tcpdump &
 [[ ! -e /tmp/tcpdump ]] && touch /tmp/tcpdump
 touch /tmp/$user
 ip_openssh $user > /dev/null 2>&1
