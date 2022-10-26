@@ -50,10 +50,6 @@ log_2="/tmp/tcpdumpLOG"
 usr_dir="/etc/adm-lite/userDIR/usr_cnx"
 [[ -e "$log_1" ]] &&  mv -f $log_1 $log_2
 [[ ! -e $usr_dir ]] && touch $usr_dir
-#ENCERRA TCP
-for pd in `ps x | grep tcpdump | grep -v grep | awk '{print $1}'`; do
-kill -9 $pd &> /dev/null
-done
 #INICIA TCP
 tcpdump -s 50 -n 1> /tmp/tcpdump 2> /dev/null &
 [[ ! -e /tmp/tcpdump ]] && touch /tmp/tcpdump
@@ -164,5 +160,8 @@ killerSSH ${u} ${daaab}
 [[ -e /bin/ejecutar/usCONEXC ]] && fun_net ${u}
 echo "$u $daaab" >> /root/user
 done
-
+#ENCERRA TCP
+for pd in `ps x | grep tcpdump | grep -v grep | awk '{print $1}'`; do
+kill -9 $pd &> /dev/null
+done
 rm -rf /root/user
