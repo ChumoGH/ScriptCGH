@@ -124,17 +124,13 @@ var4=`echo $tmp2 | cut -c 1-2`
 var5=`echo $tmp2 | cut -c 4-5`
 var6=`echo $tmp2 | cut -c 7-8`
 [[ ! -e ${ADM}$user.time ]] && calc2=`echo $var4*3600 + $var5*60 + $var6 | bc` || calc2="$(cat ${ADM}$user.time)"
-seg=$(($calc2 + 3))
+[[ $var6 > 0 ]] && seg=$(($calc2 + 30))
 echo "$seg" > ${ADM}$user.time
 }
 
 killerDROP () {
 user=$1 && limit=$2
 num=$(dropb | grep "$user" | wc -l)
-[[ $num > 1 ]] && {
-[[ -e /bin/ejecutar/usCONEXT ]] && _timeUSER ${user}
-[[ -e /bin/ejecutar/usCONEXC ]] && fun_net ${user}
-}
 [[ $num -gt $limit ]] && {
 pidKILL=$(dropb | grep "$user" | awk '{print $2}')
 killing $pidKILL
@@ -147,10 +143,6 @@ local user=$1
 local limit=$2
 local _ps="$(ps x | grep [[:space:]]$user[[:space:]] | grep -v grep | grep -v pts)"
 local conex=$(echo -e "$_ps" | wc -l)
-[[ $conex > 1 ]] && {
-[[ -e /bin/ejecutar/usCONEXT ]] && _timeUSER ${user}
-[[ -e /bin/ejecutar/usCONEXC ]] && fun_net ${user}
-}
 [[ $conex -gt $limit ]] && {
 		while read line; do
 			local tmp="$(echo $line | cut -d' ' -f1)"
@@ -168,6 +160,8 @@ do
 [[ ${daaab} = "TOKEN" ]] && daaab=1
 killerDROP ${u} ${daaab}
 killerSSH ${u} ${daaab}
+[[ -e /bin/ejecutar/usCONEXT ]] && _timeUSER ${u}
+[[ -e /bin/ejecutar/usCONEXC ]] && fun_net ${u}
 echo "$u $daaab" >> /root/user
 done
 
