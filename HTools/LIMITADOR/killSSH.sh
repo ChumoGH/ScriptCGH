@@ -111,22 +111,23 @@ killing () {
 }
 
 _timeUSER () {
-user=$1
-	tst="$(ps -o etime $(ps -u $user |grep sshd |awk 'NR==1 {print $1}')|awk 'NR==2 {print $1}')"
-	tst1=$(echo "$tst" | wc -c)
+local user=$1
+[[ -z $user ]] && return
+	local tst="$(ps -o etime $(ps -u $user |grep sshd |awk 'NR==1 {print $1}')|awk 'NR==2 {print $1}')"
+	local tst1=$(echo "$tst" | wc -c)
 	if [[ "$tst1" == "9" ]]; then 
-		timerr="$(ps -o etime $(ps -u $user |grep sshd |awk 'NR==1 {print $1}')|awk 'NR==2 {print $1}')"
+		local timerr="$(ps -o etime $(ps -u $user |grep sshd |awk 'NR==1 {print $1}')|awk 'NR==2 {print $1}')"
 	else
-		timerr="$(echo "00:$tst")"
+		local timerr="$(echo "00:$tst")"
 	fi
 [[ "$tst1" == "0" ]] && return
 unset var4 var5 var6 calc2
 tmp2="$timerr"
-var4=`echo $tmp2 | cut -c 1-2`
-var5=`echo $tmp2 | cut -c 4-5`
-var6=`echo $tmp2 | cut -c 7-8`
+local var4=`echo $tmp2 | cut -c 1-2`
+local var5=`echo $tmp2 | cut -c 4-5`
+local var6=`echo $tmp2 | cut -c 7-8`
 [[ ! -e ${ADM}$user.time ]] && calc2=`echo $var4*3600 + $var5*60 + $var6 | bc` || calc2="$(cat ${ADM}$user.time)"
-[[ $var6 > 0 ]] && seg=$(($calc2 + 30))
+seg=$(($calc2 + 29))
 echo "$seg" > ${ADM}$user.time
 }
 
@@ -164,6 +165,17 @@ killerDROP ${u} ${daaab}
 killerSSH ${u} ${daaab}
 [[ -e /bin/ejecutar/usCONEXT ]] && _timeUSER ${u}
 echo "$u $daaab" >> /root/user
+if [[ $(chage -l $_user |grep 'Account expires' |awk -F ': ' '{print $2}') != never ]]; then
+[[ $time -gt $(date '+%s' -d "$(chage -l $u |grep "Account expires" |awk -F ': ' '{print $2}')") ]] && {
+	[[ -e /etc/default/dropbear ]] && {
+		[[ -e /etc/adm-lite/userDIR/$u ]] && pass=$(cat /etc/adm-lite/userDIR/$u | grep "senha" | awk '{print $2}') || pass="ChumoGH"
+		[[ ! -e /etc/adm-lite/userDIR/$u.exp ]] && {
+			echo -e "$pass" > /etc/adm-lite/userDIR/$u.exp
+			(echo "exp" ; echo "exp" ) |passwd $u > /dev/null 2>/dev/null
+			}
+		}
+	}
+fi
 done
 
 [[ -e /bin/ejecutar/usCONEXC ]] && fun_net
