@@ -275,8 +275,9 @@ allow-lan: true
 bind-address: "*"
 mode: global
 log-level: info
-external-controller: +0.0.0.0:9090+
-secret: ++
+external-controller: "0.0.0.0:9090"
+secret: ""
+
 dns:
   enable: true
   listen: :53
@@ -337,7 +338,7 @@ cfw-bypass:
   - <local>
 cfw-latency-timeout: 5000   
  ' > /root/.config/clash/config.yaml
-sed -i "s/+/'/g"  /root/.config/clash/config.yaml
+#sed -i "s/+/'/g"  /root/.config/clash/config.yaml
 foc=1
 ConfTrojINI
 unset yesno
@@ -389,7 +390,8 @@ proxyV2Rgprc() {
 #proxyV2R ${nameperfil} ${trosni} ${uid} ${aluuiid} ${net} ${parche} ${v2port}
 fun_ip
 [[ $mode = 1 ]] && echo -e "    - $1" >> /root/.config/clash/config.yaml
-proV2R+="- name: $1\n    server: ${IP}\n    port: $7\n	type: vmess\n	uuid: $3\n	alterId: $4\n	cipher: auto\n	tls: true\n	skip-cert-verify: true\n	network: grpc\n	servername: $2\n	grpc-opts:\n      grpc-mode: gun\n      grpc-service-name: $6\n	udp: true"
+proV2R+="
+- name: $1\n  server: ${IP}\n  port: $7\n  type: vmess\n  uuid: $3\n  alterId: $4\n  cipher: auto\n  tls: true\n  skip-cert-verify: true\n  network: grpc\n  servername: $2\n  grpc-opts:\n    grpc-mode: gun\n    grpc-service-name: $6\n  udp: true"
   }
 
 ConfV2RINI() {
