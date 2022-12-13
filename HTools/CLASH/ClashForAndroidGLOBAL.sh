@@ -188,7 +188,8 @@ allow-lan: true
 bind-address: "*"
 mode: rule
 log-level: info
-external-controller: +0.0.0.0:9090+
+external-controller: "0.0.0.0:9090"
+secret: ""
 
 dns:
   enable: true
@@ -254,7 +255,7 @@ proxy-groups:
 - name: "ChumoGH-ADM"
   type: select
   proxies:    ' > /root/.config/clash/config.yaml
-sed -i "s/+/'/g"  /root/.config/clash/config.yaml
+#sed -i "s/+/'/g"  /root/.config/clash/config.yaml
 foc=1
 ConfTrojINI
 foc=1
@@ -277,7 +278,6 @@ mode: global
 log-level: info
 external-controller: "0.0.0.0:9090"
 secret: ""
-
 dns:
   enable: true
   listen: :53
