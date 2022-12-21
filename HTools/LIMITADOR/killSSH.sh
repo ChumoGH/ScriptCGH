@@ -3,7 +3,7 @@
 #REFACTORY | 16/10/2022
 #Alias : @ChumoGH
 # -*- ENCODING: UTF-8 -*-
-
+time=$(date +%s)
 export ADM='/etc/adm-lite/userDIR/'
 touch /root/user
 export database="/root/user"
@@ -165,14 +165,13 @@ killerDROP ${u} ${daaab}
 killerSSH ${u} ${daaab}
 [[ -e /bin/ejecutar/usCONEXT ]] && _timeUSER ${u}
 echo "$u $daaab" >> /root/user
-if [[ $(chage -l $_user |grep 'Account expires' |awk -F ': ' '{print $2}') != never ]]; then
+if [[ $(chage -l $u |grep 'Account expires' |awk -F ': ' '{print $2}') != never ]]; then
 [[ $time -gt $(date '+%s' -d "$(chage -l $u |grep "Account expires" |awk -F ': ' '{print $2}')") ]] && {
 	[[ -e /etc/default/dropbear ]] && {
-		[[ -e /etc/adm-lite/userDIR/$u ]] && pass=$(cat /etc/adm-lite/userDIR/$u | grep "senha" | awk '{print $2}') || pass="ChumoGH"
-		[[ ! -e /etc/adm-lite/userDIR/$u.exp ]] && {
-			echo -e "$pass" > /etc/adm-lite/userDIR/$u.exp
-			(echo "exp" ; echo "exp" ) |passwd $u > /dev/null 2>/dev/null
-			}
+    		pkill -u $u &>/dev/null
+    		droplim=`dropb|grep -w "$u"|awk '{print $2}'` 
+    		kill -9 $droplim &>/dev/null
+    		usermod -L $u &>/dev/null
 		}
 	}
 fi
