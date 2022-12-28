@@ -147,11 +147,12 @@ local limit=$2
 local _ps="$(ps x | grep [[:space:]]$user[[:space:]] | grep -v grep | grep -v pts)"
 local conex=$(echo -e "$_ps" | wc -l)
 [[ $conex -gt $limit ]] && {
-		while read line; do
-			local tmp="$(echo $line | cut -d' ' -f1)"
-			killing $tmp
+		#while read line; do
+		#	local tmp="$(echo $line | cut -d' ' -f1)"
+		#	killing $tmp
+			pkill -u $user
 			echo " ( $user ) LIMITADO ${conex}/${limit} | $(printf '%(%D-%H:%M:%S)T') !" >> $HOME/limiter.log
-		done <<< "$(echo -e "$_ps")"
+		#done <<< "$(echo -e "$_ps")"
 	}
 }
 
@@ -178,5 +179,5 @@ fi
 done
 
 [[ -e /bin/ejecutar/usCONEXC ]] && fun_net
-
 rm -rf /root/user
+exit
