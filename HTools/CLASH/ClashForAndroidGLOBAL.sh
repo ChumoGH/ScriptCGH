@@ -181,6 +181,7 @@ mode=$1
 unset tropass
 echo '#SCRIPT OFICIAL ChumoGH|Plus
 # Formato Creado por @ChumoGH | +593987072611 Whatsapp Personal
+# Creado el ${fecha} - ${hora}
 port: 8080
 socks-port: 7891
 redir-port: 7892
@@ -269,6 +270,7 @@ mode=$1
 unset tropass
 echo '#SCRIPT OFICIAL ChumoGH|Plus
 # Formato Creado por @ChumoGH | +593987072611 Whatsapp Personal
+# Creado el ${fecha} - ${hora}
 port: 8080
 socks-port: 7891
 redir-port: 7892
