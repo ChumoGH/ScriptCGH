@@ -136,6 +136,8 @@ INITClash(){
 msg -bar
 conFIN
 read -p "Ingrese Nombre del Poster WEB de la configuracion: " cocolon
+[[ -e /root/.config/clash/$cocolon.yaml ]] && sed -i "s/_dAtE/${fecha}/g" /root/.config/clash/$cocolon.yaml
+[[ -e /root/.config/clash/$cocolon.yaml ]] && sed -i "s/_h0rA/${hora}/g" /root/.config/clash/$cocolon.yaml
 cp /root/.config/clash/config.yaml /var/www/html/$cocolon.yaml && chmod +x /var/www/html/$cocolon.yaml
 service apache2 restart
 echo -e "[\033[1;31m-\033[1;33m]\033[1;31m \033[1;33m"
@@ -181,7 +183,7 @@ mode=$1
 unset tropass
 echo '#SCRIPT OFICIAL ChumoGH|Plus
 # Formato Creado por @ChumoGH | +593987072611 Whatsapp Personal
-# Creado el ${fecha} - ${hora}
+# Creado el _dAtE - _h0rA
 port: 8080
 socks-port: 7891
 redir-port: 7892
@@ -270,7 +272,7 @@ mode=$1
 unset tropass
 echo '#SCRIPT OFICIAL ChumoGH|Plus
 # Formato Creado por @ChumoGH | +593987072611 Whatsapp Personal
-# Creado el ${fecha} - ${hora}
+# Creado el _dAtE - _h0rA
 port: 8080
 socks-port: 7891
 redir-port: 7892
@@ -383,7 +385,7 @@ proxyV2R() {
 #proxyV2R ${nameperfil} ${trosni} ${uid} ${aluuiid} ${net} ${parche} ${v2port}
 fun_ip
 [[ $mode = 1 ]] && echo -e "    - $1" >> /root/.config/clash/config.yaml
-proV2R+="- name: $1\n  type: vmess\n  server: ${IP}\n  port: $7\n  uuid: $3\n  alterId: $4\n  cipher: auto\n  udp: true\n  tls: true\n  skip-cert-verify: true\n  network: $5\n  ws-path: $6\n  ws-headers: {Host: $2}\n  \n\n" 
+proV2R+="- name: $1\n  type: vmess\n  server: ${IP}\n  port: $7\n  uuid: $3\n  alterId: $4\n  cipher: auto\n  udp: true\n  tls: true\n  skip-cert-verify: true\n  servername: $2\n  network: $5\n  ws-opts:  \n     path: $6\n	 headers:\n	   Host: $2\n  \n\n" 
   }
   
 proxyV2Rgprc() {
