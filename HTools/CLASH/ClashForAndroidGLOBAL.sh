@@ -227,7 +227,7 @@ tun:
 cfw-bypass:
   - qq.com
   - music.163.com
-  - *.music.126.net
+  - "*.music.126.net"
   - localhost
   - 127.*
   - 10.*
@@ -314,7 +314,7 @@ tun:
 cfw-bypass:
   - qq.com
   - music.163.com
-  - *.music.126.net
+  - "*.music.126.net"
   - localhost
   - 127.*
   - 10.*
