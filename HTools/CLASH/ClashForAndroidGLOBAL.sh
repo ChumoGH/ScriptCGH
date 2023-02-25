@@ -136,7 +136,7 @@ INITClash(){
 msg -bar
 conFIN
 read -p "Ingrese Nombre del Poster WEB de la configuracion: " cocolon
-[[ -e /root/.config/clash/config.yaml ]] && sed -i "s%/_dAtE/%${fecha}%g" /root/.config/clash/config.yaml
+[[ -e /root/.config/clash/config.yaml ]] && sed -i "s%_dAtE%${fecha}%g" /root/.config/clash/config.yaml
 [[ -e /root/.config/clash/config.yaml ]] && sed -i "s/_h0rA/${hora}/g" /root/.config/clash/config.yaml
 cp /root/.config/clash/config.yaml /var/www/html/$cocolon.yaml && chmod +x /var/www/html/$cocolon.yaml
 service apache2 restart
