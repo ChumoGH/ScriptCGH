@@ -344,10 +344,10 @@ cfw-latency-timeout: 5000
  ' > /root/.config/clash/config.yaml
 #sed -i "s/+/'/g"  /root/.config/clash/config.yaml
 foc=1
-ConfTrojINI
+[[ -e /usr/local/etc/trojan/config.json ]] && ConfTrojINI
 unset yesno
 foc=1
-ConfV2RINI
+[[ -e /etc/v2ray/config.json ]] && ConfV2RINI
 }
 
 proxyTRO() {
@@ -397,6 +397,22 @@ fun_ip
 proV2R+="
 - name: $1\n  server: ${IP}\n  port: $7\n  type: vmess\n  uuid: $3\n  alterId: $4\n  cipher: auto\n  tls: true\n  skip-cert-verify: true\n  network: grpc\n  servername: $2\n  grpc-opts:\n    grpc-mode: gun\n    grpc-service-name: $6\n  udp: true"
   }
+proxyXR() {
+#proxyV2R ${nameperfil} ${trosni} ${uid} ${aluuiid} ${net} ${parche} ${v2port}
+fun_ip
+[[ $mode = 1 ]] && echo -e "    - $1" >> /root/.config/clash/config.yaml
+proXR+="- name: $1\n  type: vmess\n  server: ${IP}\n  port: $7\n  uuid: $3\n  alterId: $4\n  cipher: auto\n  udp: true\n  tls: true\n  skip-cert-verify: true\n  servername: $2\n  network: $5\n  ws-opts:  \n       path: $6\n       headers:\n         Host: $2\n  \n\n" 
+  }
+  
+proxyXRgprc() {
+#config=/usr/local/x-ui/bin/config.json
+#cat $config | jq .inbounds[].settings.clients | grep id
+#proxyV2R ${nameperfil} ${trosni} ${uid} ${aluuiid} ${net} ${parche} ${v2port}
+fun_ip
+[[ $mode = 1 ]] && echo -e "    - $1" >> /root/.config/clash/config.yaml
+proXR+="
+- name: $1\n  server: ${IP}\n  port: $7\n  type: vmess\n  uuid: $3\n  alterId: $4\n  cipher: auto\n  tls: true\n  skip-cert-verify: true\n  network: grpc\n  servername: $2\n  grpc-opts:\n    grpc-mode: gun\n    grpc-service-name: $6\n  udp: true"
+  }
 
 ConfV2RINI() {
 echo -e " DESEAS AÑADIR TU ${foc} CONFIG V2RAY " 
@@ -437,6 +453,52 @@ proxyV2R ${nameperfil} ${trosni} ${uid} ${aluuiid} ${net} ${parche} ${v2port}
 }
 
 ConfV2RINI
+								} || {
+unset yesno
+foc=1								
+[[ -e /etc/xray/config.json ]] && ConfXRINI
+}
+}
+
+ConfXRINI() {
+echo -e " DESEAS AÑADIR TU ${foc} CONFIG XRAY " 
+while [[ ${yesno} != @(s|S|y|Y|n|N) ]]; do
+read -p "[S/N]: " yesno
+tput cuu1 && tput dl1
+done
+[[ ${yesno} = @(s|S|y|Y) ]] &&  { 
+unset yesno
+foc=$(($foc + 1))
+echo -ne "\033[1;33m ➣ PERFIL XRAY CLASH "
+read -p ": " nameperfil
+msg -bar3
+[[ -z ${uid} ]] && _view_userXR || { 
+echo -e " USER ${ps}"
+msg -bar3
+}
+echo -ne "\033[1;33m ➣ SNI o HOST "
+read -p ": " trosni
+msg -bar3
+
+		ps=$(jq .inbounds[].settings.clients[$opcion].email $config) && [[ $ps = null ]] && ps="default"
+		uid=$(jq .inbounds[].settings.clients[$opcion].id $config)
+		aluuiid=$(jq .inbounds[].settings.clients[$opcion].alterId $config)
+		add=$(jq '.inbounds[].domain' $config) && [[ $add = null ]] && add=$(wget -qO- ipv4.icanhazip.com)
+		host=$(jq '.inbounds[].streamSettings.wsSettings.headers.Host' $config) && [[ $host = null ]] && host=''
+		net=$(jq '.inbounds[].streamSettings.network' $config)
+		parche=$(jq -r .inbounds[].streamSettings.wsSettings.path $config) && [[ $path = null ]] && parche='' 
+		v2port=$(jq '.inbounds[].port' $config)
+		tls=$(jq '.inbounds[].streamSettings.security' $config)
+		[[ $net = '"grpc"' ]] && path=$(jq '.inbounds[].streamSettings.grpcSettings.serviceName'  $config) || path=$(jq '.inbounds[].streamSettings.wsSettings.path' $config)
+		addip=$(wget -qO- ifconfig.me)
+
+[[ $net = '"grpc"' ]] && {
+proxyXRgprc ${nameperfil} ${trosni} ${uid} ${aluuiid} ${net} ${path} ${v2port}
+} || {
+proxyXR ${nameperfil} ${trosni} ${uid} ${aluuiid} ${net} ${parche} ${v2port}
+}
+
+ConfXRINI
 								}
 }
 
@@ -1904,6 +1966,7 @@ conFIN() {
 confRULE
 [[ ! -z ${proTRO} ]] && echo -e "${proTRO}" >> /root/.config/clash/config.yaml
 [[ ! -z ${proV2R} ]] && echo -e "${proV2R}" >> /root/.config/clash/config.yaml
+[[ ! -z ${proXR} ]] && echo -e "${proXR}" >> /root/.config/clash/config.yaml
 
 #echo ''
 
@@ -2047,6 +2110,66 @@ tmpdir="$backdir/tmp"
 		users=$(cat $config | jq .inbounds[].settings.clients[] | jq -r .email)
 
 		title "	VER USUARIO V2RAY REGISTRADO"
+		userDat
+
+		n=1
+		for i in $users
+		do
+			unset DateExp
+			unset seg_exp
+			unset exp
+
+			[[ $i = null ]] && {
+				i="Admin"
+				DateExp=" Ilimitado"
+			} || {
+				DateExp="$(cat ${user_conf}|grep -w "${i}"|cut -d'|' -f3)"
+				seg_exp=$(date +%s --date="$DateExp")
+				exp="[$(($(($seg_exp - $seg)) / 86400))]"
+			}
+
+			col "$n)" "$i" "$DateExp" "$exp"
+			let n++
+		done
+
+		msg -bar3
+		col "0)" "VOLVER"
+		msg -bar3
+		blanco "Escoje Tu Usuario : " 0
+		read opcion
+		[[ -z $opcion ]] && vacio && sleep 0.3s && continue
+		[[ $opcion = 0 ]] && break
+		let opcion--
+		ps=$(jq .inbounds[].settings.clients[$opcion].email $config) && [[ $ps = null ]] && ps="default"
+		uid=$(jq .inbounds[].settings.clients[$opcion].id $config)
+		aluuiid=$(jq .inbounds[].settings.clients[$opcion].alterId $config)
+		add=$(jq '.inbounds[].domain' $config) && [[ $add = null ]] && add=$(wget -qO- ipv4.icanhazip.com)
+		host=$(jq '.inbounds[].streamSettings.wsSettings.headers.Host' $config) && [[ $host = null ]] && host=''
+		net=$(jq '.inbounds[].streamSettings.network' $config)
+		parche=$(jq -r .inbounds[].streamSettings.wsSettings.path $config) && [[ $path = null ]] && parche='' 
+		v2port=$(jq '.inbounds[].port' $config)
+		tls=$(jq '.inbounds[].streamSettings.security' $config)
+		[[ $net = '"grpc"' ]] && path=$(jq '.inbounds[].streamSettings.grpcSettings.serviceName'  $config) || path=$(jq '.inbounds[].streamSettings.wsSettings.path' $config)
+		addip=$(wget -qO- ifconfig.me)
+		echo "Usuario $ps Seleccionado" 
+		break
+	done
+}
+
+_view_userXR(){
+config="/etc/xray/config.json"
+temp="/etc/xray/temp.json"
+v2rdir="/etc/xr" && [[ ! -d $v2rdir ]] && mkdir $v2rdir
+user_conf="/etc/xr/user" && [[ ! -e $user_conf ]] && touch $user_conf
+backdir="/etc/xr/back" && [[ ! -d ${backdir} ]] && mkdir ${backdir}
+tmpdir="$backdir/tmp"
+	unset seg
+	seg=$(date +%s)
+	while :
+	do
+		users=$(cat $config | jq .inbounds[].settings.clients[] | jq -r .email)
+
+		title "	VER USUARIO XRAY REGISTRADO"
 		userDat
 
 		n=1
