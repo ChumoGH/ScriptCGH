@@ -395,7 +395,7 @@ proxyV2Rgprc() {
 fun_ip
 [[ $mode = 1 ]] && echo -e "    - $1" >> /root/.config/clash/config.yaml
 proV2R+="
-- name: $1\n  server: ${IP}\n  port: $7\n  type: vmess\n  uuid: $3\n  alterId: $4\n  cipher: auto\n  tls: true\n  skip-cert-verify: true\n  network: grpc\n  servername: $2\n  grpc-opts:\n    grpc-mode: gun\n    grpc-service-name: $6\n  udp: true"
+- name: $1\n  server: ${IP}\n  port: $7\n  type: vmess\n  uuid: $3\n  alterId: $4\n  cipher: auto\n  tls: true\n  skip-cert-verify: true\n  network: grpc\n  servername: $2\n  grpc-opts:\n    grpc-mode: gun\n    grpc-service-name: $6\n  udp: true \n\n"
   }
 proxyXR() {
 #proxyV2R ${nameperfil} ${trosni} ${uid} ${aluuiid} ${net} ${parche} ${v2port}
@@ -411,7 +411,7 @@ proxyXRgprc() {
 fun_ip
 [[ $mode = 1 ]] && echo -e "    - $1" >> /root/.config/clash/config.yaml
 proXR+="
-- name: $1\n  server: ${IP}\n  port: $7\n  type: vmess\n  uuid: $3\n  alterId: $4\n  cipher: auto\n  tls: true\n  skip-cert-verify: true\n  network: grpc\n  servername: $2\n  grpc-opts:\n    grpc-mode: gun\n    grpc-service-name: $6\n  udp: true"
+- name: $1\n  server: ${IP}\n  port: $7\n  type: vmess\n  uuid: $3\n  alterId: $4\n  cipher: auto\n  tls: true\n  skip-cert-verify: true\n  network: grpc\n  servername: $2\n  grpc-opts:\n    grpc-mode: gun\n    grpc-service-name: $6\n  udp: true \n\n"
   }
 
 ConfV2RINI() {
@@ -453,11 +453,10 @@ proxyV2R ${nameperfil} ${trosni} ${uid} ${aluuiid} ${net} ${parche} ${v2port}
 }
 
 ConfV2RINI
-								} || {
+	} 
 unset yesno
 foc=1								
 [[ -e /etc/xray/config.json ]] && ConfXRINI
-}
 }
 
 ConfXRINI() {
@@ -470,36 +469,35 @@ done
 unset yesno
 foc=$(($foc + 1))
 echo -ne "\033[1;33m ➣ PERFIL XRAY CLASH "
-read -p ": " nameperfil
+read -p ": " nameperfilX
 msg -bar3
 [[ -z ${uid} ]] && _view_userXR || { 
 echo -e " USER ${ps}"
 msg -bar3
 }
 echo -ne "\033[1;33m ➣ SNI o HOST "
-read -p ": " trosni
+read -p ": " trosniX
 msg -bar3
-
-		ps=$(jq .inbounds[].settings.clients[$opcion].email $config) && [[ $ps = null ]] && ps="default"
-		uid=$(jq .inbounds[].settings.clients[$opcion].id $config)
-		aluuiid=$(jq .inbounds[].settings.clients[$opcion].alterId $config)
-		add=$(jq '.inbounds[].domain' $config) && [[ $add = null ]] && add=$(wget -qO- ipv4.icanhazip.com)
-		host=$(jq '.inbounds[].streamSettings.wsSettings.headers.Host' $config) && [[ $host = null ]] && host=''
-		net=$(jq '.inbounds[].streamSettings.network' $config)
-		parche=$(jq -r .inbounds[].streamSettings.wsSettings.path $config) && [[ $path = null ]] && parche='' 
-		v2port=$(jq '.inbounds[].port' $config)
-		tls=$(jq '.inbounds[].streamSettings.security' $config)
-		[[ $net = '"grpc"' ]] && path=$(jq '.inbounds[].streamSettings.grpcSettings.serviceName'  $config) || path=$(jq '.inbounds[].streamSettings.wsSettings.path' $config)
+		psX=$(jq .inbounds[].settings.clients[$opcion].email $config) && [[ $ps = null ]] && ps="default"
+		uidX=$(jq .inbounds[].settings.clients[$opcion].id $config)
+		aluuiidX=$(jq .inbounds[].settings.clients[$opcion].alterId $config)
+		addX=$(jq '.inbounds[].domain' $config) && [[ $add = null ]] && addX=$(wget -qO- ipv4.icanhazip.com)
+		hostX=$(jq '.inbounds[].streamSettings.wsSettings.headers.Host' $config) && [[ $host = null ]] && host=''
+		netX=$(jq '.inbounds[].streamSettings.network' $config)
+		parcheX=$(jq -r .inbounds[].streamSettings.wsSettings.path $config) && [[ $pathX = null ]] && parcheX='' 
+		v2portX=$(jq '.inbounds[].port' $config)
+		tlsX=$(jq '.inbounds[].streamSettings.security' $config)
+		[[ $netX = '"grpc"' ]] && pathX=$(jq '.inbounds[].streamSettings.grpcSettings.serviceName'  $config) || pathX=$(jq '.inbounds[].streamSettings.wsSettings.path' $config)
 		addip=$(wget -qO- ifconfig.me)
 
 [[ $net = '"grpc"' ]] && {
-proxyXRgprc ${nameperfil} ${trosni} ${uid} ${aluuiid} ${net} ${path} ${v2port}
+proxyXRgprc ${nameperfilX} ${trosniX} ${uidX} ${aluuiidX} ${netX} ${pathX} ${v2portX}
 } || {
-proxyXR ${nameperfil} ${trosni} ${uid} ${aluuiid} ${net} ${parche} ${v2port}
+proxyXR ${nameperfilX} ${trosniX} ${uidX} ${aluuiidX} ${netX} ${parcheX} ${v2portX}
 }
 
 ConfXRINI
-								}
+							}
 }
 
 confRULE() {
