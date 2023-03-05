@@ -456,6 +456,7 @@ ConfV2RINI
 	} 
 unset yesno
 foc=1								
+unset uidX
 [[ -e /etc/xray/config.json ]] && ConfXRINI
 }
 
@@ -471,8 +472,8 @@ foc=$(($foc + 1))
 echo -ne "\033[1;33m ➣ PERFIL XRAY CLASH "
 read -p ": " nameperfilX
 msg -bar3
-[[ -z ${uid} ]] && _view_userXR || { 
-echo -e " USER ${ps}"
+[[ -z ${uidX} ]] && _view_userXR || { 
+echo -e " USER ${ps} XRAY"
 msg -bar3
 }
 echo -ne "\033[1;33m ➣ SNI o HOST "
@@ -2198,18 +2199,18 @@ tmpdir="$backdir/tmp"
 		[[ -z $opcion ]] && vacio && sleep 0.3s && continue
 		[[ $opcion = 0 ]] && break
 		let opcion--
-		ps=$(jq .inbounds[].settings.clients[$opcion].email $config) && [[ $ps = null ]] && ps="default"
-		uid=$(jq .inbounds[].settings.clients[$opcion].id $config)
-		aluuiid=$(jq .inbounds[].settings.clients[$opcion].alterId $config)
-		add=$(jq '.inbounds[].domain' $config) && [[ $add = null ]] && add=$(wget -qO- ipv4.icanhazip.com)
-		host=$(jq '.inbounds[].streamSettings.wsSettings.headers.Host' $config) && [[ $host = null ]] && host=''
-		net=$(jq '.inbounds[].streamSettings.network' $config)
-		parche=$(jq -r .inbounds[].streamSettings.wsSettings.path $config) && [[ $path = null ]] && parche='' 
-		v2port=$(jq '.inbounds[].port' $config)
-		tls=$(jq '.inbounds[].streamSettings.security' $config)
-		[[ $net = '"grpc"' ]] && path=$(jq '.inbounds[].streamSettings.grpcSettings.serviceName'  $config) || path=$(jq '.inbounds[].streamSettings.wsSettings.path' $config)
-		addip=$(wget -qO- ifconfig.me)
-		echo "Usuario $ps Seleccionado" 
+		psX=$(jq .inbounds[].settings.clients[$opcion].email $config) && [[ $psX = null ]] && ps="default"
+		uidX=$(jq .inbounds[].settings.clients[$opcion].id $config)
+		aluuiidX=$(jq .inbounds[].settings.clients[$opcion].alterId $config)
+		addX=$(jq '.inbounds[].domain' $config) && [[ $addX = null ]] && add=$(wget -qO- ipv4.icanhazip.com)
+		hostX=$(jq '.inbounds[].streamSettings.wsSettings.headers.Host' $config) && [[ $hostX = null ]] && hostX=''
+		netX=$(jq '.inbounds[].streamSettings.network' $config)
+		parcheX=$(jq -r .inbounds[].streamSettings.wsSettings.path $config) && [[ $pathX = null ]] && parcheX='' 
+		v2portX=$(jq '.inbounds[].port' $config)
+		tlsX=$(jq '.inbounds[].streamSettings.security' $config)
+		[[ $netX = '"grpc"' ]] && pathX=$(jq '.inbounds[].streamSettings.grpcSettings.serviceName'  $config) || pathX=$(jq '.inbounds[].streamSettings.wsSettings.path' $config)
+		addipX=$(wget -qO- ifconfig.me)
+		echo "Usuario XRAY SERA  $psX Seleccionado" 
 		break
 	done
 }
