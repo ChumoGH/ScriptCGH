@@ -260,10 +260,13 @@ proxy-groups:
   proxies:    ' > /root/.config/clash/config.yaml
 #sed -i "s/+/'/g"  /root/.config/clash/config.yaml
 foc=1
-ConfTrojINI
-foc=1
+[[ -e /usr/local/etc/trojan/config.json ]] && ConfTrojINI
 unset yesno
-ConfV2RINI
+foc=1
+[[ -e /etc/v2ray/config.json ]] && ConfV2RINI
+unset yesno
+foc=1								
+[[ -e /etc/xray/config.json ]] && ConfXRINI
 }
 
 configINIT_global () {
@@ -348,6 +351,9 @@ foc=1
 unset yesno
 foc=1
 [[ -e /etc/v2ray/config.json ]] && ConfV2RINI
+unset yesno
+foc=1								
+[[ -e /etc/xray/config.json ]] && ConfXRINI
 }
 
 proxyTRO() {
@@ -454,10 +460,6 @@ proxyV2R ${nameperfil} ${trosni} ${uid} ${aluuiid} ${net} ${parche} ${v2port}
 
 ConfV2RINI
 	} 
-unset yesno
-foc=1								
-unset uidX
-[[ -e /etc/xray/config.json ]] && ConfXRINI
 }
 
 ConfXRINI() {
