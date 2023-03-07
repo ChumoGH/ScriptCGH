@@ -491,7 +491,7 @@ msg -bar3
 		[[ $netX = '"grpc"' ]] && pathX=$(jq '.inbounds[].streamSettings.grpcSettings.serviceName'  $config) || pathX=$(jq '.inbounds[].streamSettings.wsSettings.path' $config)
 		addip=$(wget -qO- ifconfig.me)
 
-[[ $net = '"grpc"' ]] && {
+[[ $netX = '"grpc"' ]] && {
 proxyXRgprc ${nameperfilX} ${trosniX} ${uidX} ${aluuiidX} ${netX} ${pathX} ${v2portX}
 } || {
 proxyXR ${nameperfilX} ${trosniX} ${uidX} ${aluuiidX} ${netX} ${parcheX} ${v2portX}
