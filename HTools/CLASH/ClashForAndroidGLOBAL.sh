@@ -359,7 +359,7 @@ foc=1
 proxyTRO() {
 fun_ip
 [[ $mode = 1 ]] && echo -e "    - $1" >> /root/.config/clash/config.yaml
-proTRO+="- name: $1\n  type: trojan\n  server: ${IP}\n  port: ${troport}\n  password: $2\n  udp: true\n  sni: $3\n  alpn:\n  - h2\n  - http/1.1\n  skip-cert-verify: true\n\n" 
+proTRO+="- name: $1\n  type: trojan\n  server: ${IP}\n  port: ${troport}\n  password: "$2"\n  udp: true\n  sni: $3\n  alpn:\n  - h2\n  - http/1.1\n  skip-cert-verify: true\n\n" 
   }
 
 ConfTrojINI() {
@@ -375,14 +375,14 @@ foc=$(($foc + 1))
 echo -ne "\033[1;33m ➣ PERFIL TROJAN CLASH "
 read -p ": " nameperfil
 msg -bar3
-[[ -z ${tropass} ]] && view_usert || { 
-echo -e " USER ${tropass}"
+[[ -z ${UUID} ]] && view_usert || { 
+echo -e " USER ${Usr} : ${UUID}"
 msg -bar3
 }
 echo -ne "\033[1;33m ➣ SNI o HOST "
 read -p ": " trosni
 msg -bar3
-proxyTRO ${nameperfil} ${tropass} ${trosni}
+proxyTRO ${nameperfil} ${UUID} ${trosni}
 ConfTrojINI
 								}
 }
@@ -2043,17 +2043,15 @@ view_usert(){
 configt="/usr/local/etc/trojan/config.json"
 tempt="/etc/trojan/temp.json"
 trojdirt="/etc/trojan" 
-user_conft="/etc/trojan/user"
+user_conf="/etc/trojan/user"
 backdirt="/etc/trojan/back" 
 tmpdirt="$backdir/tmp"
-trojanport=`lsof -V -i tcp -P -n | grep -v "ESTABLISHED" |grep -v "COMMAND" | grep "LISTEN" | grep trojan | awk '{print substr($9,3); }' > /tmp/trojan.txt && echo | cat /tmp/trojan.txt | tr '\n' ' ' > /bin/ejecutar/trojanports.txt && cat /bin/ejecutar/trojanports.txt`;
-troport=$(cat /bin/ejecutar/trojanports.txt  | sed 's/\s\+/,/g' | cut -d , -f1)
 	unset seg
 	seg=$(date +%s)
 	while :
 	do
 	nick="$(cat $configt | grep ',"')"
-	users="$(echo $nick|sed -e 's/[^a-z0-9 -]//ig')"
+	users="$(cat $configt | jq -r .password[])"
 		title "	ESCOJE USUARIO TROJAN"
 		userDat
 
@@ -2064,16 +2062,16 @@ troport=$(cat /bin/ejecutar/trojanports.txt  | sed 's/\s\+/,/g' | cut -d , -f1)
 			unset seg_exp
 			unset exp
 
-			[[ $i = "chumoghscript" ]] && {
-				i="Admin"
+			[[ $i = chumoghscript ]] && {
+				Usr="Admin"
 				DateExp=" Ilimitado"
 			} || {
-				DateExp="$(cat ${user_conft}|grep -w "${i}"|cut -d'|' -f3)"
+			Usr="$(cat ${user_conf}|grep -w "${i}"|cut -d'|' -f1)"
+				DateExp="$(cat ${user_conf}|grep -w "${i}"|cut -d'|' -f3)"
 				seg_exp=$(date +%s --date="$DateExp")
 				exp="[$(($(($seg_exp - $seg)) / 86400))]"
 			}
-
-			col "$n)" "$i" "$DateExp" "$exp"
+			col "$n)" "${Usr}" "$DateExp" "$exp"
 			let n++
 		done
 		msg -bar3
@@ -2092,7 +2090,11 @@ troport=$(cat /bin/ejecutar/trojanports.txt  | sed 's/\s\+/,/g' | cut -d , -f1)
 		done
 		let opcion--
 		addip=$(wget -qO- ifconfig.me)
-		echo "USER SELECIONADO : $tropass " 
+		host=$(cat $configt | jq -r .ssl.sni)
+		trojanport=$(cat $configt | jq -r .local_port)
+		UUID=$(cat $configt | jq -r .password[$opcion])
+		Usr="$(cat ${user_conf}|grep -w "${UUID}"|cut -d'|' -f1)"
+		echo "USER ${Usr} : $UUID " 
 		break
 	done
 }
