@@ -20,17 +20,17 @@
   <td><a href="https://raw.githubusercontent.com/ChumoGH/ScriptCGH/main/IMG/BETA.png"><img src="https://raw.githubusercontent.com/ChumoGH/ScriptCGH/main/IMG/BETA.png" alt="menu" border="0" width="380" height="250">TERM#_></a> </td>
 </tr>
 <tr>
-  <td>   </td>
   <td><strong><center> PROTOCOLOS</center></strong></td>
   <td><strong></center> HERRAMIENTAS BASE </center></strong></td>
-  <td>   </td>
+  <td><strong></center> MENU V2RAY & XRAY & TROJAN </center></strong></td>
+  <td><strong></center> MENU CLASH ITERATIVO </center></strong></td>
 </tr>
 
 <tr>
-  <td>   </td>
-  <td><a href="https://raw.githubusercontent.com/ChumoGH/ScriptCGH/main/IMG/PROTO.png"><img src="https://raw.githubusercontent.com/ChumoGH/ScriptCGH/main/IMG/PROTO.png" alt="menu" border="0" width="380" height="250">TERM#_></a> </td>
-   <td><a href="https://raw.githubusercontent.com/ChumoGH/ScriptCGH/main/IMG/USER.png"><img src="https://raw.githubusercontent.com/ChumoGH/ScriptCGH/main/IMG/USDER.png" alt="menu" border="0" width="380" height="250">TERM#_></a> </td>
-  <td>   </td>
+  <td><a href="https://raw.githubusercontent.com/ChumoGH/ScriptCGH/main/IMG/USER.png"><img src="https://raw.githubusercontent.com/ChumoGH/ScriptCGH/main/IMG/PROTO.png" alt="menu" border="0" width="380" height="250">TERM#_></a> </td>
+  <td><a href="https://raw.githubusercontent.com/ChumoGH/ScriptCGH/main/IMG/BETA.png"><img src="https://raw.githubusercontent.com/ChumoGH/ScriptCGH/main/IMG/BETA.png" alt="menu" border="0" width="380" height="250">TERM#_></a></td>
+   <td><a href="https://raw.githubusercontent.com/ChumoGH/ScriptCGH/main/IMG/v2r.sh.PNG"><img src="https://raw.githubusercontent.com/ChumoGH/ScriptCGH/main/IMG/v2r.sh.PNG" alt="menu" border="0" width="380" height="250">TERM#_></a> </td>
+  <td> <a href="https://raw.githubusercontent.com/ChumoGH/ScriptCGH/main/IMG/clash.sh.PNG"><img src="https://raw.githubusercontent.com/ChumoGH/ScriptCGH/main/IMG/clash.sh.PNG" alt="menu" border="0" width="380" height="250">TERM#_></a> </td>
 </tr>
 
 </table>
