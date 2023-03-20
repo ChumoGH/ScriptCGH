@@ -1,7 +1,7 @@
 ![GitHUb License](https://img.shields.io/github/license/ChumoGH/ScriptCGH?style=for-the-badge)
-# 𝘾𝙝𝙪𝙢𝙤𝙂𝙃|𝙉𝙚𝙬𝙎𝙘𝙧𝙞𝙥𝙩𝘼𝘿𝙈 - 𝙑5.3
+# 𝘾𝙝𝙪𝙢𝙤𝙂𝙃|𝙉𝙚𝙬𝙎𝙘𝙧𝙞𝙥𝙩𝘼𝘿𝙈 - 𝙑5.7X
 <p align="center">
-<td> <a href="http://plus.chumogh.xyz"> <img src="https://raw.githubusercontent.com/ChumoGH/ScriptCGH/main/IMG/CGH.png" alt="menu" border="0" width="500" height="500"> </a> </td>
+<td> <a href="http://plus.chumogh.site"> <img src="https://raw.githubusercontent.com/ChumoGH/ScriptCGH/main/IMG/CGH.png" alt="menu" border="0" width="500" height="500"> </a> </td>
 <p align="center">
 # CONTEXTO AL PROYECTO EVOLUTIVO ( BASE - | adm-lite ) 
 
@@ -37,7 +37,7 @@
  
 </p>
 
-###ULTIMA ACTUALIZACION : 11-05-2022 | 0:00
+###ULTIMA ACTUALIZACION : 10-03-2023 | 0:00
 
 **Manager Script**
 
@@ -50,15 +50,15 @@
       * Ubuntu 14.04 LTS ( DESCONTINUADO ) 
       * Ubuntu 16.04 LTS ( DESCONTINUADO )
       * Ubuntu 18.04 LTS ( X64 o ARM )
-      * Ubuntu 20.04 LTS ( X64 o ARM ) ( Presenta Bugs )
-      * Ubuntu 21.04 LTS ( X64 o ARM ) ( Presenta Bugs )
-      * Ubuntu 22.04 LTS ( X64 o ARM ) ( Testing )
+      * Ubuntu 20.04 LTS ( X64 o ARM ) ( fix )
+      * Ubuntu 21.04 LTS ( X64 o ARM ) ( fix )
+      * Ubuntu 22.04 LTS ( X64 o ARM ) ( fix )
   * *RECOMENDADO UBUNTU 18.04 ( MultiCompatibilidad ARM )*
 
 ## SCRIPT DE INSTALACION OFICIAL
 
 ```bash
-apt update -y && apt upgrade -y && wget -q https://raw.githubusercontent.com/ChumoGH/ScriptCGH/main/setup  && chmod 777 setup && ./setup --install
+apt update -y && apt upgrade -y && wget -q https://raw.githubusercontent.com/ChumoGH/ScriptCGH/main/setup  && chmod 777 setup && ./setup --ADMcgh
 ```
 # scriptmod by Henry Chumo
 **By: [ ChumoGH SCRIPTS ⃘⃤꙰✰ ](https://t.me/ChumoGH)**
