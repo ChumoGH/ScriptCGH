@@ -37,7 +37,7 @@
  
 </p>
 
-###ULTIMA ACTUALIZACION : 10-03-2023 | 0:00
+###ULTIMA ACTUALIZACION : 10-06-2023 | 0:00
 
 **Manager Script**
 
@@ -53,6 +53,7 @@
       * Ubuntu 20.04 LTS ( X64 o ARM ) ( fix )
       * Ubuntu 21.04 LTS ( X64 o ARM ) ( fix )
       * Ubuntu 22.04 LTS ( X64 o ARM ) ( fix )
+      * Ubuntu 23.04 LTS ( X64 o ARM ) ( fix )
   * *RECOMENDADO UBUNTU 18.04 ( MultiCompatibilidad ARM )*
 
 ## SCRIPT DE INSTALACION OFICIAL
