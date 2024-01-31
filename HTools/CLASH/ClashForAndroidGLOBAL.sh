@@ -5,32 +5,24 @@
 # Formato Creado por @ChumoGH | '593987072611 Whatsapp Personal
 clear&&clear
 fun_ip () {
-MEU_IP=$(ip addr | grep 'inet' | grep -v inet6 | grep -vE '127\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' | grep -o -E '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' | head -1)
-MEU_IP2=$(wget -qO- ipv4.icanhazip.com)
-[[ "$MEU_IP" != "$MEU_IP2" ]] && IP="$MEU_IP2" || IP="$MEU_IP"
-trojanport=`lsof -V -i tcp -P -n | grep -v "ESTABLISHED" |grep -v "COMMAND" | grep "LISTEN" | grep trojan | awk '{print substr($9,3); }' > /tmp/trojan.txt && echo | cat /tmp/trojan.txt | tr '\n' ' ' > /bin/ejecutar/trojanports.txt && cat /bin/ejecutar/trojanports.txt`;
-troport=$(cat /bin/ejecutar/trojanports.txt  | sed 's/\s\+/,/g' | cut -d , -f1)
-portFTP=$(lsof -V -i tcp -P -n | grep apache2 | grep -v "ESTABLISHED" |grep -v "COMMAND" | grep "LISTEN" | cut -d: -f2 | cut -d' ' -f1 | uniq)
+  if [[ -e /bin/ejecutar/IPcgh ]]; then
+    IP="$(cat /bin/ejecutar/IPcgh)"
+  else
+    MEU_IP=$(ip addr | grep 'inet' | grep -v inet6 | grep -vE '127\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' | grep -o -E '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' | head -1)
+    MEU_IP2=$(wget -qO- ipv4.icanhazip.com)
+    [[ "$MEU_IP" != "$MEU_IP2" ]] && IP="$MEU_IP2" && echo "$MEU_IP2" || IP="$MEU_IP" && echo "$MEU_IP"
+    echo "$MEU_IP2" > /bin/ejecutar/IPcgh
+	IP="$MEU_IP2"
+  fi
+[[ -z ${portFTP} ]] && portFTP='X0'
+local _netCAT="$(netstat -tunlp)"
+trojanport=`echo -e "${_netCAT}" | grep tcp | awk '/trojan/ && /0.0.0.0:/ {print substr($4, 9)}' | head -1`;
+troport=${trojanport}
+_SFTP="$(lsof -V -i tcp -P -n | grep -v "ESTABLISHED" |grep -v "COMMAND" | grep "LISTEN" | grep apache2)"
+[[ -z ${_SFTP} ]] && _SFTP="$(lsof -V -i tcp -P -n | grep -v "ESTABLISHED" |grep -v "COMMAND" | grep "LISTEN" | grep nginx)"
+portFTP=$(echo -e "$_SFTP" |cut -d: -f2 | cut -d' ' -f1 | uniq)
 portFTP=$(echo ${portFTP} | sed 's/\s\+/,/g' | cut -d , -f1)
 }
-#FUN_BAR
-fun_bar () { 
-comando="$1"  
-_=$( $comando > /dev/null 2>&1 ) & > /dev/null 
-pid=$! 
-while [[ -d /proc/$pid ]]; do 
-echo -ne " \033[1;33m["    
-for((i=0; i<20; i++)); do    
-echo -ne "\033[1;31m##"    
-sleep 0.5    
-done 
-echo -ne "\033[1;33m]" 
-sleep 1s 
-echo tput cuu1 tput dl1 
-done 
-echo -e " \033[1;33m[\033[1;31m########################################\033[1;33m] - \033[1;32m100%\033[0m" 
-sleep 1s 
-} 
 
 install_ini () {
 add-apt-repository universe
@@ -49,6 +41,11 @@ echo -e "\033[97m  # apt-get install golang-go............ $ESTATUS "
 [[ $(dpkg --get-selections|grep -w "jq"|head -1) ]] || ESTATUS=`echo -e "\033[91mFALLO DE INSTALACION"` &>/dev/null
 [[ $(dpkg --get-selections|grep -w "jq"|head -1) ]] && ESTATUS=`echo -e "\033[92mINSTALADO"` &>/dev/null
 echo -e "\033[97m  # apt-get install jq................... $ESTATUS "
+#at
+[[ $(dpkg --get-selections|grep -w "at"|head -1) ]] || apt-get install jq -y &>/dev/null
+[[ $(dpkg --get-selections|grep -w "at"|head -1) ]] || ESTATUS=`echo -e "\033[91mFALLO DE INSTALACION"` &>/dev/null
+[[ $(dpkg --get-selections|grep -w "at"|head -1) ]] && ESTATUS=`echo -e "\033[92mINSTALADO"` &>/dev/null
+echo -e "\033[97m  # apt-get install at................... $ESTATUS "
 #curl
 [[ $(dpkg --get-selections|grep -w "curl"|head -1) ]] || apt-get install curl -y &>/dev/null
 [[ $(dpkg --get-selections|grep -w "curl"|head -1) ]] || ESTATUS=`echo -e "\033[91mFALLO DE INSTALACION"` &>/dev/null
@@ -96,7 +93,6 @@ read insta
 [[ $insta = @(s|S|y|Y) ]] && enttrada
 }
 
-
 fun_insta(){
 fun_ip
 install_ini
@@ -124,8 +120,7 @@ clear
 }
 
 
-
-[[ -e /bin/ejecutar/msg ]] && source /bin/ejecutar/msg || source <(curl -sSL https://raw.githubusercontent.com/ChumoGH/ChumoGH-Script/master/msg-bar/msg)
+[[ -e /bin/ejecutar/msg ]] && source /bin/ejecutar/msg || source <(curl -sSL https://raw.githubusercontent.com/ChumoGH/ADMcgh/main/Plugins/system/styles.cpp)
 numero='^[0-9]+$'
 hora=$(printf '%(%H:%M:%S)T') 
 fecha=$(printf '%(%D)T')
@@ -139,7 +134,8 @@ read -p "Ingrese Nombre del Poster WEB de la configuracion: " cocolon
 [[ -e /root/.config/clash/config.yaml ]] && sed -i "s%_dAtE%${fecha}%g" /root/.config/clash/config.yaml
 [[ -e /root/.config/clash/config.yaml ]] && sed -i "s/_h0rA/${hora}/g" /root/.config/clash/config.yaml
 cp /root/.config/clash/config.yaml /var/www/html/$cocolon.yaml && chmod +x /var/www/html/$cocolon.yaml
-service apache2 restart
+[[ $(dpkg --get-selections|grep -w "apache2"|head -1) ]] && service apache2 restart &>/dev/null
+[[ $(dpkg --get-selections|grep -w "nginx"|head -1) ]] && service nginx restart &>/dev/null
 echo -e "[\033[1;31m-\033[1;33m]\033[1;31m \033[1;33m"
 echo -e "\033[1;33mClash Server Instalado"
 echo -e "-------------------------------------------------------"
@@ -164,17 +160,15 @@ tput cuu1 && tput dl1
 done
 [[ ${yesno} = @(s|S|y|Y) ]] &&  { 
 killall clash > /dev/null &1>&2
-screen -dmS clashse_$cocolon /root/.config/clash/clash
-echo '#!/bin/bash -e' > /root/.config/clash/$cocolon.sh
-echo "sleep 1800s" >> /root/.config/clash/$cocolon.sh && echo -e " ACTIVO POR 30 MINUTOS "  || echo " Validacion Incorrecta "
-echo "mv /var/www/html/$cocolon.yaml ${clashFiles}$cocolon.yaml" >> /root/.config/clash/$cocolon.sh
-echo 'echo "Fichero removido a ${clashFiles}$cocolon.yaml"' >> /root/.config/clash/$cocolon.sh
-echo "service apache2 restart" >> /root/.config/clash/$cocolon.sh
-echo "rm -f /root/.config/clash/$cocolon.sh" >> /root/.config/clash/$cocolon.sh
-echo 'exit' >> /root/.config/clash/$cocolon.sh && screen -dmS clash${scr} bash /root/.config/clash/$cocolon.sh
+cat << atnow > /root/.config/clash/$cocolon.sh
+#!/bin/bash
+mv /var/www/html/$cocolon.yaml ${clashFiles}$cocolon.yaml
+echo "Fichero removido a ${clashFiles}$cocolon.yaml"
+rm -f /root/.config/clash/$cocolon.sh
+atnow
+at now +30 minutes <<< "bash /root/.config/clash/$cocolon.sh" && echo -e " ACTIVO POR 30 MINUTOS "  || echo " Validacion Incorrecta "
 } 
 echo -e "Proceso Finalizado"
-
 }
 
 configINIT_rule () {
